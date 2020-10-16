@@ -1,0 +1,27 @@
+{
+  "name": "jarvis",
+  "version": "1.0.0",
+  "description": "A personal management tool with a NLP interface that allows human-like interaction.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sjoshi804/Jarvis.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sjoshi804/Jarvis/issues"
+  },
+  "homepage": "https://github.com/sjoshi804/Jarvis#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "moment": "^2.27.0",
+    "mongodb": "^3.5.9",
+    "path": "^0.12.7"
+  }
+}
