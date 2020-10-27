@@ -37,7 +37,7 @@ class Main extends React.Component {
         <Navbar bg="dark" variant="dark">
           <Nav className="mr-auto">
             <Nav.Link onClick={this.handleRoute("/")}>JobZ</Nav.Link>
-            {/* <Nav.Link onClick={this.handleRoute("/about")}>About</Nav.Link> */}
+            <Nav.Link onClick={this.handleRoute("/about")}>Students</Nav.Link>
           </Nav>
           <Form inline>
             <FormControl
