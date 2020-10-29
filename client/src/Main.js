@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { AboutPage, HomePage, SearchResultsPage, RouteNotFound } from "./Pages";
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound } from "./Pages";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 
 class Main extends React.Component {
@@ -37,7 +37,7 @@ class Main extends React.Component {
         <Navbar bg="dark" variant="dark">
           <Nav className="mr-auto">
             <Nav.Link onClick={this.handleRoute("/")}>JobZ</Nav.Link>
-            <Nav.Link onClick={this.handleRoute("/about")}>Students</Nav.Link>
+            <Nav.Link onClick={this.handleRoute("/student")}>Students</Nav.Link>
           </Nav>
           <Form inline>
             <FormControl
@@ -54,7 +54,7 @@ class Main extends React.Component {
         </Navbar>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={AboutPage} />
+          <Route exact path="/about" component={StudentProfilePage} />
           <Route exact path="/results" component={SearchResultsPage} />
           <Route component={RouteNotFound} />
         </Switch>
