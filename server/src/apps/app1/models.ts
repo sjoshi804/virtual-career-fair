@@ -16,9 +16,3 @@ class DummyClass {
 }
 
 export {DummyClass as DummyClass}
-
-// module.exports = {
-//     Goal: Goal,
-//     Project: Project,
-//     Task: Task
-// }
