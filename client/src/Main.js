@@ -54,7 +54,7 @@ class Main extends React.Component {
         </Navbar>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/about" component={StudentProfilePage} />
+          <Route exact path="/student" component={StudentProfilePage} />
           <Route exact path="/results" component={SearchResultsPage} />
           <Route component={RouteNotFound} />
         </Switch>
