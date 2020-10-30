@@ -1,29 +1,24 @@
-const fs = require('fs');
-const path = require('path');
-const express = require('express');
-var app = express();
+import fs = require("fs");
+import express = require("express");
+import path = require("path");
 var cookieParser = require('cookie-parser');
-const config = require('./.config.js');
-const logger = require('./middleware/logger.js');
-const constants = require('./constants');
+import logger = require("./middleware/logger")
+import constants = require("./constants")
+import config = require("./.config")
+
 const MongoClient = require('mongodb').MongoClient;
 
-//Determining port from Heroku config or setting to 3000
 let port = process.env.PORT || 3000;
+const app = express();
 
-// Routers for apps
-var plansRouter = require('./apps/plan/routes.js');
-
-// Body Parser Middleware
+// Express configuration
+app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Initialize logger
-app.use(logger);
-
-//Connect Plans Routes
-app.use('/api/plans', callsRouter);
+// app.use(logger);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
@@ -35,15 +30,19 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Initialize DB connection and start server
-MongoClient.connect(process.env.NODE_ENV === "production" ? config.production.database.url : config.development.database.url, { useUnifiedTopology: true }, function (err, database) {
-  if (err) throw err;
-  app.db = database.db(constants.dbName)
-  // Save database object so the connection can be closed when server terminates.
-  app.database = database;
-  // Start the application after the database connection is ready
-  app.server = app.listen(port);
-  console.log(`Express JS server is istening on port ${port}`);
+// Initialize DB connection
+MongoClient.connect(config.databaseURL, { useUnifiedTopology: true })
+  .then(function (database) {
+    app.set("db", database.db(constants.dbName))
+    app.set("database", database); // Save db object so the connection can be closed when server terminates.
+  })
+  .catch(function(err) {
+    console.log(err)
+    process.exit(1)
+  })
+
+const server = app.listen(app.get("port"), () => {
+  console.log(`Server is listening on port ${port}`);
 });
 
 process.on('SIGTERM', shutDown);
@@ -51,10 +50,12 @@ process.on('SIGINT', shutDown);
 
 // Close database connection and terminate server gracefully
 function shutDown() {
-  app.database.close();
+  app.get("database").close();
   console.log("Closing db connection")
-  app.server.close(() => {
+  server.close(() => {
     console.log('Terminating server');
     process.exit(0);
   });
 }
+
+export default server;

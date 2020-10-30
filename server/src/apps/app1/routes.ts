@@ -1,8 +1,9 @@
-const express = require('express');
+import express = require('express');
+import {DummyClass} from './models.js';
+
 const router = express.Router();
-const App1Controller = require('./controller.js')
+const dummy = new DummyClass(1);
 
-// Get goals by Id
-router.get('/', App1Controller.dummy);
+router.get('/', dummy.do());
 
-module.exports = router;
+export = router;
