@@ -9,7 +9,7 @@
     "dev": "ts-node server/src/index.ts",
     "start": "npm run serve",
     "serve": "node server/dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha -r ts-node/register server/src/**/*.spec.ts"
   },
   "repository": {
     "type": "git",
