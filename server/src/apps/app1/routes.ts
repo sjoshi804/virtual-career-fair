@@ -1,5 +1,5 @@
 import express = require('express');
-import {DummyClass} from './class.ts';
+import {DummyClass} from './class';
 
 const router = express.Router();
 const dummy = new DummyClass(1);
