@@ -1,4 +1,13 @@
+import { isThisTypeNode } from "typescript";
+
 class Student 
 {
-    name: string;
+    public name : string;
+
+    public constructor(name: string)
+    {
+        this.name = name;
+    }
 }
+
+export { Student };

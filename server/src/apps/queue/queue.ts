@@ -1,17 +1,62 @@
+import { Console } from 'console';
+import { Student } from '../student/student'
+
 class Queue {
-    studentList: Array<Student>
-    leaveQueue(student: Student)
+    private studentList: Array<Student>
+
+    public constructor(students?: Array<Student>)
     {
-        this.studentList.splice(this.studentList.indexOf(student));
+        if (students == null)
+        {
+            this.studentList = new Array<Student>();
+        }
+        else
+        {
+            this.studentList = students;
+        }
     }
 
-    joinQueue(student: Student)
+    // Removes a given student from the queue
+    public leaveQueue(student: Student)
     {
-        this.studentList.push(student);
+        if (this.isStudentInQueue(student))
+        {
+            this.studentList.splice(this.studentList.indexOf(student), 1);
+        }
     }
 
-    dequeue()
+    // Adds a student to the queue
+    public joinQueue(student: Student)
     {
-        return this.studentList.splice(0);
+        if (!this.isStudentInQueue(student))
+        {
+            this.studentList.push(student);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    // Dequeues the student at the front of the queue
+    public dequeue()
+    {
+        var firstStudent = this.studentList.splice(0, 1)[0];
+        return firstStudent;
+    }
+
+    // Get length of queue - to estimate wait time
+    public getLength()
+    {
+        return this.studentList.length;
+    }
+
+    private isStudentInQueue(student: Student)
+    {
+        return (this.studentList.indexOf(student) != -1)
     }
 }
+
+export { Queue };
