@@ -1,45 +1,45 @@
 import { Queue } from './queue'
 import { expect } from 'chai';
 import 'mocha';
-import { Student } from '../student/student';
+import { Applicant } from '../user/applicant';
 
-// Defining a queue of students and some students
-var studentQueue = new Queue();
-var studentA = new Student("A");
-var studentB = new Student("B");
-var studentC = new Student("C");
+// Defining a queue of Applicants and some Applicants
+var ApplicantQueue = new Queue();
+var ApplicantA = new Applicant("A");
+var ApplicantB = new Applicant("B");
+var ApplicantC = new Applicant("C");
 
 describe('Queue', () => {
 
-  it('joinStudents - should add students', () => {
-    studentQueue.joinQueue(studentA);
-    studentQueue.joinQueue(studentB);
-    studentQueue.joinQueue(studentC);
-    const result = studentQueue.getLength();
+  it('joinApplicants - should add Applicants', () => {
+    ApplicantQueue.joinQueue(ApplicantA);
+    ApplicantQueue.joinQueue(ApplicantB);
+    ApplicantQueue.joinQueue(ApplicantC);
+    const result = ApplicantQueue.getLength();
     expect(result).to.equal(3);
   });
 
-  it('joinStudents - should not add duplicate student', () => {
-    studentQueue.joinQueue(studentA);
-    const result = studentQueue.getLength();
+  it('joinApplicants - should not add duplicate Applicant', () => {
+    ApplicantQueue.joinQueue(ApplicantA);
+    const result = ApplicantQueue.getLength();
     expect(result).to.equal(3);
   });
 
   it('dequeue - pop first element from queue and return it', () => {
-    const result = studentQueue.dequeue();
-    expect(result).to.equal(studentA);
-    expect(studentQueue.getLength()).to.equal(2);
+    const result = ApplicantQueue.dequeue();
+    expect(result).to.equal(ApplicantA);
+    expect(ApplicantQueue.getLength()).to.equal(2);
   });
 
-  it('leaveQueue - should remove student from queue', () => {
-    studentQueue.leaveQueue(studentB);
-    const result = studentQueue.getLength()
+  it('leaveQueue - should remove Applicant from queue', () => {
+    ApplicantQueue.leaveQueue(ApplicantB);
+    const result = ApplicantQueue.getLength()
     expect(result).to.equal(1);
   });
 
-  it('leaveQueue - should not error out if student not in queue', () => {
-    studentQueue.leaveQueue(studentA);
-    const result = studentQueue.getLength()
+  it('leaveQueue - should not error out if Applicant not in queue', () => {
+    ApplicantQueue.leaveQueue(ApplicantA);
+    const result = ApplicantQueue.getLength()
     expect(result).to.equal(1);
   });
 

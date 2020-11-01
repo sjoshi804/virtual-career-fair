@@ -1,4 +1,4 @@
-class Student 
+class Applicant
 {
     public name : string;
 
@@ -8,4 +8,4 @@ class Student
     }
 }
 
-export { Student };
+export { Applicant };
