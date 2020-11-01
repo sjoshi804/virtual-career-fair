@@ -1,5 +1,3 @@
-import { isThisTypeNode } from "typescript";
-
 class Student 
 {
     public name : string;
