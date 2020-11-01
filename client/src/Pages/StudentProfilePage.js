@@ -2,6 +2,9 @@ import React from "react";
 import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
 
 export default class StudentProfilePage extends React.Component {
+    handleRoute = route => () => {
+        this.props.history.push({ pathname: route });
+        };
   render() {
     return (
       <div style={{ "background-color": "#84849A", color: "white", "text-align": "center", "height": "100vh" }}>
@@ -42,7 +45,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light">Join Now</Button>
+                        <Button onClick={this.handleRoute("/studentlive")} variant="light">Join Now</Button>
                     </div>
                     </Card>
                     <Card>
