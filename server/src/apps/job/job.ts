@@ -9,6 +9,7 @@ class Job
     private preferredMajors: Array<string>;
     private startDate: Date;
     private applicationEndDate: Date;
+    private applicants: Array<Applicant>;
 
     // Getters and Setters
     public getId(): string {
@@ -67,7 +68,11 @@ class Job
         this.applicationEndDate = applicationEndDate;
     }
 
-    private applicants: Array<Applicant>;
+    public getApplicants(): Array<Applicant>
+    {
+        return this.applicants;
+    }
+    
 
     public constructor(id: string, title: string, company: Company, description?: string, preferredMajors?: Array<string>, startDate?: Date, applicationEndDate?: Date)
     {
@@ -81,7 +86,29 @@ class Job
 
     public apply(applicant: Applicant)
     {
-        this.applicants.push(applicant);
+        if (this.applicants.indexOf(applicant) == -1)
+        {
+            this.applicants.push(applicant);
+            return true
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public withdraw(applicant: Applicant)
+    {
+        var applicantIndex = this.applicants.indexOf(applicant);
+        if (applicantIndex != -1)
+        {
+            this.applicants.splice(applicantIndex, 1);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 
