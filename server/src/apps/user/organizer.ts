@@ -1,6 +1,6 @@
 import { User } from './user'
 
-class Applicant extends User
+class Organizer extends User
 {
     public constructor(name: string)
     {
@@ -8,4 +8,4 @@ class Applicant extends User
     }
 }
 
-export { Applicant };
+export { Organizer };
