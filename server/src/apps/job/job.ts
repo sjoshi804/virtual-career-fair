@@ -82,6 +82,7 @@ class Job
         this.preferredMajors = preferredMajors;
         this.startDate = startDate;
         this.applicationEndDate = applicationEndDate;
+        this.applicants = new Array<Applicant>();
     }
 
     public apply(applicant: Applicant)

@@ -14,21 +14,22 @@ describe('Job', () => {
     it('apply - should add applicant to list of applicants', () => {
         expect(job.apply(alice));
         expect(job.apply(bob));
-        expect(job.getApplicants()).equal(expectedApplicants);
+        expect(job.getApplicants()).to.include(alice);
+        expect(job.getApplicants()).to.include(bob);
     });
 
     it('apply - should not add duplicate applicant', () => {
         expect(!job.apply(alice));
-        expect(job.getApplicants()).equal(expectedApplicants);
+        expect(job.getApplicants()).length(2);
     });
 
     it('withdraw - remove applicant from applicants list', () => {
         expect(job.withdraw(bob));
-        expect(job.getApplicants()).equal(new Array<Applicant>(alice));
+        expect(job.getApplicants()).to.not.include(bob);
     });
 
     it('withdraw - do nothing and return false if applicant not in list', () => {
         expect(!job.withdraw(new Applicant("Charlie")));
-        expect(job.getApplicants()).equal(new Array<Applicant>(alice));
+        expect(job.getApplicants()).length(1);
     });
 });
