@@ -16,7 +16,7 @@ class Booth
 
     public getCompany()
     {
-
+        // TODO: Make call to database?
     }
 
     public startMeetingWithNextApplicant(recruiters: Array<Recruiter>)
@@ -28,7 +28,8 @@ class Booth
         });
 
         var meeting = new Meeting(participants);
-
+        this.meetings.push(meeting);
+        return meeting;
     }
 }
 
