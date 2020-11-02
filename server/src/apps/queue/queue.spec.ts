@@ -43,4 +43,14 @@ describe('Queue', () => {
     expect(result).to.equal(1);
   });
 
+  it('dequeue - error if dequeue from empty queue', () => {
+    try
+    {
+      const result = (new Queue()).dequeue();
+    }
+    catch(err)
+    {
+      expect(true);
+    }
+  });
 });
