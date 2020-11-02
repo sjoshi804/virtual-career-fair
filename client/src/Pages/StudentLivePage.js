@@ -18,8 +18,10 @@ export default class StudentLivePage extends React.Component {
     return (
       <div style={{ "text-align": "center", "margin": "20px 20px" }}>
         <CardDeck>
-        <Card>
-            <Card.Img variant="top" src={google} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto"}}> 
+            <Card.Img variant="top" src={google} height="200" />
+            </div>
             <Card.Body>
             <Card.Title>Google</Card.Title>
             <Card.Text>
@@ -43,8 +45,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
-            <Card.Img variant="top" src={microsoft} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={microsoft} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>Microsoft</Card.Title>
             <Card.Text>
@@ -68,8 +72,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
-            <Card.Img variant="top" src={facebook} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={facebook} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>Facebook</Card.Title>
             <Card.Text>
@@ -96,8 +102,10 @@ export default class StudentLivePage extends React.Component {
         </CardDeck>
         <br></br>
         <CardDeck>
-        <Card>
-            <Card.Img variant="top" src={apple} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "margin": "auto", "width": "300px"}}> 
+            <Card.Img variant="top" src={apple} height="200px"/>
+            </div>
             <Card.Body>
             <Card.Title>Apple</Card.Title>
             <Card.Text>
@@ -121,8 +129,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
-            <Card.Img variant="top" src={tesla} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={tesla} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>Tesla</Card.Title>
             <Card.Text>
@@ -146,8 +156,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
-            <Card.Img variant="top" src={snapchat} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={snapchat} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>Snapchat</Card.Title>
             <Card.Text>
@@ -174,8 +186,10 @@ export default class StudentLivePage extends React.Component {
         </CardDeck>
         <br></br>
         <CardDeck>
-        <Card>
-            <Card.Img variant="top" src={qualcomm} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={qualcomm} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>Qualcomm</Card.Title>
             <Card.Text>
@@ -199,8 +213,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
-            <Card.Img variant="top" src={paypal} />
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+            <Card.Img variant="top" src={paypal} height="200"/>
+            </div>
             <Card.Body>
             <Card.Title>PayPal</Card.Title>
             <Card.Text>
@@ -224,8 +240,10 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted">Last updated 3 mins ago</small>
             </Card.Footer>
         </Card>
-        <Card>
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
             <Card.Img variant="top" src={netflix} />
+            </div>
             <Card.Body>
             <Card.Title>Netflix</Card.Title>
             <Card.Text>
