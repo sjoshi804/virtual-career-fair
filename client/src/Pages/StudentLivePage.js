@@ -17,6 +17,15 @@ export default class StudentLivePage extends React.Component {
   render() {
     return (
       <div style={{ "text-align": "center", "margin": "20px 20px" }}>
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+          <br></br>
+          <h2><b>Career Fair #1</b></h2>
+          <br></br>
+          <h5><b>Date: </b>Today, October 25, 2020</h5>
+          <br></br>
+          <h5><b>Time: </b>Live Now, 11 PST - 3PM PST</h5>
+          <br></br>
+        </Card>
         <CardDeck>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
             <div style={{ "width": "200px", "margin": "auto"}}> 
@@ -29,16 +38,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -56,16 +65,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -83,16 +92,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -113,16 +122,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -140,16 +149,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -167,16 +176,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -194,19 +203,19 @@ export default class StudentLivePage extends React.Component {
             <Card.Title>Qualcomm</Card.Title>
             <Card.Text>
             <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm" >In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -224,16 +233,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
@@ -251,16 +260,16 @@ export default class StudentLivePage extends React.Component {
                 Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm">Join Now</Button>{' '}
+                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
             </Card.Text>
             </Card.Body>
             <Card.Footer>
