@@ -1,4 +1,3 @@
-import { Console } from 'console';
 import { Student } from '../student/student'
 
 class Queue {
@@ -43,8 +42,14 @@ class Queue {
     // Dequeues the student at the front of the queue
     public dequeue()
     {
-        var firstStudent = this.studentList.splice(0, 1)[0];
-        return firstStudent;
+        if (this.getLength() > 0)
+        {
+            return this.studentList.splice(0, 1)[0];
+        }
+        else
+        {
+            throw new Error("dequeue on empty queue");
+        }
     }
 
     // Get length of queue - to estimate wait time
