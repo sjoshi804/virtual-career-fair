@@ -10,9 +10,9 @@ import DBClient = require("./dbClient");
 
 describe('Database Interactions', () => {
     it('create', () => {
-        expect(true);
+        expect.fail();
     });
-/*
+
     it('updateOne', () => {
         expect.fail();
     });
@@ -27,5 +27,5 @@ describe('Database Interactions', () => {
 
     it('deleteMany', () => {
         expect.fail();
-    });*/
+    });
 });
