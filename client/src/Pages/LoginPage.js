@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Card, Button } from "react-bootstrap";
 
 export default class LoginPage extends React.Component {
   handleroute = routes => () => {
@@ -8,23 +8,24 @@ export default class LoginPage extends React.Component {
 
   render() {
     return (
-      <div style={{ "background-color": "#84849A", color: "white", "text-align": "center", "height": "100vh" }}>
-        {/* <h1>Login</h1> */}
-        <Container>
+      <div style={{ "background-color": "white", color: "white", "width": "500px", "margin": "auto", "margin-top": "20vh"}}>
+        <Card style={{"padding": "50px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>Organization Name</Form.Label>
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>Organization Name</Form.Label>
+          </Card.Text>
           <Form.Control type="email" placeholder="Enter organization name" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label style={{"color": "black", "text-align": "left"}}>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={this.handleroute("/org")}>
           Sign Up
         </Button>
-      </Form>
-        </Container>
+        </Form>
+        </Card>
       </div>
     );
   }
