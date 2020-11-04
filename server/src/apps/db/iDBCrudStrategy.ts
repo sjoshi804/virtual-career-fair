@@ -1,7 +1,7 @@
 import DBClient = require("./dbClient")
 interface IDBCrudStrategy
 {
-    create(): boolean;
+    save(): boolean;
     update(filterQuery: any, updateQuery: any): boolean;
     findOne(query: any): any;
     findMany(query: any): Array<any>;
