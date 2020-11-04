@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage } from "./Pages";
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage } from "./Pages";
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 
 class Main extends React.Component {
@@ -57,6 +57,7 @@ class Main extends React.Component {
           <Route exact path="/student" component={StudentProfilePage} />
           <Route exact path="/results" component={SearchResultsPage} />
           <Route exact path="/studentlive" component={StudentLivePage} />
+          <Route exact path="/recruiter" component={RecruiterProfilePage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>
