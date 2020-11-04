@@ -35,23 +35,17 @@ export default class StudentLivePage extends React.Component {
             <Card.Title>Google</Card.Title>
             <Card.Text>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
+            <h1></h1>
+            <Button variant="outline-secondary" size="sm">In Session</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -61,24 +55,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Microsoft</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> N/A </h7> 
+            <h1></h1>
+            <Button variant="outline-dark" size="sm">Join Queue</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -88,24 +76,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Facebook</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> Available
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
+            <h1></h1>
+            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         </CardDeck>
@@ -118,24 +100,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Apple</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
+            <h1></h1>
+            <Button variant="outline-secondary" size="sm">In Session</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -145,24 +121,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Tesla</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> N/A </h7> 
+            <h1></h1>
+            <Button variant="outline-dark" size="sm">Join Queue</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -172,24 +142,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Snapchat</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> Available
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
+            <h1></h1>
+            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         </CardDeck>
@@ -202,24 +166,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Qualcomm</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm" >In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
+            <h1></h1>
+            <Button variant="outline-secondary" size="sm">In Session</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -229,24 +187,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>PayPal</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> In session
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> N/A </h7> 
+            <h1></h1>
+            <Button variant="outline-dark" size="sm">Join Queue</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -256,24 +208,18 @@ export default class StudentLivePage extends React.Component {
             <Card.Body>
             <Card.Title>Netflix</Card.Title>
             <Card.Text>
-            <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-dark" size="sm">In Session</Button>{' '}
+                <br></br>
+                <b>Recruiter: </b> John Doe
                 <br></br>
                 <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
-                <br></br>
-                <br></br>
-                Recruiter: John Doe &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; <Button variant="outline-secondary" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>{' '}
+                <b>Status: </b> Available
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted">Last updated 3 mins ago</small>
+            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
+            <h1></h1>
+            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <br></br>
             </Card.Footer>
         </Card>
         </CardDeck>
