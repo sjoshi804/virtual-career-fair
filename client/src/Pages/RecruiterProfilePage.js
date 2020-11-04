@@ -10,6 +10,22 @@ export default class RecruiterProfilePage extends React.Component {
   render() {
     return (
         <div>
+        <div style={{ "color": "black", "padding": "20px"}}>
+            <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+                <Card.Header><h2>Profile</h2></Card.Header>
+                <Card.Body>
+                    <Image src={profile} rounded height="150px"/>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>John Doe</Card.Title>
+                    <Card.Text>
+                        <p> <b>Company: </b> Google </p>
+                        <p> <b>Position: </b> University Recruiter </p>
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+        </div>
+
       <div style={{ "background-color": "white", color: "white", "color": "black", "padding": "20px" }}>
         <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Live Career Fairs</h3></Card.Header>
