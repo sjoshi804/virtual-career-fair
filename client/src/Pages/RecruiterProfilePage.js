@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
+import profile from '../Images/profile.jpg'; 
 // import profile from '../Images/profile.jpg'; 
 
 export default class RecruiterProfilePage extends React.Component {
@@ -21,10 +22,11 @@ export default class RecruiterProfilePage extends React.Component {
         </Card.Body>
         </Card>
         </div>
-      <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
 
+      <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Upcoming Career Fairs</h3></Card.Header>
+        <Card>
         <Card.Body>
             <Card.Title>Career Fair: Harvey Mudd College Computer Science Fair </Card.Title>
             <Card.Text>
@@ -32,6 +34,8 @@ export default class RecruiterProfilePage extends React.Component {
             </Card.Text>
             <Button variant="outline-dark">Add/Edit Booth</Button>
         </Card.Body>
+        </Card>
+        <Card>
         <Card.Body>
             <Card.Title>Career Fair: University of Washington Engineering Fair </Card.Title>
             <Card.Text>
@@ -39,6 +43,8 @@ export default class RecruiterProfilePage extends React.Component {
             </Card.Text>
             <Button variant="outline-dark">Add/Edit Booth</Button>
         </Card.Body>
+        </Card>
+        <Card>
         <Card.Body>
             <Card.Title>Career Fair: Columbia Universtiy Computer Science Fair </Card.Title>
             <Card.Text>
@@ -46,6 +52,41 @@ export default class RecruiterProfilePage extends React.Component {
             </Card.Text>
             <Button variant="outline-dark">Add/Edit Booth</Button>
         </Card.Body>
+        </Card>
+        </Card>
+      </div>
+
+
+      <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
+        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card.Header><h3>Past Career Fairs</h3></Card.Header>
+        <Card>
+        <Card.Body>
+            <Card.Title>Career Fair: Harvey Mudd College Computer Science Fair </Card.Title>
+            <Card.Text>
+            October 4, 2020 @ 11AM-3PM PST
+            </Card.Text>
+            <Button variant="outline-dark">View Fair</Button>
+        </Card.Body>
+        </Card>
+        <Card>
+        <Card.Body>
+            <Card.Title>Career Fair: University of Washington Engineering Fair </Card.Title>
+            <Card.Text>
+            October 5, 2020 @ 10AM-2PM PST
+            </Card.Text>
+            <Button variant="outline-dark">View Fair</Button>
+        </Card.Body>
+        </Card>
+        <Card>
+        <Card.Body>
+            <Card.Title>Career Fair: Columbia Universtiy Computer Science Fair </Card.Title>
+            <Card.Text>
+            October 6, 2020 @ 12-5PM PST
+            </Card.Text>
+            <Button variant="outline-dark">View Fair</Button>
+        </Card.Body>
+        </Card>
         </Card>
       </div>
       </div>
