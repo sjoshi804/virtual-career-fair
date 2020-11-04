@@ -1,7 +1,14 @@
 import React from "react";
 import {Button} from "react-bootstrap";
+import LoginPage from "./LoginPage"
+import AboutPage from "./AboutPage"
+import { Route, Switch } from "react-router-dom";
 
 export default class HomePage extends React.Component {
+  handleroute = routes => () => {
+    this.props.history.push({ pathname: routes });
+  };
+
   render() {
     return (
     <div>
@@ -38,9 +45,16 @@ export default class HomePage extends React.Component {
             Organizers view their live, upcoming, or past career fairs. They can edit existing careers fairs or create a new career fair by filling out a form with details for the event.
           </h4>
         </p>
-        <Button variant="light">Get Started</Button>
+        <Button variant="light" onClick={this.handleroute("/login")}>Get Started</Button>
       </div>
+      <Switch>
+        <Route exact path="/about" component={AboutPage} />
+         <Route exact path="/login" component={LoginPage} />
+      </Switch>
     </div>
+    
     );
   }
 }
+
+
