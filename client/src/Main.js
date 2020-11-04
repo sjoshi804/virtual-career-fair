@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, ManageFairPage, CreateFairPage, OrganizerPage, AboutPage, HomePage, LoginPage } from "./Pages";
+import { StudentProfilePage, SearchResultsPage, RouteNotFound, ManageFairPage, CreateFairPage, OrganizerPage, HomePage, LoginPage } from "./Pages";
 
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 

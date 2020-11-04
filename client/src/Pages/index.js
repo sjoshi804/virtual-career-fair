@@ -8,5 +8,5 @@ import SearchResultsPage from "./SearchResultsPage";
 import RouteNotFound from "./RouteNotFound";
 
 
-export { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, ManageFairPage, CreateFairPage, OrganizerPage, AboutPage, HomePage, LoginPage };
+export { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage };
 
