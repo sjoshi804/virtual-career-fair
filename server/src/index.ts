@@ -4,7 +4,7 @@ import path = require("path");
 var cookieParser = require('cookie-parser');
 import logger = require("./middleware/logger")
 import config = require("./.config")
-import DBClient = require("./apps/db/dbClient");
+import DBClient = require("./db/dbClient");
 
 let port = process.env.PORT || 3000;
 const app = express();

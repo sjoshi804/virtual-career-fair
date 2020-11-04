@@ -1,5 +1,5 @@
 import { MongoClient, Db } from "mongodb";
-import config = require("../../.config")
+import config = require("../.config")
 
 class DBClient {
     public db: Db;
