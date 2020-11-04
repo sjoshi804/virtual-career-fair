@@ -1,0 +1,13 @@
+{  
+    "compilerOptions": {  
+        "outDir": "./server/dist",  
+        "allowJs": true,  
+        "target": "es6",
+        "module": "commonjs",
+        "allowSyntheticDefaultImports": true,
+    },  
+    "include": [  
+        "./server/**/*"  
+    ]  ,
+    "types": ["node"]
+} 

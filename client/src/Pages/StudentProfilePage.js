@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
 
-export default class AboutPage extends React.Component {
+export default class StudentProfilePage extends React.Component {
   render() {
     return (
       <div style={{ "background-color": "#84849A", color: "white", "text-align": "center", "height": "100vh" }}>

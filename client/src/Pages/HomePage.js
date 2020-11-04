@@ -5,9 +5,10 @@ import AboutPage from "./AboutPage"
 import { Route, Switch } from "react-router-dom";
 
 export default class HomePage extends React.Component {
-  handleroute = routes => () => {
-    this.props.history.push({ pathname: routes });
-  };
+
+    handleRoute = route => () => {
+        this.props.history.push({ pathname: route });
+        };
 
   render() {
     return (
@@ -27,7 +28,7 @@ export default class HomePage extends React.Component {
             Students can upload their resumes, search and attend career fairs, and join interviews with recruiters.
           </h4>
         </p>
-        <Button variant="light">Get Started</Button>
+        <Button onClick={this.handleRoute("/student")} variant="light">Get Started</Button>
       </div>
       <div style={{padding: "100px", "text-align": "center", background: "#75758D", "color": "white"}}>
         <h1>RECRUITERS</h1>
@@ -45,7 +46,7 @@ export default class HomePage extends React.Component {
             Organizers view their live, upcoming, or past career fairs. They can edit existing careers fairs or create a new career fair by filling out a form with details for the event.
           </h4>
         </p>
-        <Button variant="light" onClick={this.handleroute("/login")}>Get Started</Button>
+        <Button variant="light" onClick={this.handleRoute("/login")}>Get Started</Button>
       </div>
       <Switch>
         <Route exact path="/about" component={AboutPage} />

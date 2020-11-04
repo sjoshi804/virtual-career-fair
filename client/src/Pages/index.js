@@ -1,4 +1,4 @@
-import AboutPage from "./AboutPage";
+import StudentProfilePage from "./StudentProfilePage";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import OrganizerPage from "./OrganizerPage";
@@ -7,4 +7,6 @@ import ManageFairPage from "./ManageFairPage"
 import SearchResultsPage from "./SearchResultsPage";
 import RouteNotFound from "./RouteNotFound";
 
-export { ManageFairPage, CreateFairPage, OrganizerPage, AboutPage, HomePage, SearchResultsPage, RouteNotFound, LoginPage};
+
+export { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, ManageFairPage, CreateFairPage, OrganizerPage, AboutPage, HomePage, LoginPage };
+
