@@ -48,7 +48,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             November 4, 2020 @ 11AM-3PM PST
             </Card.Text>
-            <Button variant="outline-dark">Add/Edit Booth</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
         </Card.Body>
         </Card>
         <Card>
@@ -57,7 +57,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             November 5, 2020 @ 10AM-2PM PST
             </Card.Text>
-            <Button variant="outline-dark">Add/Edit Booth</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
         </Card.Body>
         </Card>
         <Card>
@@ -66,7 +66,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             November 6, 2020 @ 12-5PM PST
             </Card.Text>
-            <Button variant="outline-dark">Add/Edit Booth</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
         </Card.Body>
         </Card>
         </Card>
