@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Container, Button } from "react-bootstrap";
+import { Form, Card, Button } from "react-bootstrap";
 
 export default class CreateFairPage extends React.Component {
   handleroute = routes => () => {
@@ -8,23 +8,24 @@ export default class CreateFairPage extends React.Component {
 
   render() {
     return (
-      <div style={{ "background-color": "#84849A", color: "white", "text-align": "center", "height": "100vh" }}>
-        {/* <h1>STUDENTS</h1> */}
-        <Container>
+      <div style={{ "background-color": "white", color: "white", "width": "500px", "margin": "auto", "margin-top": "20vh"}}>
+        <Card style={{"padding": "50px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label>New Fair Name</Form.Label>
-          <Form.Control type="email" placeholder="Enter organization name" />
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>New Fair Name</Form.Label>
+          </Card.Text>
+          <Form.Control type="fairname" placeholder="Enter the name of the career fair" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label>Time Period of Career Fair</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
+          <Form.Label style={{"color": "black", "text-align": "left"}}>Fair Time Period</Form.Label>
+          <Form.Control type="time" placeholder="Time Period of the career fair" />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={this.handleroute("/org")}>
-          Create Career Fair
+          Create
         </Button>
-      </Form>
-        </Container>
+        </Form>
+        </Card>
       </div>
     );
   }

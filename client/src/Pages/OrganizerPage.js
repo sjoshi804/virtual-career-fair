@@ -58,7 +58,7 @@ export default class OrganizerPage extends React.Component {
                             <p><b>Time: </b> 11AM PST - 5PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light">Manage</Button>
+                        <Button variant="light" onClick={this.handleroute("/managefair")}>Manage</Button>
                     </div>
                     </Card>
                     <Card>
@@ -71,7 +71,7 @@ export default class OrganizerPage extends React.Component {
                             <p><b>Time: </b>10AM PST - 3PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light">View Event History</Button>
+                        <Button variant="light" onClick={this.handleroute("/managefair")}>View Event History</Button>
                     </div>
                     </Card>
                 </CardGroup>
