@@ -32,7 +32,7 @@ export default class HomePage extends React.Component {
             Recruiters can add or add jobs they make available through the fair once the organizer grants the company access. Once  the  event  is  live,  recruiters  can  see  all  the  students and their resumes in  the  company  queue  and join meetings with them.
           </h4>
         </p>
-        <Button variant="light">Get Started</Button>
+        <Button onClick={this.handleRoute("/recruiter")} variant="light">Get Started</Button>
       </div>
       <div style={{padding: "100px", "text-align": "center", background: "#666681", "color": "white"}}>
         <h1>ORGANIZERS</h1>
