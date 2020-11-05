@@ -43,7 +43,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">Target Year(s): </InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl
+                                <FormControl as="textarea"
                                 placeholder="Year, i.e. Sophomores and Juniors"
                                 aria-label="Year, i.e. Sophomores and Juniors"
                                 aria-describedby="basic-addon1"
@@ -54,7 +54,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">Requirements: </InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl
+                                <FormControl as="textarea"
                                 placeholder="Requirements, i.e. Computer Science/Engineering Majors"
                                 aria-label="Requirements, i.e. Computer Science/Engineering Majors"
                                 aria-describedby="basic-addon1"
