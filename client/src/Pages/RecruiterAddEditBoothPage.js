@@ -19,17 +19,6 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                         <div style={{"padding": "20px"}}>
                             <InputGroup className="mb-3">
                                 <InputGroup.Prepend>
-                                <InputGroup.Text id="basic-addon1">Company: </InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl
-                                placeholder="Enter company name"
-                                aria-label="Enter company name"
-                                aria-describedby="basic-addon1"
-                                />
-                            </InputGroup>
-
-                            <InputGroup className="mb-3">
-                                <InputGroup.Prepend>
                                 <InputGroup.Text id="basic-addon1">Role(s): </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl
@@ -77,20 +66,6 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                     <br></br>
                     <h2>Edit Existing Booth at Harvey Mudd College Computer Science Fair</h2>
                     <Card style={{"margin-top": "20px"}}>
-                        <Card>
-                        <Card.Body>
-                            <Card.Title>Edit Company</Card.Title>
-                            <Card.Subtitle className="mb-2 text-muted"><b>Current:</b> Google</Card.Subtitle>
-                            <InputGroup size="sm" className="mb-3">
-                                <InputGroup.Prepend>
-                                <InputGroup.Text id="inputGroup-sizing-sm">Edit Company</InputGroup.Text>
-                                </InputGroup.Prepend>
-                                <FormControl aria-label="Edit company name" aria-describedby="inputGroup-sizing-sm" />
-                            </InputGroup>
-                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
-                        </Card.Body>
-                        </Card>
-
                         <Card>
                         <Card.Body>
                             <Card.Title>Edit Role(s)</Card.Title>
