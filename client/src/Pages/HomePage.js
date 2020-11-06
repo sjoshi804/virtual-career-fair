@@ -1,10 +1,14 @@
 import React from "react";
 import {Button} from "react-bootstrap";
+import LoginPage from "./LoginPage"
+import { Route, Switch } from "react-router-dom";
 
 export default class HomePage extends React.Component {
+
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
+
   render() {
     return (
     <div>
@@ -32,7 +36,7 @@ export default class HomePage extends React.Component {
             Recruiters can add or add jobs they make available through the fair once the organizer grants the company access. Once  the  event  is  live,  recruiters  can  see  all  the  students and their resumes in  the  company  queue  and join meetings with them.
           </h4>
         </p>
-        <Button variant="light">Get Started</Button>
+        <Button onClick={this.handleRoute("/recruiter")} variant="light">Get Started</Button>
       </div>
       <div style={{padding: "100px", "text-align": "center", background: "#666681", "color": "white"}}>
         <h1>ORGANIZERS</h1>
@@ -41,9 +45,15 @@ export default class HomePage extends React.Component {
             Organizers view their live, upcoming, or past career fairs. They can edit existing careers fairs or create a new career fair by filling out a form with details for the event.
           </h4>
         </p>
-        <Button variant="light">Get Started</Button>
+        <Button variant="light" onClick={this.handleRoute("/login")}>Get Started</Button>
       </div>
+      <Switch>
+         <Route exact path="/login" component={LoginPage} />
+      </Switch>
     </div>
+    
     );
   }
 }
+
+
