@@ -7,8 +7,9 @@ import CreateFairPage from "./CreateFairPage";
 import ManageFairPage from "./ManageFairPage"
 import SearchResultsPage from "./SearchResultsPage";
 import RecruiterProfilePage from "./RecruiterProfilePage";
+import RecruiterAddEditBoothPage from "./RecruiterAddEditBoothPage"
 import RouteNotFound from "./RouteNotFound";
 
 
-export { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage };
+export { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage };
 
