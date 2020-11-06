@@ -143,7 +143,6 @@ class User {
         var hashedPassword = hashedPassword.generate(password);
         this.password = password;
     }
-
 }
 
 export { User };
