@@ -11,8 +11,8 @@ export default class RecruiterAddEditBoothPage extends React.Component {
     return (
         <div style={{"padding": "20px"}}>
             <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px"}}>
-                <Tabs defaultActiveKey="home" id="uncontrolled-tab-example">
-                <Tab eventKey="new" title="Add New Booth">
+                <Tabs defaultActiveKey="add" id="uncontrolled-tab-example">
+                <Tab eventKey="add" title="Add New Booth">
                     <br></br>
                     <h2>Add New Booth at Harvey Mudd College Computer Science Fair</h2>
                     <Card style={{"margin-top": "20px"}}>
@@ -73,7 +73,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                         </div>
                     </Card>
                 </Tab>
-                <Tab eventKey="home" title="Edit Existing Booth">
+                <Tab eventKey="edit" title="Edit Existing Booth">
                     <br></br>
                     <h2>Edit Existing Booth at Harvey Mudd College Computer Science Fair</h2>
                     <Card style={{"margin-top": "20px"}}>
@@ -87,7 +87,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl aria-label="Edit company name" aria-describedby="inputGroup-sizing-sm" />
                             </InputGroup>
-                            <Card.Link href="#">Save</Card.Link>
+                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                         </Card.Body>
                         </Card>
 
@@ -101,7 +101,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl aria-label="Edit role(s)" aria-describedby="inputGroup-sizing-sm" />
                             </InputGroup>
-                            <Card.Link href="#">Save</Card.Link>
+                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                         </Card.Body>
                         </Card>
 
@@ -115,7 +115,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl as="textarea" aria-label="Edit target year(s)" aria-describedby="inputGroup-sizing-sm" />
                             </InputGroup>
-                            <Card.Link href="#">Save</Card.Link>
+                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                         </Card.Body>
                         </Card>
 
@@ -131,7 +131,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl as="textarea" aria-label="Edit requirement(s)" aria-describedby="inputGroup-sizing-sm" />
                             </InputGroup>
-                            <Card.Link href="#">Save</Card.Link>
+                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                         </Card.Body>
                         </Card>
 
@@ -145,7 +145,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl as="textarea" placeholder="Edit description" />
                             </InputGroup>
-                            <Card.Link href="#">Save</Card.Link>
+                            <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                         </Card.Body>
                         </Card>
                     </Card>

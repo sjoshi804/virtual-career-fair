@@ -32,7 +32,7 @@ export default class RecruiterProfilePage extends React.Component {
         <Card.Body>
             <Card.Title>Career Fair: UCLA Engineering Tech Fair</Card.Title>
             <Card.Text>
-            October 21, 2020 from 11AM-2PM PST.
+            October 21, 2020 from 11AM-2PM PST
             </Card.Text>
             <Button variant="outline-success">Join Now</Button>
         </Card.Body>
