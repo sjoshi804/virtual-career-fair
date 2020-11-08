@@ -8,8 +8,8 @@
     "build-ts": "tsc",
     "dev": "ts-node server/src/index.ts",
     "start": "npm run serve",
-    "serve": "node server/dist/index.js",
-    "test": "(echo \"Testing core\" && mocha -r ts-node/register server/src/**/*.spec.ts); (echo \"Testing apps\" && mocha -r ts-node/register server/src/apps/**/*.spec.ts)"
+    "serve": "ts-node server/src/index.ts",
+    "test": "(echo \"Testing core\" && mocha --exit -r  ts-node/register server/src/**/*.spec.ts); (echo \"Testing apps\" && mocha -r ts-node/register server/src/apps/**/*.spec.ts)"
   },
   "repository": {
     "type": "git",

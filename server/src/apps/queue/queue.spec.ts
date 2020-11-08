@@ -5,9 +5,9 @@ import { Applicant } from '../user/applicant';
 
 // Defining a queue of Applicants and some Applicants
 var ApplicantQueue = new Queue();
-var ApplicantA = new Applicant("A");
-var ApplicantB = new Applicant("B");
-var ApplicantC = new Applicant("C");
+var ApplicantA = new Applicant("A", "", "", "");
+var ApplicantB = new Applicant("B", "", "", "");
+var ApplicantC = new Applicant("C", "", "", "");
 
 describe('Queue', () => {
 
