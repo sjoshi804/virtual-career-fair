@@ -41,10 +41,11 @@
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
+| POST                   |/meetingNote ||
 | GET                    |/meetingNote/company/:companyid                                                 | see all meeting notes |
 | GET                    |/meetingNote/company/:companyid/applicant/:applicantid                          | |
 | GET                    |/meetingNote/company/:companyid/careerfair/:careerfairid                        | |
-| GET/POST/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
+| GET/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
 
 ### Applicant
 | Type | Endpoint | Description (optional)
