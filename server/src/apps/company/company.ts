@@ -10,6 +10,15 @@ class Company
     private image: string; 
     private jobs: Array<Job>;
     private recruiters: Array<Recruiter>;
+    private id: string;
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public setId(id: string): void {
+        this.id = id;
+    }
 
     public getName(): string {
         return this.name;
@@ -50,8 +59,6 @@ class Company
     public getRecruiters(): Array<Recruiter> {
         return this.recruiters;
     }
-
-
 
     public constructor(name: string, industry: string, description: string, image?: string)
     {
