@@ -91,7 +91,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
     {
         try
         {
-            await DBClient.db.collection(this.getCollectionName()).deleteOne(filter);
+            await DBClient.db.collection(this.getCollectionName()).deleteMany(filter);
             return true;
         }
         catch
@@ -100,28 +100,11 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
         }
     }
 
-    public async count(filter: any): Promise<number> 
+    public count(filter: any): number
     {
-        try
-        {
-            var count: number;
-            DBClient.db.collection(this.getCollectionName()).countDocuments(filter, (error, result) => { 
-                if (!error)
-                {
-                    count = result;
-                }
-                else
-                {
-                    console.log(error)
-                    throw error;
-                }
-            });
-            return count;
-        }
-        catch
-        {
-            return -1;
-        }
+        var num;
+        num = DBClient.db.collection(this.getCollectionName()).countDocuments(filter);
+        return num;
     }
  
 }

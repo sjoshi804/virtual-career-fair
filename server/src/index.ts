@@ -2,9 +2,10 @@ import fs = require("fs");
 import express = require("express");
 import path = require("path");
 var cookieParser = require('cookie-parser');
-import logger = require("./middleware/logger")
-import config = require("./.config")
-import DBClient = require("./db/dbClient");
+import logger = require("./middleware/logger");
+import config = require("./.config");
+import { DBClient } from "./db/dbClient";
+import { MongoClient } from "mongodb";
 
 let port = process.env.PORT || 3000;
 const app = express();
@@ -28,7 +29,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Initialize DB Connection
+// Initialize a db connection
 DBClient.connect();
 
 const server = app.listen(app.get("port"), () => {
@@ -40,7 +41,7 @@ process.on('SIGINT', shutDown);
 
 // Close database connection and terminate server gracefully
 function shutDown() {
-  DBClient.mongoClient.close();
+  DBClient.close();
   console.log("Closing db connection")
   server.close(() => {
     console.log('Terminating server');

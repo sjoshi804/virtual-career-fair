@@ -3,19 +3,17 @@ import config = require("../.config")
 
 class DBClient {
     public static db: Db;
-    public static mongoClient: MongoClient
+    private static mongoClient: MongoClient
 
-    public static connect()
+    public static async connect(databaseURL = config.developmentDatabaseURL, databaseName = config.databaseName)
+    {   
+        DBClient.mongoClient = await MongoClient.connect(config.databaseURL, { useUnifiedTopology: true });
+        DBClient.db = DBClient.mongoClient.db(config.databaseName);
+    }
+
+    public static close()
     {
-        MongoClient.connect(config.databaseURL, { useUnifiedTopology: true })
-        .then(function (mongoClient) {
-            DBClient.db = mongoClient.db(config.databaseName)
-            DBClient.mongoClient = mongoClient; 
-        })
-        .catch(function(err) {
-            console.log(err)
-            process.exit(1)
-        })
+        DBClient.mongoClient.close();
     }
 }
 
