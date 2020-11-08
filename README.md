@@ -86,8 +86,9 @@
   jobs: [{
             title: string,
             description: string,
-            majors: list of strings
+            prefferedMajors: list of strings
             applicants: list of strings (ids)
+            isOpen: boolean
           },
           ...],
    recruiters: list of strings (ids)
