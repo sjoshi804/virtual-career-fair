@@ -1,13 +1,13 @@
 import { Job } from './job'
 import { expect } from 'chai';
 import 'mocha';
-import { Applicant } from '../applicant/applicant';
+import { Applicant } from '../user/applicant';
 import { Company } from '../company/company';
 
 // Defining a job
 var job = new Job("1", "SDE", new Company("JobZ"));
-var alice = new Applicant("Alice");
-var bob = new Applicant("Bob");
+var alice = new Applicant("Alice", "alice@example.com", "hashedpassword", "aliceToken");
+var bob = new Applicant("Bob", "bob@example.com", "hashedpassword", "bobToken");
 var expectedApplicants = new Array(alice, bob);
 
 describe('Job', () => {
@@ -29,7 +29,7 @@ describe('Job', () => {
     });
 
     it('withdraw - do nothing and return false if applicant not in list', () => {
-        expect(!job.withdraw(new Applicant("Charlie")));
+        expect(!job.withdraw(new Applicant("Charlie", "charlie@example.com", "hashedPassword", "charlieToken")));
         expect(job.getApplicants()).length(1);
     });
 });

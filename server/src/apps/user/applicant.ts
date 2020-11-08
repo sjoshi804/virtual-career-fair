@@ -2,9 +2,9 @@ import { User } from './user'
 
 class Applicant extends User
 {
-    public constructor(name: string)
+    public constructor(name: string, emailID: string, password: string, token: string)
     {
-        super(name)
+        super(name, emailID, password, token);
     }
 }
 

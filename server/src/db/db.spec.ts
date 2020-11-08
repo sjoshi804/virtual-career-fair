@@ -1,31 +1,133 @@
 import { expect } from 'chai';
 import 'mocha';
-import { AbstractDefaultDBCrudStrategy } from "./abstractDefaultDBCrudStrategy"
-import { AbstractDBCrudBase } from "./abstractDBCrudBase";
-import DBClient = require("./dbClient");
+import { AbstractDefaultDBCrudStrategy } from "./abstractDefaultDBCrudStrategy";
+import { DBClient } from './dbClient';
+import { ISerializable } from './iSerializable';
 
-// define mock class that inherits from AbstractDBCrudBase
-// TODO:
-// define mock class that inherits from AbstractDefaultDBCrudStrategy 
+/*
+    Test and Reference for Pattern to use DB
+*/
+
+// Mock class db strategy
+class MockClassDBStrategy extends AbstractDefaultDBCrudStrategy
+{
+    public getCollectionName(): string {
+        return "test";
+    }
+}
+
+// Mock class that interacts with db
+class MockClass implements ISerializable
+{
+    public a: boolean;
+    public b: boolean;
+
+    public static db = new MockClassDBStrategy();
+
+    public constructor(a: boolean, b: boolean)
+    {
+        this.a = a;
+        this.b = b;
+    }
+
+    public serialize()
+    {
+        return new MockClassDBSchema(this);
+    }
+}
+
+// Mock class model to whittle down fields
+class MockClassDBSchema
+{
+    public a: boolean;
+
+    constructor(obj: MockClass)
+    {
+        this.a = obj.a;
+    }
+}
+
+
+/*
+    Test Cases
+*/
 
 describe('Database Interactions', () => {
-    it('create', () => {
-        expect.fail();
+
+    DBClient.connect();
+
+    it('Setup: DB Client connects to database', () => {
+        
+        expect(DBClient.db).to.not.be.null;
+        expect(DBClient.mongoClient).to.not.be.null;
     });
 
-    it('updateOne', () => {
-        expect.fail();
+    it('save', async () => {
+        expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
     });
 
-    it('updateMany', () => {
-        expect.fail();
+    // Define filterQuery and updateQuery for remaining ops
+    const filterQueryAFalse = 
+    {
+        a: false
+    }
+    const filterQueryATrue = 
+    {
+        a: true
+    }
+    const updateQueryATrue = 
+    {
+        a: true
+    }
+    const updateQueryAFalse = 
+    {
+        a: false
+    }
+
+    it('count', async () => {
+        expect(await MockClass.db.count(filterQueryAFalse)).to.be.equal(1);
+    });
+
+    it('updateOne', async () => {
+        expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
+        expect(await MockClass.db.count(filterQueryAFalse)).to.be.equal(2);
+        expect(await MockClass.db.updateOne(filterQueryAFalse, updateQueryAFalse)).to.be.true;
+        expect(await MockClass.db.count(filterQueryAFalse)).to.be.equal(1);
+        expect(await MockClass.db.updateOne(filterQueryATrue, updateQueryAFalse)).to.be.true;
+    });
+
+    it('updateMany', async () => {
+        expect(await MockClass.db.updateMany(filterQueryAFalse, updateQueryATrue)).to.be.true;
+        expect(await MockClass.db.count(filterQueryATrue)).to.be.equal(2);
+    });
+
+    
+    it('findOne', async () => {
+        expect((await MockClass.db.findOne<MockClassDBSchema>(filterQueryATrue)).a).to.be.true;
+    });
+
+    it('findMany', async () => {
+        const documents = await MockClass.db.findMany<MockClassDBSchema>(filterQueryATrue);
+        expect(documents).length.to.be.equal(2);
+        expect(documents[0].a && documents[0].a).to.be.true;
     });
 
     it('deleteOne', () => {
-        expect.fail();
+        expect(MockClass.db.deleteOne(filterQueryATrue)).to.be.true;
+        expect(MockClass.db.count(filterQueryATrue)).to.be.equal(1);
     });
 
     it('deleteMany', () => {
-        expect.fail();
+        expect(MockClass.db.save(new MockClass(true, false))).to.be.true;
+        expect(MockClass.db.save(new MockClass(false, false))).to.be.true;
+        expect(MockClass.db.deleteMany(filterQueryATrue)).to.be.true;
+        expect(MockClass.db.count({})).to.be.equal(1);
     });
+
+    // clean up
+    it('Teardown: drop the new collection', () => 
+    {
+        DBClient.db.dropCollection(MockClass.db.getCollectionName());
+    });
+   
 });
