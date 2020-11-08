@@ -10,7 +10,7 @@ import { ISerializable } from './iSerializable';
 */
 
 // Mock class db strategy
-class MockClassDBStrategy extends AbstractDefaultDBCrudStrategy
+class MockClassDBStrategy extends AbstractDefaultDBCrudStrategy<MockClass>
 {
     public getCollectionName(): string {
         return "test";
@@ -117,13 +117,13 @@ describe('Database Interactions', () => {
     it('findOne', async () => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
-        expect((await MockClass.db.findOne<MockClassDBSchema>(filterQueryATrue)).a).to.be.true;
+        expect((await MockClass.db.findOne(filterQueryATrue)).a).to.be.true;
     });
 
     it('findMany', async () => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
-        const documents = await MockClass.db.findMany<MockClassDBSchema>(filterQueryATrue);
+        const documents = await MockClass.db.findMany(filterQueryATrue);
         expect(documents.length).to.be.equal(2);
         expect(documents[0].a && documents[0].a).to.be.true;
     });
