@@ -14,15 +14,11 @@ class Meeting
         return this.link;
     }
 
-    public setLink(link: string): void {
-        this.link = link;
-    }
-
     public constructor(recruiter: Recruiter, applicant: Applicant, companyID: string, careerFairID: string)
     {
         this.recruiter = recruiter;
         this.applicant = applicant;
-        this.link = "";
+        this.link = ""; // call out to WebRTCAdapter
         this.companyID = companyID;
         this.careerFairID = careerFairID;
     }

@@ -1,3 +1,4 @@
+import { doesNotMatch } from 'assert';
 import { expect } from 'chai';
 import 'mocha';
 import { Db } from 'mongodb';
@@ -52,25 +53,31 @@ class MockClassDBSchema
 /*
     Test Cases
 */
-before(async () =>  {
-    await DBClient.connect();
-});
 
-afterEach(async () =>  {
-    try
-    {
-        await DBClient.db.dropCollection(MockClass.db.getCollectionName());
-    }
-    catch (error)
-    {
-        console.log(error);
-    }
-});
 
 
 describe('Database Interactions', () => {
+
+    // Setup connection
+    before(async (done) =>  {
+        await DBClient.connect();
+        done();
+    });
     
-    it('save', async () => {
+    // Reset by dropping collection
+    afterEach(async (done) =>  {
+        try
+        {
+            await DBClient.db.dropCollection(MockClass.db.getCollectionName());
+        }
+        catch (error)
+        {
+            console.log(error);
+        }
+        done();
+    });
+
+    it('save', async (done) => {
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
     });
 
@@ -92,12 +99,12 @@ describe('Database Interactions', () => {
         $set: {a: false}
     };
 
-    it('count', async () => {
+    it('count', async (done) => {
         expect(await MockClass.db.save(new MockClass(false, false)));
         expect(await MockClass.db.count({a: false})).to.be.equal(1);
     });
 
-    it('updateOne', async () => {
+    it('updateOne', async (done) => {
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
         expect(await MockClass.db.count(filterQueryAFalse)).to.be.equal(2);
@@ -106,40 +113,45 @@ describe('Database Interactions', () => {
         expect(await MockClass.db.updateOne(filterQueryATrue, updateQueryAFalse)).to.be.true;
     });
 
-    it('updateMany', async () => {
+    it('updateMany', async (done) => {
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
         expect(await MockClass.db.updateMany(filterQueryAFalse, updateQueryATrue)).to.be.true;
         expect(await MockClass.db.count(filterQueryATrue)).to.be.equal(2);
+        done();
     });
 
     
-    it('findOne', async () => {
+    it('findOne', async (done) => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect((await MockClass.db.findOne(filterQueryATrue)).a).to.be.true;
+        done();
     });
 
-    it('findMany', async () => {
+    it('findMany', async (done) => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         const documents = await MockClass.db.findMany(filterQueryATrue);
         expect(documents.length).to.be.equal(2);
         expect(documents[0].a && documents[0].a).to.be.true;
+        done();
     });
 
-    it('deleteOne', async () => {
+    it('deleteOne', async (done) => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.deleteOne(filterQueryATrue)).to.be.true;
         expect(await MockClass.db.count(filterQueryATrue)).to.be.equal(1);
+        done();
     });
 
-    it('deleteMany', async () => {
+    it('deleteMany', async (done) => {
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(true, false))).to.be.true;
         expect(await MockClass.db.save(new MockClass(false, false))).to.be.true;
         expect(await MockClass.db.deleteMany(filterQueryATrue)).to.be.true;
         expect(await MockClass.db.count({})).to.be.equal(1);
+        done();
     });
 });
