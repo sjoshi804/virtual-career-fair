@@ -2,6 +2,7 @@ import { doesNotMatch } from 'assert';
 import { expect } from 'chai';
 import 'mocha';
 import { Db } from 'mongodb';
+import { testDatabaseName } from '../.config';
 import { AbstractDefaultDBCrudStrategy } from "./abstractDefaultDBCrudStrategy";
 import { DBClient } from './dbClient';
 import { ISerializable } from './iSerializable';
@@ -58,14 +59,15 @@ class MockClassDBSchema
 
 describe('Database Interactions', () => {
 
-    // Setup connection
+    // Setup connection and reset db
     before(async () =>  {
         await DBClient.connect();
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
     
-    // Reset by dropping collection
+    // Reset by dropping db
     afterEach(async () =>  {
-        await DBClient.db.dropCollection(MockClass.db.getCollectionName());
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
     it('save', async () => {
