@@ -8,9 +8,8 @@ import { MeetingNotes } from './meetingNotes';
 import chai = require('chai');
 import chaiHttp = require('chai-http');
 import { DBClient } from '../../db/dbClient';
-import { testDatabaseName, test } from '../../.config';
+import { testDatabaseName } from '../../.config';
 import { isSubsetOf } from 'is-subset-of';
-import { MeetingNotesDBStrategy } from './meetingNotesDBStrategy';
 
 // To use test HTTP API
 chai.use(chaiHttp);
