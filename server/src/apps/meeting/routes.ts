@@ -8,7 +8,7 @@ const MeetingNotesRouter = express.Router();
 MeetingNotesRouter.post("/", async (req, res) =>
 {
     var meetingNote = new MeetingNotes(req.body.recruiterId, req.body.applicantId, req.body.companyId, req.body.careerFairId, req.body.notes);
-    res.send({ body: { success: await MeetingNotes.db.save(meetingNote)} });
+    res.send( { success: await MeetingNotes.db.save(meetingNote)});
 });
 
 // Get all notes for company
@@ -50,29 +50,51 @@ MeetingNotesRouter.get("/company/:companyId/careerfair/:careerFairId/applicant/:
 // Update note
 MeetingNotesRouter.patch("/company/:companyId/careerfair/:careerFairId/applicant/:applicantId", async(req, res) =>
 {
-    res.send(await MeetingNotes.db.updateOne(
+    if (req.body.applicantId != undefined || req.body.careerFairId != undefined || req.body.companyId != undefined)
+    {
+        res.send(
         {
-            applicantId: req.params.applicantId,
-            companyId: req.params.companyId,
-            careerFairId: req.params.careerFairId
-        },
+            success: false,
+            message: "Cannot update this. Can only update notes field."
+        })
+    }
+    else
+    {
+        res.send(
         {
-            $set:
-            {
-                notes: req.body.notes
-            }
-        }
-    ));
+            success: 
+            await MeetingNotes.db.updateOne(
+                {
+                    applicantId: req.params.applicantId,
+                    companyId: req.params.companyId,
+                    careerFairId: req.params.careerFairId
+                },
+                {
+                    $set:
+                    {
+                        notes: req.body.notes
+                    }
+                }
+            )
+        });
+    }
 });
 
 // Delete specific note
 MeetingNotesRouter.delete("/company/:companyId/careerfair/:careerFairId/applicant/:applicantId", async(req, res) =>
 {
-    res.send(await MeetingNotes.db.deleteOne({
-        applicantId: req.params.applicantId,
-        companyId: req.params.companyId,
-        careerFairId: req.params.careerFairId
-    }));
+    res.send(
+    {
+        success:
+        await MeetingNotes.db.deleteOne(
+            {
+                applicantId: req.params.applicantId,
+                companyId: req.params.companyId,
+                careerFairId: req.params.careerFairId
+            }
+        )
+    });
 });
+
 
 export { MeetingNotesRouter };
