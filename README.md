@@ -75,6 +75,10 @@
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
   applicant/recruiter/organizer data: json
+  organizerData:
+  {
+    affiliatedOrganization: string
+  }
 }
 ```
 - Company (will contain jobs inside it)
