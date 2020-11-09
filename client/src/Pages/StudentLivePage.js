@@ -9,6 +9,7 @@ import snapchat from '../Images/snapchat.jpg';
 import qualcomm from '../Images/qualcomm.jpg'; 
 import paypal from '../Images/paypal.jpg'; 
 import netflix from '../Images/netflix.jpg'; 
+import {MoreInfo} from './MoreInfo'
 
 export default class StudentLivePage extends React.Component {
     handleRoute = route => () => {
@@ -33,6 +34,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Google</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -54,6 +56,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Microsoft</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -75,6 +78,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Facebook</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -86,7 +90,7 @@ export default class StudentLivePage extends React.Component {
             <Card.Footer>
             <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
             <h1></h1>
-            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <Button variant="outline-success" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button></small>
             <br></br>
             </Card.Footer>
         </Card>
@@ -99,6 +103,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Apple</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -120,6 +125,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Tesla</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -141,6 +147,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Snapchat</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -152,7 +159,7 @@ export default class StudentLivePage extends React.Component {
             <Card.Footer>
             <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
             <h1></h1>
-            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <Button variant="outline-success" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button></small>
             <br></br>
             </Card.Footer>
         </Card>
@@ -165,6 +172,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Qualcomm</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -186,6 +194,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>PayPal</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -207,6 +216,7 @@ export default class StudentLivePage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Netflix</Card.Title>
+            <MoreInfo></MoreInfo>
             <Card.Text>
                 <br></br>
                 <b>Recruiter: </b> John Doe
@@ -218,7 +228,7 @@ export default class StudentLivePage extends React.Component {
             <Card.Footer>
             <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 0 </h7> 
             <h1></h1>
-            <Button variant="outline-success" size="sm">Join Now</Button></small>
+            <Button variant="outline-success" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button></small>
             <br></br>
             </Card.Footer>
         </Card>
@@ -227,3 +237,4 @@ export default class StudentLivePage extends React.Component {
     );
   }
 }
+
