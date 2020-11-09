@@ -1,5 +1,5 @@
 import { Company } from '../company/company'
-import { Applicant } from '../applicant/applicant'
+import { Applicant } from '../user/applicant'
 class Job
 {
     private id: string;
