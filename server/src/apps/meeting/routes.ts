@@ -74,3 +74,5 @@ MeetingNotesRouter.delete("/company/:companyId/careerfair/:careerFairId/applican
         careerFairId: req.params.careerFairId
     }));
 });
+
+export { MeetingNotesRouter };

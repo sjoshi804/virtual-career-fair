@@ -5,7 +5,10 @@ import { Applicant } from '../user/applicant';
 import { Recruiter } from '../user/recruiter';
 import { Meeting } from './meeting';
 import { MeetingNotes } from './meetingNotes';
+import chai = require('chai');
 import chaiHttp = require('chai-http');
+import { DBClient } from '../../db/dbClient';
+import { testDatabaseName, test } from '../../.config';
 
 // To use test HTTP API
 chai.use(chaiHttp);
@@ -36,23 +39,36 @@ describe('MeetingNotes', () => {
 });
 
 // Test MeetingNotes API
+
+// dummy meeting note to use
+const noteA = new MeetingNotes("rec-1", "app-1", "company-1", "careerFair-1", "")
+const noteB = new MeetingNotes("rec-1", "app-2", "company-1", "careerFair-1", "");
 describe('MeetingNotes API (/meetingNotes)', () => {
 
-    before()
-    const prefix = "/meetingNotes"
-    it('POST / - creates new note', (done) => 
-    {
-        request(server).post(prefix + "/")
-            .then(
-                res => 
-                {
-                    expect(res.body.sucesss).to.be.true;
-                    expect(MeetingNotes.db.count({})).to.equal(1);
-                }
-            )
-            .then(() => done(), done);
+    // Reset database after every test
+    before(async () => {
+        DBClient.connect();
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
+    afterEach(async () => {
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
+    });
+
+    const prefix = "/meetingNotes"
+    it('POST / - creates new note', async () => 
+    {
+        await request(server).post(prefix + "/").send(noteA)
+            .then(
+                async res => 
+                {
+                    expect(res.body).to.be.a('object');
+                    expect(res.body.body.success).to.be.true;
+                    expect(await MeetingNotes.db.count({})).to.equal(1);
+                }
+            );
+    });
+    /*
     it('GET /company/:companyId - gets all meeting notes for a company ', (done) => 
     {
         request(server).post(prefix + "/")
@@ -130,4 +146,5 @@ describe('MeetingNotes API (/meetingNotes)', () => {
             )
             .then(() => done(), done);
     });
+    */
 });

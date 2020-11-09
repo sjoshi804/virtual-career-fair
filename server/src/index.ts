@@ -6,6 +6,7 @@ import logger = require("./middleware/logger");
 import config = require("./.config");
 import { DBClient } from "./db/dbClient";
 import { MongoClient } from "mongodb";
+import { MeetingNotesRouter } from "./apps/meeting/routes";
 
 let port = process.env.PORT || 3000;
 const app = express();
@@ -18,6 +19,9 @@ app.use(cookieParser());
 
 //Initialize logger
 // app.use(logger);
+
+// Connect Routers
+app.use("/meetingNotes", MeetingNotesRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
