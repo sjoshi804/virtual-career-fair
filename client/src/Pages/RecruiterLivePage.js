@@ -17,8 +17,69 @@ export default class RecruiterLivePage extends React.Component {
         };
   render() {
     return (
-      <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-          HELLO?!?!?! DOES THIS WORK?!?!
+      <div style={{padding: "20px", "text-align": "center"}}>
+        <Card style={{padding: "20px"}}>
+            <Card>
+                <Card.Header as="h5">Position 1</Card.Header>
+                <Card.Body>
+                    <Card.Title>Denise Wang</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header as="h5">Position 2</Card.Header>
+                <Card.Body>
+                    <Card.Title>Siddharth Joshi</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header as="h5">Position 3</Card.Header>
+                <Card.Body>
+                    <Card.Title>Arnav Garg</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header as="h5">Position 4</Card.Header>
+                <Card.Body>
+                    <Card.Title>Yingge Zhou</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header as="h5">Position 5</Card.Header>
+                <Card.Body>
+                    <Card.Title>Gautam Nambiar</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+            <Card>
+                <Card.Header as="h5">Position 6</Card.Header>
+                <Card.Body>
+                    <Card.Title>Jayant Mehra</Card.Title>
+                    <Card.Text>
+                    With supporting text below as a natural lead-in to additional content.
+                    </Card.Text>
+                    <Button variant="outline-dark">Go somewhere</Button>
+                </Card.Body>
+            </Card>
+        </Card>
       </div>
     );
   }
