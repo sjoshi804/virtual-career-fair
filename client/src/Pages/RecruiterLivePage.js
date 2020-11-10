@@ -1,6 +1,8 @@
 import React from "react";
-import {Card, CardDeck, Button, Image, Table, Form} from "react-bootstrap";
-import profile from '../Images/profile.jpg'; 
+import {Card, Button, Image, Table, Form} from "react-bootstrap";
+import Countdown from "react-countdown";
+
+const Completionist = () => <span>Career fair ended.</span>;
 
 export default class RecruiterLivePage extends React.Component {
     handleRoute = route => () => {
@@ -12,6 +14,11 @@ export default class RecruiterLivePage extends React.Component {
         <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
             <h3><b>Live Career Fair:</b> UCLA Engineering Tech Fair</h3>
             <h6>Students in queue for Google full-time software engineering roles.</h6>
+            <h1>
+            <Countdown date={Date.now() + 500000000}>
+                <Completionist />
+            </Countdown>
+            </h1>
         </Card>
         <br></br>
         <Card style={{padding: "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
