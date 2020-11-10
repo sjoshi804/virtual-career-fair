@@ -12,13 +12,30 @@ export default class RecruiterLivePage extends React.Component {
     return (
       <div style={{padding: "20px", "text-align": "center"}}>
         <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
-            <h3><b>Live Career Fair:</b> UCLA Engineering Tech Fair</h3>
-            <h6>Students in queue for Google full-time software engineering roles.</h6>
-            <h1>
-            <Countdown date={Date.now() + 500000000}>
-                <Completionist />
-            </Countdown>
-            </h1>
+            <h2><b>Live Career Fair:</b> UCLA Engineering Tech Fair</h2>
+            <h5>Students in queue for Google full-time software engineering roles.</h5>
+        </Card>
+        <br></br>
+        <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
+            <h4>
+                <b>Time left in career fair:</b>
+            </h4>
+            <h5>
+                <Countdown date={Date.now() + 500000000}>
+                    <Completionist />
+                </Countdown>
+            </h5>
+            <h6></h6>
+            <h4>
+                <b>Students remaining in queue:</b>
+            </h4>
+            <h5> 4 students</h5>
+            <h6></h6>
+            <h4>
+                <b>Join next meeting:</b>
+                <h6></h6>
+                <Button size="sm" variant="outline-success" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>
+            </h4>
         </Card>
         <br></br>
         <Card style={{padding: "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
@@ -92,85 +109,6 @@ export default class RecruiterLivePage extends React.Component {
                     </tr>
                 </tbody>
             </Table>
-
-            {/* <Card>
-                <Card.Header as="h5">Position 1</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Denise Wang</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-success" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card>
-            <Card>
-                <Card.Header as="h5">Position 2</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Siddharth Joshi</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-secondary" disabled style={{ pointerEvents: 'none' }}>Position 2</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card>
-            <Card>
-                <Card.Header as="h5">Position 3</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Arnav Garg</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-secondary" disabled style={{ pointerEvents: 'none' }}>Position 3</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card>
-            <Card>
-                <Card.Header as="h5">Position 4</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Yingge Zhou</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-secondary" disabled style={{ pointerEvents: 'none' }}>Position 4</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card>
-            <Card>
-                <Card.Header as="h5">Position 5</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Gautam Nambiar</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-secondary" disabled style={{ pointerEvents: 'none' }}>Position 5</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card>
-            <Card>
-                <Card.Header as="h5">Position 6</Card.Header>
-                <Card.Body>
-                    <Image src={profile} rounded height="150px"/>
-                    <Card.Title style={{"margin-top": "10px"}}>Jayant Mehra</Card.Title>
-                    <Card.Text>
-                    Student bio if they have one.
-                    </Card.Text>
-                    <Button size="sm" variant="outline-secondary" disabled style={{ pointerEvents: 'none' }}>Position 6</Button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button>
-                </Card.Body>
-            </Card> */}
         </Card>
       </div>
     );
