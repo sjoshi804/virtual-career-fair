@@ -18,15 +18,21 @@ export default class RecruiterLivePage extends React.Component {
   render() {
     return (
       <div style={{padding: "20px", "text-align": "center"}}>
+        <Card style={{"padding": "20px"}}>
+            <h3><b>Live Career Fair:</b> UCLA Engineering Tech Fair</h3>
+            <h6>Students in queue for Google full-time software engineering roles.</h6>
+        </Card>
         <Card style={{padding: "20px"}}>
             <Card>
                 <Card.Header as="h5">Position 1</Card.Header>
                 <Card.Body>
                     <Card.Title>Denise Wang</Card.Title>
                     <Card.Text>
-                    With supporting text below as a natural lead-in to additional content.
+                    Student bio if they have one: 
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-success">Join Now</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
             <Card>
@@ -36,7 +42,9 @@ export default class RecruiterLivePage extends React.Component {
                     <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-dark">Position 2</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
             <Card>
@@ -46,7 +54,9 @@ export default class RecruiterLivePage extends React.Component {
                     <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-dark">Position 3</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
             <Card>
@@ -56,7 +66,9 @@ export default class RecruiterLivePage extends React.Component {
                     <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-dark">Position 4</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
             <Card>
@@ -66,7 +78,9 @@ export default class RecruiterLivePage extends React.Component {
                     <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-dark">Position 5</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
             <Card>
@@ -76,7 +90,9 @@ export default class RecruiterLivePage extends React.Component {
                     <Card.Text>
                     With supporting text below as a natural lead-in to additional content.
                     </Card.Text>
-                    <Button variant="outline-dark">Go somewhere</Button>
+                    <Button size="sm" variant="outline-dark">Position 6</Button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <Button size="sm" variant="outline-dark">View Resume</Button>
                 </Card.Body>
             </Card>
         </Card>
