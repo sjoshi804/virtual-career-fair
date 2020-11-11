@@ -65,6 +65,11 @@
 | GET/POST          |/organizer          | |
 | GET/UPDATE/DELETE |/organizer/:userid  | |
 
+### Resume
+| Type | Endpoint | Description (optional)
+|-------------------|---------------------------------------------------------|-------------------------------|
+| GET/UPDATE/DELETE/POST | /resume/:applicantid | |
+| GET | /resume/:applicantid/insights | Get insights from resume |
 
 ## Collections
 - User (stores organizer, recruiter and applicant)
@@ -74,7 +79,13 @@
   emailId: string,
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
-  applicant/recruiter/organizer data: json
+  applicant/recruiter/organizer data: json 
+  applicantData: {
+                      major:
+                 }
+  recruiterData: {
+                      company:
+                 }
   organizerData:
   {
     affiliatedOrganization: string
@@ -123,5 +134,17 @@
   recruiter: string (id),
   company: string (id),
   notes: string
+}
+```
+- Resume
+```
+{
+  applicant: string (id),
+  experiences: [{
+        
+               }
+               ...],
+  skills: list of strings,
+  insights: list of strings
 }
 ```
