@@ -7,7 +7,7 @@ export default class SearchPage extends React.Component {
     super();
     
     this.state = {
-        dropDownValue: "Search By Categories",
+        dropDownValue: "Search Categories",
         placeholder: "Search Keywords",
         searchText: ""
     }
@@ -54,9 +54,11 @@ export default class SearchPage extends React.Component {
                 title={this.state.dropDownValue}
                 id="input-group-dropdown-1"
             >
-                <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Search By Company</div></Dropdown.Item>
-                <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Search By Position</div></Dropdown.Item>
-                <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Search By Career Fair</div></Dropdown.Item>
+                { this.state.dropDownValue != "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
+                
+                { this.state.dropDownValue != "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
+
+                { this.state.dropDownValue != "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
             
