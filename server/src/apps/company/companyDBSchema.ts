@@ -1,8 +1,11 @@
 import { JobDBSchema } from "../job/jobDBSchema";
 import { Company } from "./company";
+import { v4 as uuid } from 'uuid';
 
 class CompanyDBSchema
 {
+    public _id: string 
+
     public name: string;
 
     public industry: string;
@@ -17,6 +20,7 @@ class CompanyDBSchema
 
     constructor(company: Company)
     {
+        this._id = uuid();
         this.name = company.getName();
         this.industry = company.getIndustry();
         this.description = company.getDescription();
