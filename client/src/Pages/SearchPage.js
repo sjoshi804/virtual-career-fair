@@ -7,8 +7,8 @@ export default class SearchPage extends React.Component {
     super();
     
     this.state = {
-        dropDownValue: "Search Categories",
-        placeholder: "Search Keywords",
+        dropDownValue: "Company",
+        placeholder: "Search",
         searchText: ""
     }
   }
