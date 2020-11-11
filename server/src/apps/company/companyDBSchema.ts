@@ -20,7 +20,17 @@ class CompanyDBSchema
 
     constructor(company: Company)
     {
-        this._id = uuid();
+        // Create new unique id if one has not already been set for this company
+        if (company.getId() == undefined)
+        {
+            this._id = uuid();
+        }
+        else
+        {
+            this._id = company.getId();
+        }
+
+        // Copy over data to save in db
         this.name = company.getName();
         this.industry = company.getIndustry();
         this.description = company.getDescription();

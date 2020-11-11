@@ -78,7 +78,9 @@ class Company implements ISerializable
 
     public serialize() 
     {
-        return new CompanyDBSchema(this);
+        var serialized =  new CompanyDBSchema(this);
+        this.id = serialized._id;
+        return serialized;
     }
 
     public addRecruiterToCompany(recruiter: Recruiter)

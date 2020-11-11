@@ -8,6 +8,7 @@ import chai = require('chai');
 import chaiHttp = require('chai-http');
 import { DBClient } from '../../db/dbClient';
 import { testDatabaseName } from '../../.config';
+import { v4 as uuid } from 'uuid';
 
 // To use test HTTP API
 chai.use(chaiHttp);
@@ -17,10 +18,11 @@ var companyA = new Company("compA", "", "", "");
 var companyB = new Company("compB", "", "", "");
 var companyC = new Company("compC", "", "", "");
 var companyD = new Company("compD", "", "", "");
+var companies = new Array<Company>(companyA, companyB, companyC, companyD);
 var recruiterA = new Recruiter("recA", "", "", "");
-recruiterA.setId("recA");
+recruiterA.setId(uuid());
 var recruiterB = new Recruiter("recA", "", "", "");
-recruiterB.setId("recB");
+recruiterB.setId(uuid());
 var jobA = new Job("jobA");
 var jobB = new Job("jobB");
 
@@ -43,9 +45,10 @@ describe("Company", () => {
 });
 
 // Test Company API
-const prefix = "/company"
+const prefix = "/company";
 describe('Company API (/company)', () => {
 
+    /*
     // Reset database before all tests and after every test
     before(async () => {
         DBClient.connect();
@@ -55,21 +58,18 @@ describe('Company API (/company)', () => {
     afterEach(async () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
-
-    
-
+    */
 
     it('POST / - creates new company', async () => 
     {
-        // Create one note using post
-        await request(server).post(prefix + "/").send(companyA)
+        // Create one company
+        const serializedCompany = companyA.serialize();
+        await request(server).post(prefix + "/").send(serializedCompany)
             .then(
                 async res => 
                 {
-                    expect(res.body).to.be.a('object');
-                    expect(res.body.success).to.be.true;
                     expect(res.status).to.be.equal(200);
-                    expect(await Company.db.count({})).to.equal(1);
+                    expect(await Company.db.findOne({})).to.have.property("_id", serializedCompany._id);
                 }
             );
     });
@@ -77,45 +77,163 @@ describe('Company API (/company)', () => {
     it('GET / - gets all companies', async () => 
     {
         // Create companyA-D
-        await request(server).post(prefix + "/").send(companyA)
+        companies.forEach(
+            async company =>
+            {
+                await request(server).post(prefix + "/").send(company.serialize())
+                .then(
+                    async res => 
+                    {
+                        expect(res.status).to.be.equal(200);
+                    }
+                );
+            }
+        );
+
+        // Confirm count of objects
+        expect(await Company.db.count({})).to.be.equal(companies.length);
+
+        // Get all 
+        await request(server).get(prefix + "/")
+            .then(
+                res =>
+                {
+                    // Request success
+                    expect(res.status).to.be.equal(200);
+
+                    // Confirm all objects exist in list returned
+                    companies.forEach(
+                        company =>
+                        {
+                            expect(res.body).to.contain(company.serialize());
+                        }
+                    )
+                }
+            )
+    });
+
+    it('GET /:companyId - gets specific company', async () => 
+    {
+        // Create a company
+        await request(server).post(prefix + "/").send(companyA.serialize())
             .then(
                 async res => 
                 {
-                    expect(res.body).to.be.a('object');
-                    expect(res.body.success).to.be.true;
                     expect(res.status).to.be.equal(200);
                     expect(await Company.db.count({})).to.equal(1);
                 }
             );
-        await request(server).post(prefix + "/").send(companyB)
+        
+        // Gets that company
+        await request(server).get(prefix + "/" + companyA.getId())
+            .then(
+                res =>
+                {
+                    expect(res.body).to.be.an('object');
+                    expect(res.body).equals(companyA.serialize());
+                }
+            );
+    });
+
+    it('PUT /:companyId - updates specific company', async () => 
+    {
+        // Create a company
+        await request(server).post(prefix + "/").send(companyA.serialize())
             .then(
                 async res => 
                 {
-                    expect(res.body).to.be.a('object');
-                    expect(res.body.success).to.be.true;
                     expect(res.status).to.be.equal(200);
-                    expect(await Company.db.count({})).to.equal(2);
+                    expect(await Company.db.count({})).to.equal(1);
                 }
             );
-        await request(server).post(prefix + "/").send(companyC)
+        
+        // Update that company
+        companyA.setDescription("blah");
+        await request(server).put(prefix + "/" + companyA.getId()).send(companyA.serialize())
+            .then(
+                res =>
+                {
+                    // Confirm request success
+                    expect(res.status).equals(200);
+
+                    // Confirm correct update
+                    expect(Company.db.findOne({})).equals(companyA.serialize());
+                }
+            );
+        
+        // Update company that doesn't exist
+        await request(server).put(prefix + "/" + companyB.getId()).send(companyB.serialize())
+        .then(
+            res =>
+            {
+                // Confirm request failure
+                expect(res.status).equals(404);
+            }
+        );
+    });
+
+    it('DELETE /:companyId - updates specific company', async () => 
+    {
+        // Create a company
+        await request(server).post(prefix + "/").send(companyA.serialize())
             .then(
                 async res => 
                 {
-                    expect(res.body).to.be.a('object');
-                    expect(res.body.success).to.be.true;
                     expect(res.status).to.be.equal(200);
-                    expect(await Company.db.count({})).to.equal(3);
+                    expect(await Company.db.count({})).to.equal(1);
                 }
             );
-        await request(server).post(prefix + "/").send(companyD)
+        
+        // Delete that company
+        await request(server).delete(prefix + "/" + companyA.getId())
             .then(
-                async res => 
+                res =>
                 {
-                    expect(res.body).to.be.a('object');
-                    expect(res.body.success).to.be.true;
-                    expect(res.status).to.be.equal(200);
-                    expect(await Company.db.count({})).to.equal(4);
+                    // Confirm request success
+                    expect(res.status).equals(200);
+
+                    // Confirm correct update
+                    expect(Company.db.count({})).equals(0);
                 }
             );
+        
+        // Delete object that doesn't exist
+        await request(server).delete(prefix + "/" + companyB.getId())
+            .then(
+                res =>
+                {
+                    // Confirm request failure
+                    expect(res.status).equals(404);
+                }
+            );
+        
+    });
+
+    // POST to call function to add recruiter to company
+    it('POST /:companyId/addRecruiter/:recruiterId - adds recruiter to company', async () => 
+    {
+        expect.fail("Not implemented.");
+        //TODO: Waiting for recruiter db to be implemented
+        // Create recruiter
+
+        // Add to company
+
+        // Try to recruiter that doesn't exist to company - confirm failure
+    
+    });
+
+    // GET all recruiters for a company - returns recruiter schema objects
+    it('GET /:companyId - updates specific company', async () => 
+    {
+        expect.fail("Not implemented.");
+
+        //TODO:
+        // Create recruiters
+        
+
+        // Add many to company
+
+        // Try to recruiter that doesn't exist to company - confirm failure
+    
     });
 });
