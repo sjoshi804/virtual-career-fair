@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, SearchPage } from "./Pages";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
 
 class Main extends React.Component {
   state = {
