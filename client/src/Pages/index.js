@@ -10,8 +10,20 @@ import RecruiterProfilePage from "./RecruiterProfilePage";
 import RecruiterAddEditBoothPage from "./RecruiterAddEditBoothPage"
 import RouteNotFound from "./RouteNotFound";
 import SearchPage from "./SearchPage"
+import RecruiterLivePage from "./RecruiterLivePage"
 
-
-export { SearchPage, StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage };
-
-
+export { 
+  StudentProfilePage,
+  HomePage,
+  SearchResultsPage,
+  RouteNotFound,
+  StudentLivePage,
+  RecruiterProfilePage,
+  ManageFairPage,
+  CreateFairPage,
+  OrganizerPage,
+  LoginPage,
+  RecruiterAddEditBoothPage,
+  RecruiterLivePage,
+  SearchPage 
+};
