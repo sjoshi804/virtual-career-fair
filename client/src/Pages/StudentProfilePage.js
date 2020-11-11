@@ -64,7 +64,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b>10AM PST - 3PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="outline-dark">View Event</Button>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Event</Button>
                     </div>
                     </Card>
                 </CardGroup>
@@ -79,7 +79,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b> 11 PST - 3PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button onClick={this.handleRoute("/studentlive")} variant="outline-dark">View Event</Button>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Event</Button>
                     </div>
                     </Card>
                     <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -92,7 +92,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b> 11AM PST - 5PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="outline-dark">View Event</Button>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Event</Button>
                     </div>
                     </Card>
                     <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -105,7 +105,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b>10AM PST - 3PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="outline-dark">View Event</Button>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Event</Button>
                     </div>
                     </Card>
                 </CardGroup>
