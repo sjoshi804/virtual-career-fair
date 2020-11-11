@@ -51,7 +51,7 @@ export default class StudentProfilePage extends React.Component {
                             <p><b>Time: </b> 11AM PST - 5PM PST</p>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="outline-dark">Event Details</Button>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>Event Details</Button>
                     </div>
                     </Card>
                     <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>

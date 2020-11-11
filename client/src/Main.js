@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage } from "./Pages";
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage } from "./Pages";
 
 import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 
@@ -65,6 +65,7 @@ class Main extends React.Component {
           <Route exact path="/recruiter" component={RecruiterProfilePage} />
           <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
           <Route exact path="/recruiter-live" component={RecruiterLivePage} />
+          <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>
