@@ -2,11 +2,12 @@ import fs = require("fs");
 import express = require("express");
 import path = require("path");
 var cookieParser = require('cookie-parser');
-import logger = require("./middleware/logger");
 import config = require("./.config");
 import { DBClient } from "./db/dbClient";
 import { MongoClient } from "mongodb";
 import { MeetingNotesRouter } from "./apps/meeting/routes";
+import { CompanyRouter } from "./apps/company/routes";
+import { logger } from "./middleware/logger";
 
 let port = process.env.PORT || 3000;
 const app = express();
@@ -18,10 +19,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Initialize logger
-// app.use(logger);
+app.use(logger);
 
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);
+app.use("/company", CompanyRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
