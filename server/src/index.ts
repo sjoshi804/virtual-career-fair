@@ -29,6 +29,9 @@ if (process.env.NODE_ENV != config.test)
 app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/company", CompanyRouter);
 
+// Connect Routers
+app.use("/meetingNotes", MeetingNotesRouter);
+
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files

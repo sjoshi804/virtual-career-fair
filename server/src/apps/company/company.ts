@@ -14,10 +14,11 @@ class Company implements ISerializable
     private jobs: Array<Job>;
     private recruiters: Array<Recruiter>;
     private id: string;
-    
+  
     public static db = new CompanyDBStrategy();
 
     // Getters and Setters
+
     public getId(): string {
         return this.id;
     }
@@ -33,7 +34,7 @@ class Company implements ISerializable
     public setName(name: string): void {
         this.name = name;
     }
-
+  
     public getIndustry(): string {
         return this.industry;
     }

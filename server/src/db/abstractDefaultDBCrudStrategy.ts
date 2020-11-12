@@ -1,4 +1,3 @@
-import { convertToObject } from 'typescript';
 import { DBClient } from './dbClient';
 import { IDBCrudStrategy } from './iDBCrudStrategy';
 import { ISerializable } from './iSerializable';
