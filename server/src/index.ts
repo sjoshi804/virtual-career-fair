@@ -18,8 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//Initialize logger
-app.use(logger);
+//Initialize logger if non test environment (avoid cluttering stdout due to many API requests in test)
+if (process.env.NODE_ENV != config.test)
+{
+  app.use(logger);
+}
+
 
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);
