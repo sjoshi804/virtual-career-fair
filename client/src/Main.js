@@ -1,8 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage } from "./Pages";
-
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage} from "./Pages";
 
 class Main extends React.Component {
   state = {
@@ -41,15 +40,9 @@ class Main extends React.Component {
             <Nav.Link onClick={this.handleRoute("/student")}>Students</Nav.Link>
           </Nav>
           <Form inline>
-            <FormControl
-              onChange={this.handleSearchInput}
-              value={this.state.searchText}
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-            />
-            <Button onClick={this.handleSearchSubmit} variant="outline-info">
-              Search
+            
+            <Button onClick={this.handleRoute("/search")} variant="outline-info">
+              Searching for Something Specific?
             </Button>
           </Form>
         </Navbar>
@@ -63,6 +56,7 @@ class Main extends React.Component {
           <Route exact path="/managefair" component={ManageFairPage} />
           <Route exact path="/studentlive" component={StudentLivePage} />
           <Route exact path="/recruiter" component={RecruiterProfilePage} />
+          <Route exact path="/search" component={SearchPage} />
           <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
           <Route exact path="/recruiter-live" component={RecruiterLivePage} />
           <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
