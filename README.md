@@ -16,7 +16,7 @@
 |-------------------|--------------------------------------------|-------------------------------|
 | GET/POST          | /company                                   | |
 | GET/UPDATE/DELETE | /company/:companyid                        | |
-| POST              | /company/:companyid/recruiter/:recruiterid | add recruiter to company|
+| POST              | /company/:companyid/addRecruiter/:recruiterId | adds recruiter to company|
 | GET               | /company/:companyid/recruiter              | get all recruiters for a given company |
 
 ### Career Fair
@@ -41,10 +41,11 @@
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
+| POST                   |/meetingNote ||
 | GET                    |/meetingNote/company/:companyid                                                 | see all meeting notes |
 | GET                    |/meetingNote/company/:companyid/applicant/:applicantid                          | |
 | GET                    |/meetingNote/company/:companyid/careerfair/:careerfairid                        | |
-| GET/POST/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
+| GET/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
 
 ### Applicant
 | Type | Endpoint | Description (optional)
@@ -64,6 +65,11 @@
 | GET/POST          |/organizer          | |
 | GET/UPDATE/DELETE |/organizer/:userid  | |
 
+### Resume
+| Type | Endpoint | Description (optional)
+|-------------------|---------------------------------------------------------|-------------------------------|
+| GET/UPDATE/DELETE/POST | /resume/:applicantid | |
+| GET | /resume/:applicantid/insights | Get insights from resume |
 
 ## Collections
 - User (stores organizer, recruiter and applicant)
@@ -73,7 +79,17 @@
   emailId: string,
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
-  applicant/recruiter/organizer data: json
+  applicant/recruiter/organizer data: json 
+  applicantData: {
+                      major:
+                 }
+  recruiterData: {
+                      company:
+                 }
+  organizerData:
+  {
+    affiliatedOrganization: string
+  }
 }
 ```
 - Company (will contain jobs inside it)
@@ -118,5 +134,17 @@
   recruiter: string (id),
   company: string (id),
   notes: string
+}
+```
+- Resume
+```
+{
+  applicant: string (id),
+  experiences: [{
+        
+               }
+               ...],
+  skills: list of strings,
+  insights: list of strings
 }
 ```

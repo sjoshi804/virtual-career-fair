@@ -55,8 +55,6 @@ class MockClassDBSchema
     Test Cases
 */
 
-
-
 describe('Database Interactions', () => {
 
     // Setup connection and reset db

@@ -34,7 +34,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             October 21, 2020 from 11AM-2PM PST
             </Card.Text>
-            <Button variant="outline-success">Join Now</Button>
+            <Button variant="outline-success" onClick={this.handleRoute("/recruiter-live")}>Join Now</Button>
         </Card.Body>
         </Card>
         </div>
