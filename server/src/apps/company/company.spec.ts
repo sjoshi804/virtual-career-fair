@@ -48,7 +48,6 @@ describe("Company", () => {
 const prefix = "/company";
 describe('Company API (/company)', () => {
 
-    /*
     // Reset database before all tests and after every test
     before(async () => {
         DBClient.connect();
@@ -58,7 +57,7 @@ describe('Company API (/company)', () => {
     afterEach(async () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
-    */
+    
 
     it('POST / - creates new company', async () => 
     {
@@ -68,7 +67,7 @@ describe('Company API (/company)', () => {
             .then(
                 async res => 
                 {
-                    expect(res.status).to.be.equal(200);
+                    expect(res.status).to.be.equal(201);
                     expect(await Company.db.findOne({})).to.have.property("_id", serializedCompany._id);
                 }
             );
@@ -77,19 +76,16 @@ describe('Company API (/company)', () => {
     it('GET / - gets all companies', async () => 
     {
         // Create companyA-D
-        companies.forEach(
-            async company =>
-            {
-                await request(server).post(prefix + "/").send(company.serialize())
-                .then(
-                    async res => 
-                    {
-                        expect(res.status).to.be.equal(200);
-                    }
-                );
-            }
-        );
-
+        for (var i = 0; i < companies.length; i++)
+        {
+            await request(server).post(prefix + "/").send(companies[i].serialize())
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                }
+            );
+        }
         // Confirm count of objects
         expect(await Company.db.count({})).to.be.equal(companies.length);
 
@@ -100,12 +96,12 @@ describe('Company API (/company)', () => {
                 {
                     // Request success
                     expect(res.status).to.be.equal(200);
-
                     // Confirm all objects exist in list returned
                     companies.forEach(
                         company =>
                         {
-                            expect(res.body).to.contain(company.serialize());
+                            // deep include to cross deep check values of object in array
+                            expect(res.body).to.deep.include(company.serialize());
                         }
                     )
                 }
@@ -119,7 +115,7 @@ describe('Company API (/company)', () => {
             .then(
                 async res => 
                 {
-                    expect(res.status).to.be.equal(200);
+                    expect(res.status).to.be.equal(201);
                     expect(await Company.db.count({})).to.equal(1);
                 }
             );
@@ -130,7 +126,8 @@ describe('Company API (/company)', () => {
                 res =>
                 {
                     expect(res.body).to.be.an('object');
-                    expect(res.body).equals(companyA.serialize());
+                    // Deep equals for object comparison
+                    expect(res.body).deep.equals(companyA.serialize());
                 }
             );
     });
@@ -142,7 +139,7 @@ describe('Company API (/company)', () => {
             .then(
                 async res => 
                 {
-                    expect(res.status).to.be.equal(200);
+                    expect(res.status).to.be.equal(201);
                     expect(await Company.db.count({})).to.equal(1);
                 }
             );
@@ -151,13 +148,13 @@ describe('Company API (/company)', () => {
         companyA.setDescription("blah");
         await request(server).put(prefix + "/" + companyA.getId()).send(companyA.serialize())
             .then(
-                res =>
+                async res =>
                 {
                     // Confirm request success
-                    expect(res.status).equals(200);
+                    expect(res.status).equals(204);
 
-                    // Confirm correct update
-                    expect(Company.db.findOne({})).equals(companyA.serialize());
+                    // Confirm correct update (deep equals)
+                    expect(await Company.db.findOne({})).deep.equals(companyA.serialize());
                 }
             );
         
@@ -179,7 +176,7 @@ describe('Company API (/company)', () => {
             .then(
                 async res => 
                 {
-                    expect(res.status).to.be.equal(200);
+                    expect(res.status).to.be.equal(201);
                     expect(await Company.db.count({})).to.equal(1);
                 }
             );
@@ -187,13 +184,13 @@ describe('Company API (/company)', () => {
         // Delete that company
         await request(server).delete(prefix + "/" + companyA.getId())
             .then(
-                res =>
+                async res =>
                 {
                     // Confirm request success
-                    expect(res.status).equals(200);
+                    expect(res.status).equals(204);
 
                     // Confirm correct update
-                    expect(Company.db.count({})).equals(0);
+                    expect(await Company.db.count({})).equals(0);
                 }
             );
         
