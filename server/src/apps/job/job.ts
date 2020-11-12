@@ -1,4 +1,3 @@
-import { Company } from '../company/company'
 import { Applicant } from '../user/applicant'
 class Job
 {

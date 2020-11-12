@@ -2,11 +2,13 @@ var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 import { verify } from 'crypto';
 import { tokenSecret } from '../../.config';
+import { IHasID } from '../../db/iHasID';
 
 const message = 'message';
 const tokenExpired = 'TokenExpiredError';
 
-class User {
+class User implements IHasID
+{
     // Private fields
     private name: string;
     private emailId: string;

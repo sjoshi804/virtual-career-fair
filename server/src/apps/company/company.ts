@@ -1,7 +1,10 @@
+import { ISerializable } from "../../db/iSerializable";
 import { Job } from "../job/job";
 import { Recruiter } from "../user/recruiter";
+import { CompanyDBSchema } from "./companyDBSchema";
+import { CompanyDBStrategy } from "./companyDBStrategy";
 
-class Company
+class Company implements ISerializable
 {
 
     private name: string;
@@ -11,6 +14,10 @@ class Company
     private jobs: Array<Job>;
     private recruiters: Array<Recruiter>;
     private id: string;
+  
+    public static db = new CompanyDBStrategy();
+
+    // Getters and Setters
 
     public getId(): string {
         return this.id;
@@ -27,7 +34,7 @@ class Company
     public setName(name: string): void {
         this.name = name;
     }
-
+  
     public getIndustry(): string {
         return this.industry;
     }
@@ -68,6 +75,13 @@ class Company
         this.image = image;
         this.jobs = new Array<Job>();
         this.recruiters = new Array<Recruiter>();
+    }
+
+    public serialize() 
+    {
+        var serialized =  new CompanyDBSchema(this);
+        this.id = serialized._id;
+        return serialized;
     }
 
     public addRecruiterToCompany(recruiter: Recruiter)

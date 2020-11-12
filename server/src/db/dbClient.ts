@@ -3,7 +3,6 @@ import config = require("../.config")
 
 class DBClient {
     public static db: Db;
-
     public static mongoClient: MongoClient
 
     public static async connect()

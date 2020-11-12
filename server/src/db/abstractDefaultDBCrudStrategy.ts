@@ -6,11 +6,11 @@ abstract class AbstractDefaultDBCrudStrategy<TSchema> implements IDBCrudStrategy
 {
     public abstract getCollectionName(): string;
 
-    public async save(object: ISerializable): Promise<boolean>
+    public async save(object): Promise<boolean>
     {
         try
         {
-            await DBClient.db.collection(this.getCollectionName()).insertOne(object.serialize());
+            await DBClient.db.collection(this.getCollectionName()).insertOne(object);
             return true;
         }
         catch
