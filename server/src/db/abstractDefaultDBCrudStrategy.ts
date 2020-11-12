@@ -2,7 +2,7 @@ import { DBClient } from './dbClient';
 import { IDBCrudStrategy } from './iDBCrudStrategy';
 import { ISerializable } from './iSerializable';
 
-abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
+abstract class AbstractDefaultDBCrudStrategy<TSchema> implements IDBCrudStrategy<TSchema>
 {
     public abstract getCollectionName(): string;
 
@@ -45,7 +45,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
         }
     }
 
-    public async findOne<TSchema>(query: any): Promise<TSchema> 
+    public async findOne(query: any): Promise<TSchema> 
     {
         try
         {
@@ -57,7 +57,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
         }
     }
 
-    public async findMany<TSchema>(query: any): Promise<TSchema[]> 
+    public async findMany(query: any): Promise<TSchema[]> 
     {
         try
         {

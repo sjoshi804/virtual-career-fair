@@ -5,10 +5,9 @@ import { Applicant } from '../user/applicant';
 import { Company } from '../company/company';
 
 // Defining a job
-var job = new Job("1", "SDE", new Company("JobZ"));
+var job = new Job("SDE1", "Entry level developer", new Array<string>("Computer Science", "Math"));
 var alice = new Applicant("Alice", "alice@example.com", "hashedpassword", "aliceToken");
 var bob = new Applicant("Bob", "bob@example.com", "hashedpassword", "bobToken");
-var expectedApplicants = new Array(alice, bob);
 
 describe('Job', () => {
     it('apply - should add applicant to list of applicants', () => {
