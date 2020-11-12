@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, SearchPage } from "./Pages";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage} from "./Pages";
 
 class Main extends React.Component {
   state = {
@@ -59,6 +59,7 @@ class Main extends React.Component {
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
           <Route exact path="/recruiter-live" component={RecruiterLivePage} />
+          <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>

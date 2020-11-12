@@ -11,6 +11,7 @@ import RecruiterAddEditBoothPage from "./RecruiterAddEditBoothPage"
 import RouteNotFound from "./RouteNotFound";
 import SearchPage from "./SearchPage"
 import RecruiterLivePage from "./RecruiterLivePage"
+import StudentUpcomingPage from "./StudentUpcomingPage"
 
 export { 
   StudentProfilePage,
@@ -25,5 +26,6 @@ export {
   LoginPage,
   RecruiterAddEditBoothPage,
   RecruiterLivePage,
-  SearchPage 
+  SearchPage,
+  StudentUpcomingPage
 };

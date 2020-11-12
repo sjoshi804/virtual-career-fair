@@ -2,20 +2,24 @@ import { MongoClient, Db } from "mongodb";
 import config = require("../.config")
 
 class DBClient {
-    public db: Db;
-    public mongoClient: MongoClient
-    public connect()
+    public static db: Db;
+    public static mongoClient: MongoClient
+
+    public static async connect()
+    {   if (DBClient.db == undefined)
+        {
+            DBClient.mongoClient = await MongoClient.connect(config.databaseURL, { useUnifiedTopology: true });
+            DBClient.db = DBClient.mongoClient.db(config.databaseName);
+        }
+    }
+
+    public static close()
     {
-        MongoClient.connect(config.databaseURL, { useUnifiedTopology: true })
-        .then(function (mongoClient) {
-            this.db = mongoClient.db(config.databaseName)
-            this.mongoClient = mongoClient; 
-        })
-        .catch(function(err) {
-            console.log(err)
-            process.exit(1)
-        })
+        if (DBClient.mongoClient != undefined)
+        {
+            DBClient.mongoClient.close();
+        }
     }
 }
 
-export = new DBClient();
+export { DBClient }

@@ -2,9 +2,12 @@ import fs = require("fs");
 import express = require("express");
 import path = require("path");
 var cookieParser = require('cookie-parser');
-import logger = require("./middleware/logger")
-import config = require("./.config")
-import DBClient = require("./db/dbClient");
+import config = require("./.config");
+import { DBClient } from "./db/dbClient";
+import { MongoClient } from "mongodb";
+import { MeetingNotesRouter } from "./apps/meeting/routes";
+import { CompanyRouter } from "./apps/company/routes";
+import { logger } from "./middleware/logger";
 
 let port = process.env.PORT || 3000;
 const app = express();
@@ -15,8 +18,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//Initialize logger
-// app.use(logger);
+//Initialize logger if non test environment (avoid cluttering stdout due to many API requests in test)
+if (process.env.NODE_ENV != config.test)
+{
+  app.use(logger);
+}
+
+
+// Connect Routers
+app.use("/meetingNotes", MeetingNotesRouter);
+app.use("/company", CompanyRouter);
+
+// Connect Routers
+app.use("/meetingNotes", MeetingNotesRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
@@ -28,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-// Initialize DB Connection
+// Initialize a db connection
 DBClient.connect();
 
 const server = app.listen(app.get("port"), () => {
@@ -40,7 +54,7 @@ process.on('SIGINT', shutDown);
 
 // Close database connection and terminate server gracefully
 function shutDown() {
-  DBClient.mongoClient.close();
+  DBClient.close();
   console.log("Closing db connection")
   server.close(() => {
     console.log('Terminating server');

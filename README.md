@@ -16,7 +16,7 @@
 |-------------------|--------------------------------------------|-------------------------------|
 | GET/POST          | /company                                   | |
 | GET/UPDATE/DELETE | /company/:companyid                        | |
-| POST              | /company/:companyid/recruiter/:recruiterid | add recruiter to company|
+| POST              | /company/:companyid/addRecruiter/:recruiterId | adds recruiter to company|
 | GET               | /company/:companyid/recruiter              | get all recruiters for a given company |
 
 ### Career Fair

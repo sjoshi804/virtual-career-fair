@@ -1,17 +1,16 @@
-import DBClient from './dbClient'
+import { DBClient } from './dbClient';
 import { IDBCrudStrategy } from './iDBCrudStrategy';
+import { ISerializable } from './iSerializable';
 
-abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
+abstract class AbstractDefaultDBCrudStrategy<TSchema> implements IDBCrudStrategy<TSchema>
 {
     public abstract getCollectionName(): string;
 
-    private collection = DBClient.db.collection(this.getCollectionName());
-
-    public async save(object: any): Promise<boolean>
+    public async save(object): Promise<boolean>
     {
         try
         {
-            await this.collection.insertOne(object);
+            await DBClient.db.collection(this.getCollectionName()).insertOne(object);
             return true;
         }
         catch
@@ -24,7 +23,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
     {
         try
         {
-            await this.collection.updateOne(filterQuery, updateQuery);
+            await DBClient.db.collection(this.getCollectionName()).updateOne(filterQuery, updateQuery);
             return true;
         }
         catch
@@ -37,7 +36,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
     {
         try
         {
-            await this.collection.updateMany(filterQuery, updateQuery);
+            await DBClient.db.collection(this.getCollectionName()).updateMany(filterQuery, updateQuery);
             return true;
         }
         catch
@@ -46,11 +45,11 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
         }
     }
 
-    public async findOne(query: any): Promise<any> 
+    public async findOne(query: any): Promise<TSchema> 
     {
         try
         {
-            return await this.collection.findOne(query);
+            return await DBClient.db.collection(this.getCollectionName()).findOne<TSchema>(query);
         }
         catch
         {
@@ -58,12 +57,12 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
         }
     }
 
-    public async findMany(query: any): Promise<any[]> 
+    public async findMany(query: any): Promise<TSchema[]> 
     {
         try
         {
-            var cursor = this.collection.find(query);
-            var results = new Array<any>();
+            var cursor = DBClient.db.collection(this.getCollectionName()).find<TSchema>(query);
+            var results = new Array<TSchema>();
             await cursor.forEach(element => {
                 results.push(element);
             });
@@ -79,7 +78,7 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
     {
         try
         {
-            await this.collection.deleteOne(filter)
+            await DBClient.db.collection(this.getCollectionName()).deleteOne(filter)
             return true;
         }
         catch
@@ -92,13 +91,20 @@ abstract class AbstractDefaultDBCrudStrategy implements IDBCrudStrategy
     {
         try
         {
-            await this.collection.deleteOne(filter);
+            await DBClient.db.collection(this.getCollectionName()).deleteMany(filter);
             return true;
         }
         catch
         {
             return false;
         }
+    }
+
+    public count(filter: any): number
+    {
+        var num;
+        num = DBClient.db.collection(this.getCollectionName()).countDocuments(filter);
+        return num;
     }
  
 }

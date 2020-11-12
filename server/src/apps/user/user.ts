@@ -2,16 +2,19 @@ var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 import { verify } from 'crypto';
 import { tokenSecret } from '../../.config';
+import { IHasID } from '../../db/iHasID';
 
 const message = 'message';
 const tokenExpired = 'TokenExpiredError';
 
-class User {
+class User implements IHasID
+{
     // Private fields
     private name: string;
     private emailId: string;
     private password: string;
     private token: string;
+    private id: string;
 
     // Constructor
     public constructor(name: string, emailId: string, password: string, token: string) {
@@ -143,6 +146,15 @@ class User {
         var hashedPassword = hashedPassword.generate(password);
         this.password = password;
     }
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public setId(id: string): void {
+        this.id = id;
+    }
+
 }
 
 export { User };
