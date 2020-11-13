@@ -1,7 +1,23 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage} from "./Pages";
+import { 
+  StudentProfilePage, 
+  HomePage, 
+  SearchResultsPage, 
+  RouteNotFound, 
+  StudentLivePage, 
+  RecruiterProfilePage, 
+  ManageFairPage, CreateFairPage, 
+  OrganizerPage, 
+  OrganizerLivePage, 
+  OrganizerPastPage,
+  OrganizerUpcomingPage,
+  LoginPage, 
+  RecruiterAddEditBoothPage, 
+  RecruiterLivePage, 
+  StudentUpcomingPage, 
+  SearchPage} from "./Pages";
 
 class Main extends React.Component {
   state = {
@@ -52,6 +68,9 @@ class Main extends React.Component {
           <Route exact path="/results" component={SearchResultsPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/org" component={OrganizerPage} />
+          <Route exact path="/orglive" component={OrganizerLivePage} />
+          <Route exact path="/orgpast" component={OrganizerPastPage} />
+          <Route exact path="/orgupcoming" component={OrganizerUpcomingPage} />
           <Route exact path="/createfair" component={CreateFairPage} />
           <Route exact path="/managefair" component={ManageFairPage} />
           <Route exact path="/studentlive" component={StudentLivePage} />
