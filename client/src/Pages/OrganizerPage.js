@@ -16,9 +16,8 @@ export default class OrganizerPage extends React.Component {
                     <Image src={profile} rounded height="150px"/>
                     <br></br>
                     <br></br>
-                    <Card.Title>Company Name</Card.Title>
+                    <Card.Title>University of California, Los Angeles (UCLA)</Card.Title>
                                 <Card.Text>
-                                    <p> <b>Organizer Name: </b> University of California, Los Angeles (UCLA) </p>
                                     <p> <b>Organizer Description: </b> School within the UC system </p>
                                 </Card.Text>
                         <Button variant="light" onClick={this.handleRoute("/createfair")}>Create New Career Fair</Button>
