@@ -27,7 +27,7 @@ export default class OrganizerPastPage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Number of Recruiters at Fair</Card.Title>
-            <DetailedStats></DetailedStats>
+            
             <Card.Text>
                 <br></br>
                 <b>Recruiters Attended: </b> 13
@@ -35,6 +35,7 @@ export default class OrganizerPastPage extends React.Component {
                 <br></br>
                 <b>Recruiters Registered: </b> 15
             </Card.Text>
+            <DetailedStats></DetailedStats>
             </Card.Body>
         </Card>
         <Card  border="danger" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "width": "300px"}}>
@@ -42,7 +43,7 @@ export default class OrganizerPastPage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Number of Students at Fair</Card.Title>
-            <DetailedStats></DetailedStats>
+            
             <Card.Text>
             <br></br>
                 <b>Students Attended: </b> 31
@@ -50,6 +51,7 @@ export default class OrganizerPastPage extends React.Component {
                 <br></br>
                 <b>Students Registered: </b> 40
             </Card.Text>
+            <DetailedStats></DetailedStats>
             </Card.Body>
         </Card>
         </CardDeck>
@@ -60,7 +62,7 @@ export default class OrganizerPastPage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Number of Companies at Fair</Card.Title>
-            <DetailedStats></DetailedStats>
+            
             <Card.Text>
             <br></br>
                 <b>Companies Attended: </b> 8
@@ -68,6 +70,7 @@ export default class OrganizerPastPage extends React.Component {
                 <br></br>
                 <b>Companies Registered: </b> 10
             </Card.Text>
+            <DetailedStats></DetailedStats>
             </Card.Body>
         </Card>
         
@@ -76,10 +79,10 @@ export default class OrganizerPastPage extends React.Component {
             </div>
             <Card.Body>
             <Card.Title>Number of Interviews Conducted at Fair</Card.Title>
-            <DetailedStats></DetailedStats>
+            
             <Card.Text>
             <br></br>
-                <b>Companies Attended: </b> 22
+                 22
                 <br></br>
                 
             </Card.Text>
