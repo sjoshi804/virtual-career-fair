@@ -3,6 +3,7 @@ import { ResumeDBSchema } from "./resumeDBSchema";
 import { ResumeDBStrategy } from "./resumeDBStrategy";
 import { Experience } from "./experience";
 import { parseConfigFileTextToJson } from "typescript";
+import { throws } from "assert";
 
 class Resume implements ISerializable 
 {
@@ -44,6 +45,13 @@ class Resume implements ISerializable
 
     public getExperiences(): Array<Experience> {
         return this.experiences;
+    }
+
+    public addExperience(experience: Experience): void {
+        if (this.experiences.indexOf(experience) == -1)
+        {
+            this.experiences.push(experience);
+        }
     }
 
     public getInsights(): Array<string> {
