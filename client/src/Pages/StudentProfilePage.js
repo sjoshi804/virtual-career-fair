@@ -135,7 +135,7 @@ export default class StudentProfilePage extends React.Component {
                         <Card.Text>
                             <p><b>Date: </b>Thursday, November 5, 2020</p>
                             <p><b>Time: </b> 11 PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
                         </Card.Text>
                         </Card.Body>
                     </Card>
@@ -146,7 +146,7 @@ export default class StudentProfilePage extends React.Component {
                         <Card.Text>
                             <p><b>Date: </b>Wednesday, November 11, 2020</p>
                             <p><b>Time: </b> 11AM PST - 5PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
                         </Card.Text>
                         </Card.Body>
                     </Card>
@@ -157,7 +157,7 @@ export default class StudentProfilePage extends React.Component {
                         <Card.Text>
                             <p><b>Date: </b>Tuesday, November 17, 2020</p>
                             <p><b>Time: </b>10AM PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
                         </Card.Text>
                         </Card.Body>
                     </Card>
