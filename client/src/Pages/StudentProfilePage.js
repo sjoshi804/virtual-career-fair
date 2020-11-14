@@ -126,7 +126,7 @@ export default class StudentProfilePage extends React.Component {
             </div>
             <div style={{"padding": "20px", "color": "black"}}>
             <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-            <Card.Header><h2><b>Past Career Fairs</b></h2></Card.Header>
+            <Card.Header><h2><b>Past Career Fairs Attended</b></h2></Card.Header>
                 <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
                     <Card style={{ "padding-bottom": "5px"}}>
                         <Card.Header><h3>Career Fair #8</h3></Card.Header>
