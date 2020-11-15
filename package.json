@@ -1,5 +1,5 @@
 {
-  "name": "jarvis",
+  "name": "jobz",
   "version": "1.0.0",
   "description": "A personal management tool with a NLP interface that allows human-like interaction.",
   "main": "index.js",
@@ -27,6 +27,7 @@
     "@types/mongodb": "^3.5.32",
     "@types/uuid": "^8.3.0",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "is-subset-of": "^3.1.2",
@@ -35,6 +36,7 @@
     "mongodb": "^3.5.9",
     "password-hash": "^1.2.2",
     "path": "^0.12.7",
+    "socket.io": "^2.0.3",
     "tsc": "^1.20150623.0",
     "typescript": "^4.0.5",
     "uuid": "^8.3.1"
@@ -42,8 +44,10 @@
   "devDependencies": {
     "@types/chai": "^4.2.14",
     "@types/chai-http": "^4.2.0",
+    "@types/cors": "^2.8.8",
     "@types/mocha": "^8.0.3",
     "@types/node": "^14.14.6",
+    "@types/socket.io": "^2.1.11",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^8.2.0",
