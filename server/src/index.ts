@@ -4,13 +4,16 @@ import path = require("path");
 var cookieParser = require('cookie-parser');
 import config = require("./.config");
 import { DBClient } from "./db/dbClient";
-import { MongoClient } from "mongodb";
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
 import { logger } from "./middleware/logger";
+import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocket";
+const cors = require('cors');
+const app = require('express')();
+const http = require('http');
+app.options('*:*', cors());
 
 let port = process.env.PORT || 3000;
-const app = express();
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
@@ -23,7 +26,6 @@ if (process.env.NODE_ENV != config.test)
 {
   app.use(logger);
 }
-
 
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);
@@ -45,9 +47,30 @@ if (process.env.NODE_ENV === 'production') {
 // Initialize a db connection
 DBClient.connect();
 
-const server = app.listen(app.get("port"), () => {
+// Start server
+var server = http.createServer(app);
+var io = require('socket.io')(server,
+  {
+    origin: "*:*"
+  }
+);
+
+//io.listen(server);
+io.on('connection', function (socket) {
+  console.log('User has connected');
+  socket.emit('connect', {
+      message: 'Hello World'
+  });
+});
+
+server.listen(app.get("port"), () => {
   console.log(`Server is listening on port ${port}`);
 });
+
+
+// Initialize sockets
+//CareerFairSocketProtocol.getOrCreate().registerEventListeners(io);
+
 
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
