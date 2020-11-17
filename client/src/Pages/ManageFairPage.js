@@ -18,7 +18,7 @@ export default class ManageFairPage extends React.Component {
                     <br></br>
                     <h5><b>Time: </b>Live Now, 11 PST - 3PM PST</h5>
                     <br></br>
-                    <Button variant="light"  onClick={this.handleroute("/org")}>Back to all Career Fairs</Button>
+                    <Button variant="light"  onClick={this.handleroute("/orgupcoming")}>Back to Upcoming Fairs</Button>
                 </Card.Body>
             </Card>
             <CardDeck>

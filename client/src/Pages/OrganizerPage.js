@@ -1,82 +1,128 @@
 import React from "react";
-import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
+import { Card, Button, CardGroup, Image} from "react-bootstrap";
+import profile from '../Images/profile.jpg'; 
 
 export default class OrganizerPage extends React.Component {
-    handleroute = routes => () => {
-        this.props.history.push({ pathname: routes });
-      };
-
+    handleRoute = route => () => {
+        this.props.history.push({ pathname: route });
+        };
   render() {
     return (
-      <div style={{ "background-color": "#84849A", color: "white", "text-align": "center", "height": "100vh" }}>
-        {/* <h1>Organizer</h1> */}
-        <Container>
-            <Row>
-                <Col>
-                    <div style={{ "color": "black"}}>
-                        <Card className="text-center">
-                            <Card.Header><h1>Profile</h1></Card.Header>
-                            <Card.Body>
-                                <Image src="holder.js/171x180" rounded/>
-                                <Card.Title>Company Name</Card.Title>
+      <div style={{ "background-color": "white", color: "white", "text-align": "center" }}>
+        <div style={{ "color": "black", "padding": "20px"}}>
+            <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+                <Card.Header><h1>Profile</h1></Card.Header>
+                <Card.Body>
+                    <Image src={profile} rounded height="150px"/>
+                    <br></br>
+                    <br></br>
+                    <Card.Title>University of California, Los Angeles (UCLA)</Card.Title>
                                 <Card.Text>
-                                    <p> <b>Organizer Name: </b> University of California, Los Angeles (UCLA) </p>
                                     <p> <b>Organizer Description: </b> School within the UC system </p>
                                 </Card.Text>
-                                <Button variant="light" onClick={this.handleroute("/createfair")}>Create New Career Fair</Button>
-                            </Card.Body>
-                            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
-                        </Card>
-                    </div>
-                </Col>
-                {/* <Col style={{ "border-style": "solid"}}>
-                    Resume
-                </Col> */}
-            </Row>
-            <Row>
-                <CardGroup style={{ "width": "100%"}}>
-                    <Card>
-                    <div style={{ "color": "black"}}>
+                        <Button variant="light" onClick={this.handleRoute("/createfair")}>Create New Career Fair</Button>
+                </Card.Body>
+                {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+            </Card>
+        </div>
+        <div style={{"padding": "20px", "color": "black"}}>
+            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+               <Card.Header><h2><b>Live Career Fairs</b></h2></Card.Header>
+                <p></p>
+                    <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} >
                         <Card.Header><h3>Career Fair #1</h3></Card.Header>
                         <Card.Body>
-                        <Card.Title><b>Status: </b> Open</Card.Title>
+        
                         <Card.Text>
                             <p><b>Date: </b>Today, October 25, 2020</p>
                             <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                            <Button onClick={this.handleRoute("/orglive")} variant="outline-success">Observe Fair</Button>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light" onClick={this.handleroute("/managefair")}>Manage</Button>
-                    </div>
                     </Card>
-                    <Card>
-                    <div style={{ "color": "black"}}>
+            </Card>
+        </div>
+        <div style={{"padding": "20px", "color": "black"}}>
+            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+            <Card.Header><h2><b>Upcoming Career Fairs</b></h2></Card.Header>
+                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
+                    <Card style={{ "padding-bottom": "5px"}}>
                         <Card.Header><h3>Career Fair #2</h3></Card.Header>
                         <Card.Body>
-                        <Card.Title><b>Status: </b> Open</Card.Title>
+                        
                         <Card.Text>
-                            <p><b>Date: </b>Monday, October 26, 2020</p>
-                            <p><b>Time: </b> 11AM PST - 5PM PST</p>
+                            <p><b>Date: </b>Thursday, November 5, 2020</p>
+                            <p><b>Time: </b> 11 PST - 3PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgupcoming")}>Edit Fair</Button>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light" onClick={this.handleroute("/managefair")}>Manage</Button>
-                    </div>
                     </Card>
                     <Card>
-                    <div style={{ "color": "black"}}>
                         <Card.Header><h3>Career Fair #3</h3></Card.Header>
                         <Card.Body>
-                        <Card.Title><b>Status: </b> Closed</Card.Title>
+                        
                         <Card.Text>
-                            <p><b>Date: </b>Tuesday, October 27, 2020</p>
-                            <p><b>Time: </b>10AM PST - 3PM PST</p>
+                            <p><b>Date: </b>Wednesday, November 11, 2020</p>
+                            <p><b>Time: </b> 11AM PST - 5PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgupcoming")}>Edit Fair</Button>
                         </Card.Text>
                         </Card.Body>
-                        <Button variant="light" onClick={this.handleroute("/managefair")}>View Event History</Button>
-                    </div>
+                    </Card>
+                    <Card>
+                        <Card.Header><h3>Career Fair #4</h3></Card.Header>
+                        <Card.Body>
+                        
+                        <Card.Text>
+                            <p><b>Date: </b>Tuesday, November 17, 2020</p>
+                            <p><b>Time: </b>10AM PST - 3PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgupcoming")}>Edit Fair</Button>
+                        </Card.Text>
+                        </Card.Body>
                     </Card>
                 </CardGroup>
-            </Row>
-        </Container>
+            </Card>
+            </div>
+            
+            <div style={{"padding": "20px", "color": "black"}}>
+            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+            <Card.Header><h2><b>Past Career Fairs</b></h2></Card.Header>
+                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
+                    <Card style={{ "padding-bottom": "5px"}}>
+                        <Card.Header><h3>Career Fair #8</h3></Card.Header>
+                        <Card.Body>
+                   
+                        <Card.Text>
+                            <p><b>Date: </b>Thursday, November 5, 2020</p>
+                            <p><b>Time: </b> 11 PST - 3PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgpast")}>View Fair History</Button>
+                        </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card>
+                        <Card.Header><h3>Career Fair #9</h3></Card.Header>
+                        <Card.Body>
+                 
+                        <Card.Text>
+                            <p><b>Date: </b>Wednesday, November 11, 2020</p>
+                            <p><b>Time: </b> 11AM PST - 5PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgpast")}>View Fair History</Button>
+                        </Card.Text>
+                        </Card.Body>
+                    </Card>
+                    <Card>
+                        <Card.Header><h3>Career Fair #10</h3></Card.Header>
+                        <Card.Body>
+           
+                        <Card.Text>
+                            <p><b>Date: </b>Tuesday, November 17, 2020</p>
+                            <p><b>Time: </b>10AM PST - 3PM PST</p>
+                            <Button variant="outline-dark" onClick={this.handleRoute("/orgpast")}>View Fair History</Button>
+                        </Card.Text>
+                        </Card.Body>
+                    </Card>
+                </CardGroup>
+            </Card>
+            </div>
       </div>
     );
   }

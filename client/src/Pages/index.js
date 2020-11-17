@@ -3,6 +3,9 @@ import StudentLivePage from "./StudentLivePage";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import OrganizerPage from "./OrganizerPage";
+import OrganizerLivePage from "./OrganizerLivePage";
+import OrganizerPastPage from "./OrganizerPastPage";
+import OrganizerUpcomingPage from "./OrganizerUpcomingPage";
 import CreateFairPage from "./CreateFairPage";
 import ManageFairPage from "./ManageFairPage"
 import SearchResultsPage from "./SearchResultsPage";
@@ -25,6 +28,9 @@ export {
   ManageFairPage,
   CreateFairPage,
   OrganizerPage,
+  OrganizerLivePage,
+  OrganizerPastPage,
+  OrganizerUpcomingPage,
   LoginPage,
   RecruiterAddEditBoothPage,
   RecruiterLivePage,
