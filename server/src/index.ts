@@ -7,6 +7,7 @@ import { DBClient } from "./db/dbClient";
 import { MongoClient } from "mongodb";
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
+import { ResumeRouter } from "./apps/resume/routes";
 import { logger } from "./middleware/logger";
 
 let port = process.env.PORT || 3000;
@@ -28,6 +29,7 @@ if (process.env.NODE_ENV != config.test)
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/company", CompanyRouter);
+app.use("/resume", ResumeRouter);
 
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);

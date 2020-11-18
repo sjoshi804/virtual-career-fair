@@ -36,3 +36,40 @@ describe("Resume", () => {
 });
 
 // Test Resume API
+const prefix = "resume";
+describe('Resume API (/resume)', () => {
+    // Reset database before all tests and after every test
+    before(async () => {
+        DBClient.connect();
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
+    });
+
+    afterEach(async () => {
+        await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
+    });
+
+    it('GET / - get resumes', async () => 
+    {
+        await request(server).get(prefix + "/").send({})
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    // expect(await Resume.db.findOne({})).to.have.property("_id", serializedResume._id);
+                }
+            );
+    });
+
+    it('POST /:applicantId - creates new resume', async () => 
+    {
+        const serializedResume = resumeA.serialize();
+        await request(server).post(prefix + "/12").send(serializedResume)
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    expect(await Resume.db.findOne({})).to.have.property("_id", serializedResume._id);
+                }
+            );
+    });
+});

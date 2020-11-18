@@ -8,15 +8,21 @@ GET	/resume/:applicantid/insights   Get insights
 import express = require('express');
 import { Resume } from './resume';
 import { Experience } from './experience'
-import {Applicant} from '../user/applicant';
+import { Applicant } from '../user/applicant';
 const ResumeRouter = express.Router();
 
 // Prefix: /resume
 
+
+ResumeRouter.get("/", async (req, res) =>
+{
+    console.log("dummy test")
+    res.status(201).send({});
+});
+
 // Create new Resume for exisiting applicant
 ResumeRouter.post("/:applicantId", async (req, res) =>
 {
-
     const filterQuery = 
     {
         applicantId: req.params.applicantId
@@ -129,3 +135,5 @@ ResumeRouter.get("/:applicantId/insights", async (req, res) =>
         res.sendStatus(404);
     }
 });
+
+export { ResumeRouter }
