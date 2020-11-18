@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Card, Button } from "react-bootstrap";
 
+
 export default class LoginPage extends React.Component {
   handleroute = routes => () => {
     this.props.history.push({ pathname: routes });
@@ -11,12 +12,34 @@ export default class LoginPage extends React.Component {
       <div style={{ "background-color": "white", color: "white", "width": "500px", "margin": "auto", "margin-top": "20vh"}}>
         <Card style={{"padding": "50px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
+        <Form.Group>
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>Organizer Name</Form.Label>
+          </Card.Text>
+          <Form.Control type="email" placeholder="First Name" />
+          <Form.Control type="email" placeholder="Last Name" />
+        </Form.Group>
+
         <Form.Group controlId="formBasicEmail">
           <Card.Text>
             <Form.Label style={{"color": "black", "text-align": "left"}}>Organization Name</Form.Label>
           </Card.Text>
           <Form.Control type="email" placeholder="Enter organization name" />
         </Form.Group>
+        <Form.Group>
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Number</Form.Label>
+          </Card.Text>
+          <Form.Control type="tel" placeholder="(000) 000-0000"/>
+        </Form.Group>
+
+        <Form.Group controlId="formBasicEmail">
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Email</Form.Label>
+          </Card.Text>
+          <Form.Control type="email" placeholder="Enter email" />
+        </Form.Group>
+
         <Form.Group controlId="formBasicPassword">
           <Form.Label style={{"color": "black", "text-align": "left"}}>Password</Form.Label>
           <Form.Control type="password" placeholder="Password" />
