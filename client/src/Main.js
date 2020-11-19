@@ -1,7 +1,11 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound } from "./Pages";
-import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
+
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, OrganizerLivePage, 
+  OrganizerPastPage,
+  OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage} from "./Pages";
+
 
 class Main extends React.Component {
   state = {
@@ -40,15 +44,9 @@ class Main extends React.Component {
             <Nav.Link onClick={this.handleRoute("/student")}>Students</Nav.Link>
           </Nav>
           <Form inline>
-            <FormControl
-              onChange={this.handleSearchInput}
-              value={this.state.searchText}
-              type="text"
-              placeholder="Search"
-              className="mr-sm-2"
-            />
-            <Button onClick={this.handleSearchSubmit} variant="outline-info">
-              Search
+            
+            <Button onClick={this.handleRoute("/search")} variant="outline-info">
+              Searching for Something Specific?
             </Button>
           </Form>
         </Navbar>
@@ -56,6 +54,21 @@ class Main extends React.Component {
           <Route exact path="/" component={HomePage} />
           <Route exact path="/student" component={StudentProfilePage} />
           <Route exact path="/results" component={SearchResultsPage} />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/org" component={OrganizerPage} />
+          <Route exact path="/orglive" component={OrganizerLivePage} />
+          <Route exact path="/orgpast" component={OrganizerPastPage} />
+          <Route exact path="/orgupcoming" component={OrganizerUpcomingPage} />
+          <Route exact path="/createfair" component={CreateFairPage} />
+          <Route exact path="/managefair" component={ManageFairPage} />
+          <Route exact path="/studentlive" component={StudentLivePage} />
+          <Route exact path="/recruiter" component={RecruiterProfilePage} />
+          <Route exact path="/search" component={SearchPage} />
+          <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
+          <Route exact path="/recruiter-live" component={RecruiterLivePage} />
+          <Route exact path="/recruiter-past" component={RecruiterPastPage} />
+          <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
+          <Route exact path="/student-past" component={StudentPastPage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>

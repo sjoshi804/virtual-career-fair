@@ -1,35 +1,35 @@
-import { Student } from '../student/student'
+import { Applicant } from '../user/applicant/applicant'
 
 class Queue {
-    private studentList: Array<Student>
+    private applicantList: Array<Applicant>
 
-    public constructor(students?: Array<Student>)
+    public constructor(applicants?: Array<Applicant>)
     {
-        if (students == null)
+        if (applicants == null)
         {
-            this.studentList = new Array<Student>();
+            this.applicantList = new Array<Applicant>();
         }
         else
         {
-            this.studentList = students;
+            this.applicantList = applicants;
         }
     }
 
-    // Removes a given student from the queue
-    public leaveQueue(student: Student)
+    // Removes a given Applicant from the queue
+    public leaveQueue(Applicant: Applicant)
     {
-        if (this.isStudentInQueue(student))
+        if (this.isApplicantInQueue(Applicant))
         {
-            this.studentList.splice(this.studentList.indexOf(student), 1);
+            this.applicantList.splice(this.applicantList.indexOf(Applicant), 1);
         }
     }
 
-    // Adds a student to the queue
-    public joinQueue(student: Student)
+    // Adds a Applicant to the queue
+    public joinQueue(Applicant: Applicant)
     {
-        if (!this.isStudentInQueue(student))
+        if (!this.isApplicantInQueue(Applicant))
         {
-            this.studentList.push(student);
+            this.applicantList.push(Applicant);
             return true;
         }
         else
@@ -39,12 +39,12 @@ class Queue {
 
     }
 
-    // Dequeues the student at the front of the queue
+    // Dequeues the Applicant at the front of the queue
     public dequeue()
     {
         if (this.getLength() > 0)
         {
-            return this.studentList.splice(0, 1)[0];
+            return this.applicantList.splice(0, 1)[0];
         }
         else
         {
@@ -55,12 +55,12 @@ class Queue {
     // Get length of queue - to estimate wait time
     public getLength()
     {
-        return this.studentList.length;
+        return this.applicantList.length;
     }
 
-    private isStudentInQueue(student: Student)
+    private isApplicantInQueue(Applicant: Applicant)
     {
-        return (this.studentList.indexOf(student) != -1)
+        return (this.applicantList.indexOf(Applicant) != -1)
     }
 }
 

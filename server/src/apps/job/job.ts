@@ -1,14 +1,11 @@
-import { Company } from '../company/company'
-import { Applicant } from '../applicant/applicant'
+import { Applicant } from '../user/applicant/applicant'
 class Job
 {
     private id: string;
     private title : string;
-    private company: Company;
     private description: string;
     private preferredMajors: Array<string>;
-    private startDate: Date;
-    private applicationEndDate: Date;
+    private isOpen: boolean;
     private applicants: Array<Applicant>;
 
     // Getters and Setters
@@ -28,14 +25,6 @@ class Job
         this.title = title;
     }
 
-    public getCompany(): Company {
-        return this.company;
-    }
-
-    public setCompany(company: Company): void {
-        this.company = company;
-    }
-
     public getDescription(): string {
         return this.description;
     }
@@ -52,37 +41,18 @@ class Job
         this.preferredMajors = preferredMajors;
     }
 
-    public getStartDate(): Date {
-        return this.startDate;
-    }
-
-    public setStartDate(startDate: Date): void {
-        this.startDate = startDate;
-    }
-
-    public getApplicationEndDate(): Date {
-        return this.applicationEndDate;
-    }
-
-    public setApplicationEndDate(applicationEndDate: Date): void {
-        this.applicationEndDate = applicationEndDate;
-    }
-
     public getApplicants(): Array<Applicant>
     {
         return this.applicants;
     }
     
-
-    public constructor(id: string, title: string, company: Company, description?: string, preferredMajors?: Array<string>, startDate?: Date, applicationEndDate?: Date)
+    public constructor(title: string, description?: string, preferredMajors?: Array<string>)
     {
         this.title = title;
-        this.company = company;
         this.description = description;
         this.preferredMajors = preferredMajors;
-        this.startDate = startDate;
-        this.applicationEndDate = applicationEndDate;
         this.applicants = new Array<Applicant>();
+        this.isOpen = true;
     }
 
     public apply(applicant: Applicant)
@@ -110,6 +80,11 @@ class Job
         {
             return false;
         }
+    }
+
+    public closePosting()
+    {
+        this.isOpen = false;
     }
 }
 

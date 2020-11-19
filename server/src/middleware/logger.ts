@@ -6,7 +6,7 @@ const logger = (req, res, next) => {
     req.originalUrl
     }`
   );
-
+  console.log(JSON.stringify(req.body, null, 2), '\n');
   next();
 };
 

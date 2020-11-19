@@ -1,27 +1,38 @@
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
-import { verify } from 'crypto';
 import { tokenSecret } from '../../.config';
+
+import { IHasID } from '../../db/iHasID';
+import { UserDBStrategy } from './userDBStrategy';
 
 const message = 'message';
 const tokenExpired = 'TokenExpiredError';
 
-class User {
+class User implements IHasID {
+
     // Private fields
     private name: string;
     private emailId: string;
     private password: string;
     private token: string;
+    private id: string;
+    private userType: number;
+
+    // DataBase
+    public static db = new UserDBStrategy();
 
     // Constructor
-    public constructor(name: string, emailId: string, password: string, token: string) {
+    public constructor(userType: number, name: string, emailId: string, password: string, token: string) {
         this.name = name;
         this.emailId = emailId;
 
-        if (token !== undefined)
-            this.token = token;    
+        if (token !== "") {
+            this.token = token;
+        }  
         else
             this.token = undefined;
+
+        this.userType = userType;
 
         if (passwordHash.isHashed(password))
             this.password = password;
@@ -29,14 +40,6 @@ class User {
             var hashedPassword = passwordHash.generate(password);
             this.password = hashedPassword;
         }
-    }
-
-    public createUser() {
-        // TODO: Check database to ensure this user doesn't already exist
-        // Generate token
-        this.createToken();
-        // TODO: Save user information to database
-        return this.token;
     }
 
     // Verify that input password matches the user's saved password
@@ -57,7 +60,7 @@ class User {
 
         // Check for error
         if (message in userData) {
-            console.log(message);
+            console.log(userData);
             return false;
         }
         // Verify that the data matches this user's data
@@ -79,6 +82,7 @@ class User {
         // Token expired, so create a new one
         if (userData.name == tokenExpired)
             this.createToken();
+        // Otherwise, just return the created
         return this.token;
     }
 
@@ -113,6 +117,11 @@ class User {
 
     /**** Getter and setter methods for private members ****/
 
+    // Get User Type
+    public getUserType() {
+        return this.userType;
+    }
+
     // Getter User's Full Name
     public getName() {
         return this.name;
@@ -139,9 +148,22 @@ class User {
     }
 
     // Update Password
-    public setPassowrd(password: string) {
+    public setPassword(password: string) {
         var hashedPassword = hashedPassword.generate(password);
         this.password = password;
+    }
+
+    // Set User Type
+    public setUserType(type: number) {
+        this.userType = type;
+    }
+
+    public getId(): string {
+        return this.id;
+    }
+
+    public setId(id: string): void {
+        this.id = id;
     }
 
 }
