@@ -8,8 +8,8 @@ export default class LoginPage extends React.Component {
 
   render() {
     return (
-      <div style={{ "background-color": "white", color: "white", "width": "500px", "margin": "auto", "margin-top": "20vh"}}>
-        <Card style={{"padding": "50px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+      <div style={{ "background-color": "white", color: "white", "max-width": "80%", "margin": "auto", "padding": "20px" }}>
+        <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
         <Form.Group controlId="formBasicEmail">
           <Card.Text>
