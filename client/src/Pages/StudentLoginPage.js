@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
+import { Tab , Tabs, Card} from "react-bootstrap";
 import profile from '../Images/profile.jpg'; 
 // import profile from '../Images/profile.jpg'; 
 
@@ -9,8 +9,16 @@ export default class StudentLoginPage extends React.Component {
         };
   render() {
     return (
-        <div>
-            HELLO! DOES THIS WORK?!
+        <div style={{"padding": "20px"}}>
+                <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px"}}>
+                    <Tabs defaultActiveKey="signin" id="uncontrolled-tab-example" style={{"margin": "auto"}}>
+                        <Tab eventKey="signin" title="Sign In">
+                            
+                        </Tab>
+                        <Tab eventKey="signup" title="Sign Up">
+                        </Tab>
+                    </Tabs>
+                </Card>
         </div>
     );
   }
