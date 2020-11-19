@@ -4,7 +4,7 @@ import { Navbar, Nav, Form, Button } from "react-bootstrap";
 
 import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, OrganizerLivePage, 
   OrganizerPastPage,
-  OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage} from "./Pages";
+  OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage, StudentLoginPage} from "./Pages";
 
 
 class Main extends React.Component {
@@ -69,6 +69,7 @@ class Main extends React.Component {
           <Route exact path="/recruiter-past" component={RecruiterPastPage} />
           <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
           <Route exact path="/student-past" component={StudentPastPage} />
+          <Route exact path="/student-login" component={StudentLoginPage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>
