@@ -15,15 +15,12 @@ class ResumeDBSchema
     
     public insights: Array<string>;
 
-    constructor(resume: Resume)
-    {
+    constructor(resume: Resume) {
         // Create new unique id if one has not already been set for this company
-        if (resume.getId() == undefined)
-        {
+        if (resume.getId() == undefined) {
             this._id = uuid();
         }
-        else
-        {
+        else {
             this._id = resume.getId();
         }
 
@@ -39,7 +36,7 @@ class ResumeDBSchema
             this.experiences.push(new ExperienceDBSchema(exp));
         });
         resume.getInsights().forEach(insight => {
-            this.skills.push(insight);
+            this.insights.push(insight);
         });
 
     }

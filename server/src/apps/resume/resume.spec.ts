@@ -36,7 +36,7 @@ describe("Resume", () => {
 });
 
 // Test Resume API
-const prefix = "resume";
+const prefix = "/resume";
 describe('Resume API (/resume)', () => {
     // Reset database before all tests and after every test
     before(async () => {
@@ -48,8 +48,7 @@ describe('Resume API (/resume)', () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
-    it('GET / - get resumes', async () => 
-    {
+    it('GET / - get resumes', async () => {
         await request(server).get(prefix + "/").send({})
             .then(
                 async res => 
@@ -60,8 +59,7 @@ describe('Resume API (/resume)', () => {
             );
     });
 
-    it('POST /:applicantId - creates new resume', async () => 
-    {
+    it('POST /:applicantId - creates new resume', async () => {
         const serializedResume = resumeA.serialize();
         await request(server).post(prefix + "/12").send(serializedResume)
             .then(
