@@ -1,5 +1,5 @@
-import { Applicant } from "../user/applicant";
-import { Recruiter } from "../user/recruiter";
+import { Applicant } from "../user/applicant/applicant";
+import { Recruiter } from "../user/recruiter/recruiter";
 import { MeetingNotes } from "./meetingNotes";
 
 class Meeting

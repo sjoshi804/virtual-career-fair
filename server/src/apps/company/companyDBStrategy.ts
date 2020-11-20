@@ -1,5 +1,4 @@
 import { AbstractDefaultDBCrudStrategy } from "../../db/abstractDefaultDBCrudStrategy";
-import { Company } from "./Company";
 import { CompanyDBSchema } from "./companyDBSchema";
 
 class CompanyDBStrategy extends AbstractDefaultDBCrudStrategy<CompanyDBSchema>

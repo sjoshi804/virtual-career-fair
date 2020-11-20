@@ -1,6 +1,6 @@
 import { Meeting } from "../meeting/meeting";
 import { Queue } from "../queue/queue";
-import { Recruiter } from "../user/recruiter"
+import { Recruiter } from "../user/recruiter/recruiter"
 import { User } from "../user/user"
 
 class Booth

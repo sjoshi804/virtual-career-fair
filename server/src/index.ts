@@ -4,11 +4,18 @@ import path = require("path");
 var cookieParser = require('cookie-parser');
 import config = require("./.config");
 import { DBClient } from "./db/dbClient";
-import { MongoClient } from "mongodb";
+import { logger } from "./middleware/logger";
+
+// Import Routers
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
 import { JobRouter } from "./apps/job/routes";
-import { logger } from "./middleware/logger";
+import { ResumeRouter } from "./apps/resume/routes";
+import { UserRouter } from "./apps/user/routes";
+import { ApplicantRouter } from "./apps/user/applicant/routes";
+import { RecruiterRouter } from "./apps/user/recruiter/routes";
+import { OrganizerRouter } from "./apps/user/organizer/routes";
+import { User } from "./apps/user/user";
 
 let port = process.env.PORT || 3000;
 const app = express();
@@ -20,17 +27,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Initialize logger if non test environment (avoid cluttering stdout due to many API requests in test)
-if (process.env.NODE_ENV != config.test)
-{
+if (process.env.NODE_ENV != config.test) {
   app.use(logger);
 }
 
-
-// Connect Routers
-app.use("/meetingNotes", MeetingNotesRouter);
+// Connect Base Endpoints to Routers
 app.use("/company", CompanyRouter);
 app.use("/company", JobRouter);
-
+app.use("/resume", ResumeRouter);
+app.use("/meetingNotes", MeetingNotesRouter);
+app.use("/user", UserRouter);
+app.use("/applicant", ApplicantRouter);
+app.use("/recruiter", RecruiterRouter);
+app.use("/organizer", OrganizerRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
