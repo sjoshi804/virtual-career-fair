@@ -9,6 +9,8 @@ import chaiHttp = require('chai-http');
 import { DBClient } from '../../db/dbClient';
 import { testDatabaseName } from '../../.config';
 import { v4 as uuid } from 'uuid';
+import { serialize } from 'v8';
+import { CompanyDBSchema } from './companyDBSchema';
 
 // To use test HTTP API
 chai.use(chaiHttp);
@@ -76,9 +78,11 @@ describe('Company API (/company)', () => {
     it('GET / - gets all companies', async () => 
     {
         // Create companyA-D
+        var serializedCompanies = new Array<CompanyDBSchema>();
         for (var i = 0; i < companies.length; i++)
-        {
-            await request(server).post(prefix + "/").send(companies[i].serialize())
+        {   
+            serializedCompanies.push(companies[i].serialize());
+            await request(server).post(prefix + "/").send(serializedCompanies[i])
             .then(
                 async res => 
                 {
@@ -97,11 +101,11 @@ describe('Company API (/company)', () => {
                     // Request success
                     expect(res.status).to.be.equal(200);
                     // Confirm all objects exist in list returned
-                    companies.forEach(
+                    serializedCompanies.forEach(
                         company =>
                         {
                             // deep include to cross deep check values of object in array
-                            expect(res.body).to.deep.include(company.serialize());
+                            expect(res.body).to.deep.include(company);
                         }
                     )
                 }
@@ -111,7 +115,8 @@ describe('Company API (/company)', () => {
     it('GET /:companyId - gets specific company', async () => 
     {
         // Create a company
-        await request(server).post(prefix + "/").send(companyA.serialize())
+        var serializedCompany = companyA.serialize();
+        await request(server).post(prefix + "/").send(serializedCompany)
             .then(
                 async res => 
                 {
@@ -127,7 +132,7 @@ describe('Company API (/company)', () => {
                 {
                     expect(res.body).to.be.an('object');
                     // Deep equals for object comparison
-                    expect(res.body).deep.equals(companyA.serialize());
+                    expect(res.body).deep.equals(serializedCompany);
                 }
             );
     });
@@ -135,7 +140,8 @@ describe('Company API (/company)', () => {
     it('PUT /:companyId - updates specific company', async () => 
     {
         // Create a company
-        await request(server).post(prefix + "/").send(companyA.serialize())
+        var serializedCompany = companyA.serialize();
+        await request(server).post(prefix + "/").send(serializedCompany)
             .then(
                 async res => 
                 {
@@ -146,7 +152,7 @@ describe('Company API (/company)', () => {
         
         // Update that company
         companyA.setDescription("blah");
-        await request(server).put(prefix + "/" + companyA.getId()).send(companyA.serialize())
+        await request(server).put(prefix + "/" + companyA.getId()).send(serializedCompany)
             .then(
                 async res =>
                 {
@@ -154,7 +160,7 @@ describe('Company API (/company)', () => {
                     expect(res.status).equals(204);
 
                     // Confirm correct update (deep equals)
-                    expect(await Company.db.findOne({})).deep.equals(companyA.serialize());
+                    expect(await Company.db.findOne({})).deep.equals(serializedCompany);
                 }
             );
         

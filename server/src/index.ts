@@ -7,6 +7,7 @@ import { DBClient } from "./db/dbClient";
 import { MongoClient } from "mongodb";
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
+import { JobRouter } from "./apps/job/routes";
 import { logger } from "./middleware/logger";
 
 let port = process.env.PORT || 3000;
@@ -28,9 +29,8 @@ if (process.env.NODE_ENV != config.test)
 // Connect Routers
 app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/company", CompanyRouter);
+app.use("/company", JobRouter);
 
-// Connect Routers
-app.use("/meetingNotes", MeetingNotesRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {

@@ -1,12 +1,14 @@
-import { Applicant } from '../user/applicant'
-class Job
+import { ISerializable } from "../../db/iSerializable";
+import { JobDBSchema } from "./jobDBSchema";
+
+class Job implements ISerializable
 {
     private id: string;
     private title : string;
     private description: string;
     private preferredMajors: Array<string>;
     private isOpen: boolean;
-    private applicants: Array<Applicant>;
+    private applicantIds: Array<string>;
 
     // Getters and Setters
     public getId(): string {
@@ -41,25 +43,33 @@ class Job
         this.preferredMajors = preferredMajors;
     }
 
-    public getApplicants(): Array<Applicant>
+    public getApplicantIds(): Array<string>
     {
-        return this.applicants;
+        return this.applicantIds;
+    }
+
+    public getOpenStatus(): boolean {
+        return this.isOpen;
+    }
+
+    public setOpenStatus(status: boolean): void {
+        this.isOpen = status;
     }
     
     public constructor(title: string, description?: string, preferredMajors?: Array<string>)
     {
         this.title = title;
-        this.description = description;
-        this.preferredMajors = preferredMajors;
-        this.applicants = new Array<Applicant>();
+        this.description = (description != undefined) ? description : '';
+        this.preferredMajors = (preferredMajors != undefined) ? preferredMajors : new Array<string>();
+        this.applicantIds = new Array<string>();
         this.isOpen = true;
     }
 
-    public apply(applicant: Applicant)
+    public apply(applicantId: string)
     {
-        if (this.applicants.indexOf(applicant) == -1)
+        if (this.applicantIds.indexOf(applicantId) == -1)
         {
-            this.applicants.push(applicant);
+            this.applicantIds.push(applicantId);
             return true
         }
         else
@@ -68,12 +78,12 @@ class Job
         }
     }
 
-    public withdraw(applicant: Applicant)
+    public withdraw(applicantId: string)
     {
-        var applicantIndex = this.applicants.indexOf(applicant);
+        var applicantIndex = this.applicantIds.indexOf(applicantId);
         if (applicantIndex != -1)
         {
-            this.applicants.splice(applicantIndex, 1);
+            this.applicantIds.splice(applicantIndex, 1);
             return true;
         }
         else
@@ -85,6 +95,13 @@ class Job
     public closePosting()
     {
         this.isOpen = false;
+    }
+
+    public serialize() 
+    {
+        var serialized =  new JobDBSchema(this);
+        this.id = serialized._id;
+        return serialized;
     }
 }
 
