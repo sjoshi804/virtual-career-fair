@@ -1,5 +1,11 @@
 import React from "react";
-import { Form, CardDeck, InputGroup, FormControl, Card, Button, Dropdown, DropdownButton } from "react-bootstrap";
+
+import * as ReactDOM from 'react-dom';
+import { Form, CardDeck, InputGroup, FormControl, Card, Button, Dropdown, DropdownButton, Toast } from "react-bootstrap";
+import { Fairs } from './Fairs'
+import { Companies } from './Companies'
+import { Positions } from './Positions'
+
 
 export default class SearchPage extends React.Component {
 
@@ -12,9 +18,28 @@ export default class SearchPage extends React.Component {
         searchText: ""
     }
   }
-    
+  
+  handleRoute = route => () => {
+    this.props.history.push({ pathname: route });
+    };
+
   changeValue(text, holder) {
-    this.setState({dropDownValue: text, placeholder: holder})
+    var element = <Fairs></Fairs>;
+    if (text == "Position")
+    {
+      element = <Positions></Positions>;
+      
+    }
+    else if (text == "Company")
+    {
+      element = <Companies></Companies>;
+    }
+    else
+    {
+      element = <Fairs></Fairs>;
+    }
+    ReactDOM.render(element, document.getElementById('next'));
+    this.setState({dropDownValue: text, placeholder: holder})  
   }
 
   handleroute = routes => () => {
@@ -41,8 +66,9 @@ export default class SearchPage extends React.Component {
   };
 
   render() {
+  
     return (
-        <div style={{ "text-align": "center", "margin": "50px 50px" }}>
+        <div id="root" style={{ "text-align": "center", "margin": "50px 50px" }}>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "50px"}}>
           
         
@@ -54,11 +80,11 @@ export default class SearchPage extends React.Component {
                 title={this.state.dropDownValue}
                 id="input-group-dropdown-1"
             >
-                { this.state.dropDownValue != "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
                 
-                { this.state.dropDownValue != "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
 
-                { this.state.dropDownValue != "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
             
@@ -70,141 +96,16 @@ export default class SearchPage extends React.Component {
         </InputGroup>
         
         </Card>
-        
 
-        <CardDeck>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200" />
-                </div>
-                <Card.Body>
-                <Card.Title>Google</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> In session
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 15 </h7> 
-                <h1></h1>
-                <Button variant="outline-secondary" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200"/>
-                </div>
-                <Card.Body>
-                <Card.Title>Microsoft</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> In session
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 15 </h7> 
-                <h1></h1>
-                <Button variant="outline-dark" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200"/>
-                </div>
-                <Card.Body>
-                <Card.Title>Facebook</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> Available
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 15 </h7> 
-                <h1></h1>
-                <Button variant="outline-success" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            </CardDeck>
-            <br></br>
-            <CardDeck>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "margin": "auto", "width": "300px"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200px"/>
-                </div>
-                <Card.Body>
-                <Card.Title>Apple</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> In session
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 1</h7> 
-                <h1></h1>
-                <Button variant="outline-secondary" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200"/>
-                </div>
-                <Card.Body>
-                <Card.Title>Tesla</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> In session
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 404 </h7> 
-                <h1></h1>
-                <Button variant="outline-dark" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
-                <Card.Img variant="top" src="holder.js/171x180" height="200"/>
-                </div>
-                <Card.Body>
-                <Card.Title>Snapchat</Card.Title>
-                <Card.Text>
-                    <br></br>
-                    <b>Recruiter: </b> John Doe
-                    <br></br>
-                    <br></br>
-                    <b>Status: </b> Available
-                </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 15 </h7> 
-                <h1></h1>
-                <Button variant="outline-success" size="sm">Close Booth</Button></small>
-                <br></br>
-                </Card.Footer>
-            </Card>
-            </CardDeck>
+        <div  id="next">
+        <Companies></Companies>
+          </div>
       </div>
-      
+
+
     );
+    
   }
+  
 }
+

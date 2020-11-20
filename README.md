@@ -47,6 +47,11 @@
 | GET                    |/meetingNote/company/:companyid/careerfair/:careerfairid                        | |
 | GET/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
 
+### User
+| Type | Endpoint | Description (optional)
+|-------------------|---------------------------------------------------------|-------------------------------|
+| POST              | user/login          | If successful, returns 200 with a valid web token and user type |
+
 ### Applicant
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
@@ -79,16 +84,21 @@
   emailId: string,
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
-  applicant/recruiter/organizer data: json 
+  applicant/recruiter/organizer data: json
+  // depending on user type:
   applicantData: {
-                      major:
-                 }
+      major: string,
+      graduationYear: number,
+      affiliatedSchool: string,
+      bio: string
+  }
   recruiterData: {
-                      company:
-                 }
-  organizerData:
-  {
-    affiliatedOrganization: string
+      company: string,
+      jobTitle: string,
+      yearsOfExperience: number
+  }
+  organizerData: {
+      affiliatedOrganization: string
   }
 }
 ```

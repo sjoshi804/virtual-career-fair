@@ -82,7 +82,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             October 4, 2020 @ 11AM-3PM PST
             </Card.Text>
-            <Button variant="outline-dark">View Fair</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
         </Card.Body>
         </Card>
         <Card>
@@ -91,7 +91,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             October 5, 2020 @ 10AM-2PM PST
             </Card.Text>
-            <Button variant="outline-dark">View Fair</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
         </Card.Body>
         </Card>
         <Card>
@@ -100,7 +100,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Text>
             October 6, 2020 @ 12-5PM PST
             </Card.Text>
-            <Button variant="outline-dark">View Fair</Button>
+            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
         </Card.Body>
         </Card>
         </Card>

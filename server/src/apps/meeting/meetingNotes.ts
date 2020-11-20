@@ -1,6 +1,6 @@
 import { ISerializable } from "../../db/iSerializable";
-import { Applicant } from "../user/applicant";
-import { Recruiter } from "../user/recruiter";
+import { Applicant } from "../user/applicant/applicant";
+import { Recruiter } from "../user/recruiter/recruiter";
 import { MeetingNotesDBStrategy } from "./meetingNotesDBStrategy";
 
 class MeetingNotes implements ISerializable

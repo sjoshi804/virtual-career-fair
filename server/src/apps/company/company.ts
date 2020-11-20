@@ -1,6 +1,6 @@
 import { ISerializable } from "../../db/iSerializable";
 import { Job } from "../job/job";
-import { Recruiter } from "../user/recruiter";
+import { Recruiter } from "../user/recruiter/recruiter";
 import { CompanyDBSchema } from "./companyDBSchema";
 import { CompanyDBStrategy } from "./companyDBStrategy";
 
@@ -67,7 +67,7 @@ class Company implements ISerializable
         return this.recruiters;
     }
 
-    public constructor(name: string, industry: string, description: string, image?: string)
+    public constructor(name: string, industry: string, description: string, image: string)
     {
         this.name = name;
         this.industry = industry;
