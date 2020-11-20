@@ -27,7 +27,7 @@ export default class HomePage extends React.Component {
             Students can upload their resumes, search and attend career fairs, and join interviews with recruiters.
           </h4>
         </p>
-        <Button onClick={this.handleRoute("/student")} variant="light">Get Started</Button>
+        <Button onClick={this.handleRoute("/student-login")} variant="light">Get Started</Button>
       </div>
       <div style={{padding: "100px", "text-align": "center", background: "#75758D", "color": "white"}}>
         <h1>RECRUITERS</h1>
