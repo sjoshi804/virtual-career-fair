@@ -9,6 +9,8 @@ import { logger } from "./middleware/logger";
 // Import Routers
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
+import { ResumeRouter } from "./apps/resume/routes";
+import { logger } from "./middleware/logger";
 import { UserRouter } from "./apps/user/routes";
 import { ApplicantRouter } from "./apps/user/applicant/routes";
 import { RecruiterRouter } from "./apps/user/recruiter/routes";
@@ -30,8 +32,9 @@ if (process.env.NODE_ENV != config.test) {
 }
 
 // Connect Base Endpoints to Routers
-app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/company", CompanyRouter);
+app.use("/resume", ResumeRouter);
+app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/user", UserRouter);
 app.use("/applicant", ApplicantRouter);
 app.use("/recruiter", RecruiterRouter);

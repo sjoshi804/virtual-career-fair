@@ -151,7 +151,11 @@
 {
   applicant: string (id),
   experiences: [{
-        
+                  startDate: Date,
+                  endDate: Date,
+                  organization: string,
+                  location: string,
+                  description: string
                }
                ...],
   skills: list of strings,
