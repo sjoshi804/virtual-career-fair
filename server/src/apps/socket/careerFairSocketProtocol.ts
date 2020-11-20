@@ -38,11 +38,16 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
                 // Register disconnection event
                 socket.on('disconnect', this.onDisconnection);
+
+                // Register echo event
+                socket.on('echo', (message) =>
+                {
+                    console.log(message);
+                    socket.emit('echo', message);
+                });
             }
         );
     }
-
-
 }
 
 export { CareerFairSocketProtocol }

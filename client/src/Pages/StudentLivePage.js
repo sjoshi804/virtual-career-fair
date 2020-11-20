@@ -10,14 +10,19 @@ import qualcomm from '../Images/qualcomm.jpg';
 import paypal from '../Images/paypal.jpg'; 
 import netflix from '../Images/netflix.jpg'; 
 import {MoreInfo} from './MoreInfo'
-import { io } from 'socket.io-client';
+const io = require('socket.io-client');
 
 export default class StudentLivePage extends React.Component {
     socket()
     {
         console.log("button press");
-        const socket = io("http://localhost:3000");
+        const socket = io("ws://localhost:3000");
         socket.connect();
+        socket.on("echo", (message) =>
+        {
+            console.log("Echo received: " + message);
+        });
+        socket.emit("echo", "Hello World");
     }
 
     handleRoute = route => () => {

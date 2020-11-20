@@ -7,7 +7,7 @@ import { DBClient } from "./db/dbClient";
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
 import { logger } from "./middleware/logger";
-import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocket";
+import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
 const cors = require('cors');
 const app = require('express')();
 const http = require('http');
@@ -55,22 +55,29 @@ var io = require('socket.io')(server,
   }
 );
 
-//io.listen(server);
-io.on('connection', function (socket) {
-  console.log('User has connected');
-  socket.emit('connect', {
-      message: 'Hello World'
-  });
-});
+io.on('connection', 
+  socket =>
+  {
+      // Handle connection
+      console.log("Server: connected.");
+      
+      // Register disconnection event
+      socket.on('disconnect', () => console.log("Server: disconnected."));
+      
+      // Register echo event
+      socket.on("echo", (message) =>
+      {
+          console.log("Client sent: " + message);
+          socket.emit("echo", message);
+          console.log("Sent " + message);
+      });
+  }
+);
+
 
 server.listen(app.get("port"), () => {
   console.log(`Server is listening on port ${port}`);
 });
-
-
-// Initialize sockets
-//CareerFairSocketProtocol.getOrCreate().registerEventListeners(io);
-
 
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
