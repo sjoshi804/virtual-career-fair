@@ -16,6 +16,7 @@ import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol
 // Routers
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
+import { JobRouter } from "./apps/job/routes";
 import { ResumeRouter } from "./apps/resume/routes";
 import { UserRouter } from "./apps/user/routes";
 import { ApplicantRouter } from "./apps/user/applicant/routes";
@@ -39,6 +40,7 @@ if (process.env.NODE_ENV != config.test) {
 
 // Connect Base Endpoints to Routers
 app.use("/company", CompanyRouter);
+app.use("/company", JobRouter);
 app.use("/resume", ResumeRouter);
 app.use("/meetingNotes", MeetingNotesRouter);
 app.use("/user", UserRouter);
