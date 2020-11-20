@@ -11,18 +11,40 @@ import paypal from '../Images/paypal.jpg';
 import netflix from '../Images/netflix.jpg'; 
 import {MoreInfo} from './MoreInfo'
 const io = require('socket.io-client');
-
+const clientSocket = io("ws://localhost:3000/careerFair");
 export default class StudentLivePage extends React.Component {
-    socket()
+
+    componentDidMount()
     {
-        console.log("button press");
-        const socket = io("ws://localhost:3000/careerFair");
-        socket.connect();
-        socket.on("echo", (message) =>
+        // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
+        clientSocket.on("queueUpdate", (data) =>
+        {
+
+        });
+
+        // Register handler for announcement
+        clientSocket.on("announcement", (data) =>
+        {
+
+        });
+
+        // For test / debug purposes enable echo
+        clientSocket.on("echo", (message) =>
         {
             console.log("Echo received: " + message);
         });
-        socket.emit("echo", "Hello World");
+
+        // Connect
+        clientSocket.connect();
+
+        // Join careerFair
+        clientSocket.emit("join", "CAREER_FAIR_ID");
+    }
+
+    echo()
+    {
+        console.log("Attempting to echo");
+        clientSocket.emit("echo", "Hello World");
     }
 
     handleRoute = route => () => {
@@ -59,7 +81,7 @@ export default class StudentLivePage extends React.Component {
             <Card.Footer>
             <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
             <h1></h1>
-            <Button variant="outline-secondary" size="sm" onClick={this.socket}>In Session</Button></small>
+            <Button variant="outline-secondary" size="sm" onClick={this.echo}>In Session</Button></small>
             <br></br>
             </Card.Footer>
         </Card>

@@ -2,32 +2,24 @@ import { ISocketProtocol } from "./iSocketProtocol";
 
 abstract class AbstractSocketProtocol implements ISocketProtocol
 {
-    protected connectionPool: Array<string>;
-
+    // Member variables
     protected protocolName: string;
+
+    protected namespace: any;
 
     public onConnection(socket: any) 
     {
         console.log(`${this.protocolName}: ${socket.id} connected.`);
-        this.connectionPool.push(socket.id);
     }
 
     public onDisconnection(socket: any) 
     {
-        if (this.connectionPool == undefined)
-        {
-            this.connectionPool = new Array<string>();
-        }
-        const index = this.connectionPool.indexOf(socket.id);
-        if (index != -1)
-        {
-            console.log(`${this.protocolName}: ${socket.id} disconnected.`);
-            this.connectionPool.splice(index, 1);
-        }
-        else
-        {
-            console.log(`${this.protocolName}: Attempting to disconnect user that wasn't connected, seems sus.`)
-        }
+        console.log(`${this.protocolName}: ${socket.id} disconnected.`);
+    }
+
+    public echo(socket, message)
+    {
+        socket.emit("echo", message);
     }
 
     abstract registerEventListeners(namespace: any);
