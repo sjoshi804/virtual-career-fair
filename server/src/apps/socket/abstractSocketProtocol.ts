@@ -41,7 +41,6 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
         {
             console.log(`${this.protocolName}: ${socket.id} disconnected.`);
         }
-        
     }
 
     public echo(socket, message)
