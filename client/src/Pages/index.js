@@ -3,6 +3,9 @@ import StudentLivePage from "./StudentLivePage";
 import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import OrganizerPage from "./OrganizerPage";
+import OrganizerLivePage from "./OrganizerLivePage";
+import OrganizerPastPage from "./OrganizerPastPage";
+import OrganizerUpcomingPage from "./OrganizerUpcomingPage";
 import CreateFairPage from "./CreateFairPage";
 import ManageFairPage from "./ManageFairPage"
 import SearchResultsPage from "./SearchResultsPage";
@@ -11,7 +14,11 @@ import RecruiterAddEditBoothPage from "./RecruiterAddEditBoothPage"
 import RouteNotFound from "./RouteNotFound";
 import SearchPage from "./SearchPage"
 import RecruiterLivePage from "./RecruiterLivePage"
+import RecruiterPastPage from "./RecruiterPastPage"
 import StudentUpcomingPage from "./StudentUpcomingPage"
+import StudentPastPage from "./StudentPastPage"
+import StudentLoginPage from "./StudentLoginPage"
+import RecruiterLoginPage from "./RecruiterLoginPage"
 
 export { 
   StudentProfilePage,
@@ -23,9 +30,16 @@ export {
   ManageFairPage,
   CreateFairPage,
   OrganizerPage,
+  OrganizerLivePage,
+  OrganizerPastPage,
+  OrganizerUpcomingPage,
   LoginPage,
   RecruiterAddEditBoothPage,
   RecruiterLivePage,
   SearchPage,
-  StudentUpcomingPage
+  StudentUpcomingPage,
+  StudentPastPage,
+  RecruiterPastPage,
+  StudentLoginPage,
+  RecruiterLoginPage,
 };

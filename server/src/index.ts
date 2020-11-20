@@ -1,38 +1,50 @@
 import fs = require("fs");
 import express = require("express");
 import path = require("path");
-var cookieParser = require('cookie-parser');
+const cors = require('cors');
+const http = require('http');
+const cookieParser = require('cookie-parser');
 import config = require("./.config");
+
+// Core modules
 import { DBClient } from "./db/dbClient";
+import { logger } from "./middleware/logger";
+
+// Socket Protocols
+import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
+
+// Routers
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
-import { logger } from "./middleware/logger";
-import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
-const cors = require('cors');
-const app = require('express')();
-const http = require('http');
-app.options('*:*', cors());
+import { ResumeRouter } from "./apps/resume/routes";
+import { UserRouter } from "./apps/user/routes";
+import { ApplicantRouter } from "./apps/user/applicant/routes";
+import { RecruiterRouter } from "./apps/user/recruiter/routes";
+import { OrganizerRouter } from "./apps/user/organizer/routes";
 
 let port = process.env.PORT || 3000;
 
 // Express configuration
+const app = express();
+app.options('*:*', cors());
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 //Initialize logger if non test environment (avoid cluttering stdout due to many API requests in test)
-if (process.env.NODE_ENV != config.test)
-{
+if (process.env.NODE_ENV != config.test) {
   app.use(logger);
 }
 
-// Connect Routers
-app.use("/meetingNotes", MeetingNotesRouter);
+// Connect Base Endpoints to Routers
 app.use("/company", CompanyRouter);
-
-// Connect Routers
+app.use("/resume", ResumeRouter);
 app.use("/meetingNotes", MeetingNotesRouter);
+app.use("/user", UserRouter);
+app.use("/applicant", ApplicantRouter);
+app.use("/recruiter", RecruiterRouter);
+app.use("/organizer", OrganizerRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
@@ -54,28 +66,10 @@ var io = require('socket.io')(server,
     origin: "*:*"
   }
 );
+
+// Register socket protocols
 const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
 careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
-/*
-io.on('connection', 
-  socket =>
-  {
-      // Handle connection
-      console.log("Server: connected.");
-      
-      // Register disconnection event
-      socket.on('disconnect', () => console.log("Server: disconnected."));
-      
-      // Register echo event
-      socket.on("echo", (message) =>
-      {
-          console.log("Client sent: " + message);
-          socket.emit("echo", message);
-          console.log("Sent " + message);
-      });
-  }
-);
-*/
 
 
 server.listen(app.get("port"), () => {

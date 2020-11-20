@@ -1,7 +1,11 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage} from "./Pages";
+
+import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, OrganizerLivePage, 
+  OrganizerPastPage,
+  OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage, StudentLoginPage, RecruiterLoginPage} from "./Pages";
+
 
 class Main extends React.Component {
   state = {
@@ -52,6 +56,9 @@ class Main extends React.Component {
           <Route exact path="/results" component={SearchResultsPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/org" component={OrganizerPage} />
+          <Route exact path="/orglive" component={OrganizerLivePage} />
+          <Route exact path="/orgpast" component={OrganizerPastPage} />
+          <Route exact path="/orgupcoming" component={OrganizerUpcomingPage} />
           <Route exact path="/createfair" component={CreateFairPage} />
           <Route exact path="/managefair" component={ManageFairPage} />
           <Route exact path="/studentlive" component={StudentLivePage} />
@@ -59,7 +66,11 @@ class Main extends React.Component {
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
           <Route exact path="/recruiter-live" component={RecruiterLivePage} />
+          <Route exact path="/recruiter-past" component={RecruiterPastPage} />
           <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
+          <Route exact path="/student-past" component={StudentPastPage} />
+          <Route exact path="/student-login" component={StudentLoginPage} />
+          <Route exact path="/recruiter-login" component={RecruiterLoginPage} />
           <Route component={RouteNotFound} />
         </Switch>
       </>

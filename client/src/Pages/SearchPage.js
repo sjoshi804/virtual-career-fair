@@ -1,9 +1,11 @@
 import React from "react";
+
 import * as ReactDOM from 'react-dom';
 import { Form, CardDeck, InputGroup, FormControl, Card, Button, Dropdown, DropdownButton, Toast } from "react-bootstrap";
 import { Fairs } from './Fairs'
 import { Companies } from './Companies'
 import { Positions } from './Positions'
+
 
 export default class SearchPage extends React.Component {
 
@@ -78,11 +80,11 @@ export default class SearchPage extends React.Component {
                 title={this.state.dropDownValue}
                 id="input-group-dropdown-1"
             >
-                { this.state.dropDownValue != "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
                 
-                { this.state.dropDownValue != "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
 
-                { this.state.dropDownValue != "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
             
