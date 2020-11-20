@@ -15,7 +15,6 @@ import { UserRouter } from "./apps/user/routes";
 import { ApplicantRouter } from "./apps/user/applicant/routes";
 import { RecruiterRouter } from "./apps/user/recruiter/routes";
 import { OrganizerRouter } from "./apps/user/organizer/routes";
-import { User } from "./apps/user/user";
 
 let port = process.env.PORT || 3000;
 const app = express();

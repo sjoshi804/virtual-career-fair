@@ -1,6 +1,5 @@
 import express = require('express');
 import { Company } from '../company/company'
-import { Job } from './job';
 const JobRouter = express.Router();
 // Prefix: /company
 
