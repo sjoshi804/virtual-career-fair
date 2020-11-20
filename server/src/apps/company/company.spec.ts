@@ -2,7 +2,7 @@ import { expect, request } from 'chai';
 import 'mocha';
 import server from '../..';
 import { Job } from '../job/job';
-import { Recruiter } from '../user/recruiter';
+import { Recruiter } from '../user/recruiter/recruiter';
 import { Company } from './Company';
 import chai = require('chai');
 import chaiHttp = require('chai-http');
@@ -19,9 +19,9 @@ var companyB = new Company("compB", "", "", "");
 var companyC = new Company("compC", "", "", "");
 var companyD = new Company("compD", "", "", "");
 var companies = new Array<Company>(companyA, companyB, companyC, companyD);
-var recruiterA = new Recruiter("recA", "", "", "");
+var recruiterA = new Recruiter(1, "recA", "", "", "", "", "", 5);
 recruiterA.setId(uuid());
-var recruiterB = new Recruiter("recA", "", "", "");
+var recruiterB = new Recruiter(1, "recA", "", "", "", "", "", 3);
 recruiterB.setId(uuid());
 var jobA = new Job("jobA");
 var jobB = new Job("jobB");
@@ -207,15 +207,29 @@ describe('Company API (/company)', () => {
     });
 
     // POST to call function to add recruiter to company
-    it('POST /:companyId/addRecruiter/:recruiterId - adds recruiter to company', async () => 
-    {
+    it('POST /:companyId/addRecruiter/:recruiterId - adds recruiter to company', async () => {
+        
         expect.fail("Not implemented.");
-        //TODO: Waiting for recruiter db to be implemented
-        // Create recruiter
-
-        // Add to company
-
-        // Try to recruiter that doesn't exist to company - confirm failure
+        
+        // // Create Company
+        // await request(server).post(prefix + "/").send(companyA.serialize())
+        //     .then(async res => {
+        //         expect(res.status).to.be.equal(201);
+        //         expect(await Company.db.count({})).to.equal(1);
+        //     }
+        // );
+        // // Create Recruiter
+        // await request(server).post('/recruiter/').send(recruiterA.serialize())
+        //     .then(async res => {
+        //         expect(res.status).to.be.equal(201);
+        //         expect(await Recruiter.db.count({})).to.equal(1);
+        //     });
+        // // Add to company
+        // await request(server).post(prefix + "/" + companyA.getId() + "/addRecruiter/" + recruiterA.getId())
+        //     .then(async res => {
+        //         expect()
+        //     });
+        // // Try to recruiter that doesn't exist to company - confirm failure
     
     });
 

@@ -1,4 +1,4 @@
-import { Applicant } from '../user/applicant'
+import { Applicant } from '../user/applicant/applicant'
 
 class Queue {
     private applicantList: Array<Applicant>

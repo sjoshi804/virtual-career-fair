@@ -1,13 +1,13 @@
 import { Queue } from './queue'
 import { expect } from 'chai';
 import 'mocha';
-import { Applicant } from '../user/applicant';
+import { Applicant } from '../user/applicant/applicant';
 
 // Defining a queue of Applicants and some Applicants
 var ApplicantQueue = new Queue();
-var ApplicantA = new Applicant("A", "", "", "");
-var ApplicantB = new Applicant("B", "", "", "");
-var ApplicantC = new Applicant("C", "", "", "");
+var ApplicantA = new Applicant(0, "A", "", "", "", "Computer Science", 2021, "UCLA", "");
+var ApplicantB = new Applicant(0, "B", "", "", "", "Math", 2022, "UCSB", "");
+var ApplicantC = new Applicant(0, "C", "", "", "", "Biology", 2023, "Berkeley", "");
 
 describe('Queue', () => {
 
