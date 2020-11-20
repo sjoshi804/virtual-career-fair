@@ -128,10 +128,12 @@
   date: Date,
   startTime: Date,
   endTime: Date,
-  applicants: list of strings (ids)
+  applicants: list of strings (ids),
+  announcements: list of strings
   booths: [{
                 company: string (id)
-                recruiters: list of strings (active recruiter ids)
+                recruiters: list of strings (active recruiter ids),
+                announcements: list of strings
              },
              ...]
 }
