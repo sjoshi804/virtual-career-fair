@@ -7,8 +7,6 @@ GET	/resume/:applicantid/insights   Get insights
 
 import express = require('express');
 import { Resume } from './resume';
-import { Experience } from './experience'
-import { Applicant } from '../user/applicant';
 const ResumeRouter = express.Router();
 
 // Prefix: /resume

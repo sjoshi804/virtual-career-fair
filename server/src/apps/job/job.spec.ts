@@ -7,7 +7,6 @@ import chaiHttp = require('chai-http');
 import { DBClient } from '../../db/dbClient';
 import { testDatabaseName } from '../../.config';
 import { v4 as uuid } from 'uuid';
-import { Applicant } from '../user/applicant';
 import { Company } from '../company/company';
 
 // To use test HTTP API
