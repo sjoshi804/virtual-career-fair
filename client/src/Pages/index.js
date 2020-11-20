@@ -18,6 +18,7 @@ import RecruiterPastPage from "./RecruiterPastPage"
 import StudentUpcomingPage from "./StudentUpcomingPage"
 import StudentPastPage from "./StudentPastPage"
 import StudentLoginPage from "./StudentLoginPage"
+import RecruiterLoginPage from "./RecruiterLoginPage"
 
 export { 
   StudentProfilePage,
@@ -40,4 +41,5 @@ export {
   StudentPastPage,
   RecruiterPastPage,
   StudentLoginPage,
+  RecruiterLoginPage,
 };
