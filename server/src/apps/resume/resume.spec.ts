@@ -48,17 +48,6 @@ describe('Resume API (/resume)', () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
-    it('GET / - get resumes', async () => {
-        await request(server).get(prefix + "/").send({})
-            .then(
-                async res => 
-                {
-                    expect(res.status).to.be.equal(201);
-                    // expect(await Resume.db.findOne({})).to.have.property("_id", serializedResume._id);
-                }
-            );
-    });
-
     it('POST /:applicantId - creates new resume', async () => {
         const serializedResume = resumeA.serialize();
         await request(server).post(prefix + "/12").send(serializedResume)
@@ -69,5 +58,131 @@ describe('Resume API (/resume)', () => {
                     expect(await Resume.db.findOne({})).to.have.property("_id", serializedResume._id);
                 }
             );
+    });
+
+    it('GET /:applicantId - gets specific resume', async () => 
+    {
+        // Create a resume
+        await request(server).post(prefix + "/12").send(resumeA.serialize())
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    expect(await Resume.db.count({})).to.equal(1);
+                }
+            );
+        
+        // Gets that resume
+        var insights: Array<string> = Resume.computeInsights(resumeA.getSkills(), resumeA.getExperiences())
+        insights.forEach(insight => {
+            resumeA.addInsight(insight)
+        }); 
+        await request(server).get(prefix + "/12")
+            .then(
+                res =>
+                {
+                    expect(res.body).to.be.an('object');
+                    // Deep equals for object comparison
+                    expect(res.body).deep.equals(resumeA.serialize());
+                }
+            );
+    });
+
+    it('PUT /:applicantId - updates specific resume', async () => 
+    {
+        // Create a resume
+        await request(server).post(prefix + "/12").send(resumeA.serialize())
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    expect(await Resume.db.count({})).to.equal(1);
+                }
+            );
+        
+        // Update that resume
+        resumeA.addSkill("blah");
+        await request(server).put(prefix + "/12").send(resumeA.serialize())
+            .then(
+                async res =>
+                {
+                    // Confirm request success
+                    expect(res.status).equals(204);
+
+                    // Confirm correct update (deep equals)
+                    expect(await Resume.db.findOne({})).deep.equals(resumeA.serialize());
+                }
+            );
+        
+        // Update resume that doesn't exist
+        await request(server).put(prefix + "/13").send(resumeA.serialize())
+        .then(
+            res =>
+            {
+                // Confirm request failure
+                expect(res.status).equals(404);
+            }
+        );
+    });
+
+    it('DELETE /:applicantId - deletes specific company', async () => 
+    {
+        // Create a resume
+        await request(server).post(prefix + "/12").send(resumeA.serialize())
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    expect(await Resume.db.count({})).to.equal(1);
+                }
+            );
+        
+        // Delete that company
+        await request(server).delete(prefix + "/12")
+            .then(
+                async res =>
+                {
+                    // Confirm request success
+                    expect(res.status).equals(204);
+
+                    // Confirm correct update
+                    expect(await Resume.db.count({})).equals(0);
+                }
+            );
+        
+        // Delete object that doesn't exist
+        await request(server).delete(prefix + "/13")
+            .then(
+                res =>
+                {
+                    // Confirm request failure
+                    expect(res.status).equals(404);
+                }
+            );
+    });
+
+    it('GET /:applicantId/insights - get resume insights', async () => {
+        // Create a resume
+        await request(server).post(prefix + "/12").send(resumeA.serialize())
+            .then(
+                async res => 
+                {
+                    expect(res.status).to.be.equal(201);
+                    expect(await Resume.db.count({})).to.equal(1);
+                }
+            );
+        
+        // Get insights for that resume
+        await request(server).get(prefix + "/12/insights")
+                .then(
+                    async res =>
+                    {   
+                        // Confirm request success
+                        expect(res.status).to.be.equal(200);
+
+                        // Compare insights
+                        expect(res.body).deep.equals(Resume.computeInsights(resumeA.getSkills(), resumeA.getExperiences()))
+                    }
+                );
     });
 });

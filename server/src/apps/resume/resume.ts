@@ -58,8 +58,14 @@ class Resume implements ISerializable
         return this.insights;
     }
 
-    public computeInsights(): void {
-        // TODO
+    // Just for making comnparisons during api testing easier.
+    public addInsight(insight: string): void{
+        this.insights.push(insight);
+    }
+
+    // TODO: Use some google could ml api to extract keywords from experience.
+    public static computeInsights(skills: Array<string>, experiences: Array<Experience>): Array<string> {
+        return ['strong', 'match > 90%']; // dummy insights just for testing
     }
 
     public constructor(applicantId: string, skills: Array<string>, experiences: Array<Experience>)

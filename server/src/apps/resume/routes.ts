@@ -13,13 +13,6 @@ const ResumeRouter = express.Router();
 
 // Prefix: /resume
 
-
-ResumeRouter.get("/", async (req, res) =>
-{
-    console.log("dummy test")
-    res.status(201).send({});
-});
-
 // Create new Resume for exisiting applicant
 ResumeRouter.post("/:applicantId", async (req, res) =>
 {
@@ -32,11 +25,10 @@ ResumeRouter.post("/:applicantId", async (req, res) =>
     // Waiting for applicant db to be defined
 
     var resumeFields = req.body
-    var resume = new Resume(resumeFields.applicantId, resumeFields.skills, resumeFields.experiences as Experience[])
-    resume.computeInsights()
+    resumeFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences);
 
     // Tries to save, if save successful return success
-    if (await Resume.db.save(resume))
+    if (await Resume.db.save(resumeFields))
     {
         res.sendStatus(201);
     }
@@ -48,8 +40,8 @@ ResumeRouter.post("/:applicantId", async (req, res) =>
 
 // Get resume for exisiting applicant
 ResumeRouter.get("/:applicantId", async (req, res) =>
-{
-    var resume = await Resume.db.findOne({_id: req.params.applicantId});
+{   
+    var resume = await Resume.db.findOne({applicantId: req.params.applicantId});
     if(resume != null)
     {
         res.status(200).send(resume);
@@ -76,12 +68,11 @@ ResumeRouter.put("/:applicantId", async (req, res) =>
     }
 
     var updatedFields = req.body
-    var resume = new Resume(req.params.applicantId, updatedFields.skills, updatedFields.experiences as Experience[])
-    resume.computeInsights()
+    updatedFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences)
 
     const updateQuery = 
     {
-        $set: resume
+        $set: updatedFields
     };
 
     if (await Resume.db.updateOne(filterQuery, updateQuery))
@@ -102,7 +93,7 @@ ResumeRouter.delete("/:applicantId", async (req, res) =>
 {
     const filterQuery = 
     {
-        applicantId: req.params.appicantId
+        applicantId: req.params.applicantId
     }
 
     // Check if resume exists for applicant -> if not return 404
@@ -125,7 +116,7 @@ ResumeRouter.delete("/:applicantId", async (req, res) =>
 // Get resume insights for exisiting applicant
 ResumeRouter.get("/:applicantId/insights", async (req, res) =>
 {
-    var resume = await Resume.db.findOne({_id: req.params.applicantId});
+    var resume = await Resume.db.findOne({applicantId: req.params.applicantId});
     if(resume != null)
     {
         res.status(200).send(resume.insights);
