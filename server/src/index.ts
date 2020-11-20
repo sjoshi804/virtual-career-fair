@@ -1,9 +1,11 @@
-import fs = require("fs");
+// External modules
 import express = require("express");
 import path = require("path");
 const cors = require('cors');
 const http = require('http');
 const cookieParser = require('cookie-parser');
+
+// Config
 import config = require("./.config");
 
 // Core modules
@@ -22,9 +24,8 @@ import { ApplicantRouter } from "./apps/user/applicant/routes";
 import { RecruiterRouter } from "./apps/user/recruiter/routes";
 import { OrganizerRouter } from "./apps/user/organizer/routes";
 
-let port = process.env.PORT || 3000;
-
 // Express configuration
+let port = process.env.PORT || 3000;
 const app = express();
 app.options('*:*', cors());
 app.set("port", process.env.PORT || 3000);
@@ -50,7 +51,7 @@ app.use("/organizer", OrganizerRouter);
 if (process.env.NODE_ENV === 'production') {
   // Serve any static files
   app.use(express.static(path.join(__dirname, '../../client/build')));
-// Handle React routing, return all requests to React app
+  // Handle React routing, return all requests to React app
   app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, '../../client/build', 'index.html'));
   });
@@ -71,11 +72,12 @@ var io = require('socket.io')(server,
 const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
 careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
 
-
+// Start listening on server
 server.listen(app.get("port"), () => {
   console.log(`Server is listening on port ${port}`);
 });
 
+// Register signal handlers
 process.on('SIGTERM', shutDown);
 process.on('SIGINT', shutDown);
 
@@ -89,4 +91,5 @@ function shutDown() {
   });
 }
 
+// Export server object for testing purposes
 export default server;
