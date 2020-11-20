@@ -1,12 +1,19 @@
 import fs = require("fs");
 import express = require("express");
 import path = require("path");
-var cookieParser = require('cookie-parser');
+const cors = require('cors');
+const http = require('http');
+const cookieParser = require('cookie-parser');
 import config = require("./.config");
+
+// Core modules
 import { DBClient } from "./db/dbClient";
 import { logger } from "./middleware/logger";
 
-// Import Routers
+// Socket Protocols
+import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
+
+// Routers
 import { MeetingNotesRouter } from "./apps/meeting/routes";
 import { CompanyRouter } from "./apps/company/routes";
 import { ResumeRouter } from "./apps/resume/routes";
@@ -16,9 +23,10 @@ import { RecruiterRouter } from "./apps/user/recruiter/routes";
 import { OrganizerRouter } from "./apps/user/organizer/routes";
 
 let port = process.env.PORT || 3000;
-const app = express();
 
 // Express configuration
+const app = express();
+app.options('*:*', cors());
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -51,7 +59,20 @@ if (process.env.NODE_ENV === 'production') {
 // Initialize a db connection
 DBClient.connect();
 
-const server = app.listen(app.get("port"), () => {
+// Start server
+var server = http.createServer(app);
+var io = require('socket.io')(server,
+  {
+    origin: "*:*"
+  }
+);
+
+// Register socket protocols
+const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
+careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
+
+
+server.listen(app.get("port"), () => {
   console.log(`Server is listening on port ${port}`);
 });
 
