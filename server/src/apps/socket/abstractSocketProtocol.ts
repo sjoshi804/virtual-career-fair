@@ -14,6 +14,10 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
 
     public onDisconnection(socket: any) 
     {
+        if (this.connectionPool == undefined)
+        {
+            this.connectionPool = new Array<string>();
+        }
         const index = this.connectionPool.indexOf(socket.id);
         if (index != -1)
         {

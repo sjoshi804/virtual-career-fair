@@ -54,7 +54,9 @@ var io = require('socket.io')(server,
     origin: "*:*"
   }
 );
-
+const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
+careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
+/*
 io.on('connection', 
   socket =>
   {
@@ -73,6 +75,7 @@ io.on('connection',
       });
   }
 );
+*/
 
 
 server.listen(app.get("port"), () => {

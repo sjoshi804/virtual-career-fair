@@ -18,6 +18,8 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         this.connectionPool = new Array<string>();
     }
 
+    protocolName = "CareerFairSocketProtocol";
+
     static getOrCreate()
     {
         if (this.instance == undefined)
@@ -40,10 +42,11 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 socket.on('disconnect', this.onDisconnection);
 
                 // Register echo event
-                socket.on('echo', (message) =>
+                socket.on("echo", (message) =>
                 {
-                    console.log(message);
-                    socket.emit('echo', message);
+                    console.log("Client sent: " + message);
+                    socket.emit("echo", message);
+                    console.log("Sent echo.")
                 });
             }
         );

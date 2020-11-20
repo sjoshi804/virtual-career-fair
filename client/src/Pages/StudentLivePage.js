@@ -16,7 +16,7 @@ export default class StudentLivePage extends React.Component {
     socket()
     {
         console.log("button press");
-        const socket = io("ws://localhost:3000");
+        const socket = io("ws://localhost:3000/careerFair");
         socket.connect();
         socket.on("echo", (message) =>
         {
