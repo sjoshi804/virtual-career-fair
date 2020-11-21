@@ -67,6 +67,11 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                     this.leaveQueue(data.careerFair, data.company);
                 });
 
+                // Register startNextMeeting method
+                socket.on("startNextMeeting", (data) => 
+                {   
+                    this.startNextMeeting(socket, data.careerFair, data.company);
+                });
             }
         );
     }
@@ -86,12 +91,17 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
     private joinQueue(careerFair: string, company: string)
     {
-        console.log("This needs to actually add to a queue - talk to career fair");
+        TODO: console.log("This needs to actually add to a queue - talk to career fair");
     }
 
     private leaveQueue(careerFair: string, company: string)
     {
-        console.log("This needs to actually remove from a queue - talk to career fair");
+        TODO: console.log("This needs to actually remove from a queue - talk to career fair");
+    }
+
+    private startNextMeeting(socket: any, careerFair: string, company: string)
+    {
+        CareerFair.liveFairs[]
     }
 
     // Public API to trigger emits
