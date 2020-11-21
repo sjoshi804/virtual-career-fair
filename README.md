@@ -132,8 +132,7 @@
   attendingApplicants: list of strings (ids) // includes attending and those who have attended
   booths: [{
                 company: string (id)
-                attendingRecruiters: list of strings (ids),
-                announcements: list of strings
+                attendingRecruiters: list of strings (ids)
              },
              ...]
 }
