@@ -128,12 +128,11 @@
   date: Date,
   startTime: Date,
   endTime: Date,
-  applicants: list of strings (ids),
-  announcements: list of strings
+  registeredApplicants: list of strings (ids),
+  attendingApplicants: list of strings (ids) // includes attending and those who have attended
   booths: [{
                 company: string (id)
-                recruiters: list of strings (active recruiter ids),
-                announcements: list of strings
+                attendingRecruiters: list of strings (ids)
              },
              ...]
 }
