@@ -5,6 +5,7 @@ import { AbstractSocketProtocol } from "./abstractSocketProtocol";
     HOW TO USE:
     - const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
     - careerFairSocketProtocol.registerEventListeners(io.of('namespace_name'))
+    TODO: ROBUSTIFY THIS
 */
 
 class CareerFairSocketProtocol extends AbstractSocketProtocol
@@ -58,15 +59,32 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 // Register joinQueue method
                 socket.on("joinQueue", (data) =>
                 {
-                    this.joinQueue(data.careerFair, data.company);
+                    this.joinQueue(socket, data.careerFair, data.company);
                 });
 
                 // Register leaveQueue method
                 socket.on("leaveQueue", (data) =>
                 {
-                    this.leaveQueue(data.careerFair, data.company);
+                    this.leaveQueue(socket, data.careerFair, data.company);
                 });
 
+                // Register startNextMeeting method
+                socket.on("startNextMeeting", (data) => 
+                {   
+                    this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
+                });
+                
+                // Cancel meeting
+                socket.on("cancelMeeting", (data) =>
+                {
+                    this.cancelMeeting(socket, data.applicant)
+                });
+
+                // Accept Meeting Call
+                socket.on("acceptMeetingCall", (data) =>
+                {
+                    this.acceptMeetingCall(data.recruiter, data.signal)
+                });
             }
         );
     }
@@ -84,14 +102,84 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         }
     }
 
-    private joinQueue(careerFair: string, company: string)
+    private async joinQueue(socket: any, careerFair: string, company: string)
     {
-        console.log("This needs to actually add to a queue - talk to career fair");
+        const currentFair = await CareerFair.getLiveCareerFair(careerFair);
+        if (!currentFair.booths[company].queue.joinQueue(socket.handshake.query['username']))
+        {
+            socket.emit("error", "Error joining queue.")
+        }
+        else
+        {
+            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
+        }
     }
 
-    private leaveQueue(careerFair: string, company: string)
+    private async leaveQueue(socket: any, careerFair: string, company: string)
     {
-        console.log("This needs to actually remove from a queue - talk to career fair");
+        const currentFair = await CareerFair.getLiveCareerFair(careerFair);
+        if (!currentFair.booths[company].queue.leaveQueue(socket.handshake.query['username']))
+        {
+            socket.emit("error", "Error leaving queue.")
+        }
+        else
+        {
+            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
+        }
+        
+    }
+
+    private async startNextMeeting(socket: any, careerFair: string, company: string, signalData: any)
+    {
+        // Get career fair
+        const currentFair = await CareerFair.getLiveCareerFair(careerFair);
+
+        // Dequeue next applicant
+        const nextApplicant = currentFair.booths[company].queue.dequeue();
+
+        // If this applicant is not connected, log error and give up, let client side retry
+        if (!this.connectedClients.has(nextApplicant))
+        {
+            socket.emit("error", "Applicant not logged in.");
+            //TODO: More robust solution to this, currently applicant is dropped from queue if not logged in when it is their turn
+        }
+        // Else, return confirmation to caller i.e. recruiter - starts timeout on recruiter client side to end call if applicant doesn't pick up for too long
+        else
+        {
+            // Confirmation of meeting creation, with username of applicant to call
+            socket.emit("outgoingMeetingCall", 
+            {
+                applicant: nextApplicant
+            })
+
+            // Call applicant
+            this.namespace.to(this.connectedClients[nextApplicant]).emit("incomingMeetingCall", 
+            {
+                signal: signalData,
+                company: company
+            });
+        }
+    }
+
+    private cancelMeeting(socket, applicant)
+    {
+        // Cancel call to applicant
+        if (!this.connectedClients.has(applicant))
+        {
+            socket.emit("error", "Applicant no longer logged in.");
+        }
+        else
+        {
+            this.namespace.to(this.connectedClients[applicant]).emit("cancelCall");
+        }
+    }
+
+    private acceptMeetingCall(recruiter: string, signal: any) 
+    {
+        this.namespace.to(recruiter).emit("acceptMeetingCall", 
+        {
+            signal: signal
+        });
     }
 
     // Public API to trigger emits

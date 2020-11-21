@@ -3,46 +3,53 @@ import { ISocketProtocol } from "./iSocketProtocol";
 abstract class AbstractSocketProtocol implements ISocketProtocol
 {
     // Member variables
+    // For logging purposes
     protected protocolName: string;
 
+    // Namespace object from socket.io
     protected namespace: any;
 
-    protected connectedClients: Array<string>;
+    // Map from username -> socket.id
+    protected connectedClients: Map<string, string>;
 
-    private initConnectedClients()
+
+    constructor()
     {
-        if (this.connectedClients == undefined)
-        {
-            this.connectedClients = new Array<string>();
-        }
+        // Initialize map of connected clients: username -> socket.id
+        this.connectedClients = new Map<string, string>();
     }
 
+    // onConnection adds username, socket.id to connected clients 
+    // if duplicate for username, replaces old one - TODO: Think about this more
     public onConnection(socket: any) 
     {
-        this.initConnectedClients();
-        if (this.connectedClients.indexOf(socket.id) == -1)
+        if (!this.connectedClients.has(socket.handshake.query['username']))
         {
+            this.connectedClients.set(socket.handshake.query['username'], socket.id);
             console.log(`${this.protocolName}: ${socket.id} connected.`);
         }
-        else
+        else if (socket.id != this.connectedClients.has(socket.handshake.query['username']))
         {
-            console.log(`${this.protocolName}: ${socket.id} already connected.`);
+            this.connectedClients.set(socket.handshake.query['username'], socket.id);
+            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was already connected. Replacing socket.id with new socket.id`);
         }
     }
 
+    // On disconnection removes username, socket.id from the map, if never existed logs possible error
     public onDisconnection(socket: any) 
     {
-        this.initConnectedClients();
-        if (this.connectedClients.indexOf(socket.id) == -1)
+        if (!this.connectedClients.has(socket.handshake.query['username']))
         {
-            console.log(`${this.protocolName}: ${socket.id} was never connected, but attempted to disconnect. Possible error.`);
+            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was never connected, but attempted to disconnect. Possible error.`);
         }
         else
         {
-            console.log(`${this.protocolName}: ${socket.id} disconnected.`);
+            this.connectedClients.delete(socket.handshake.query['username']);
+            console.log(`${this.protocolName}: ${socket.handshake.query['username']} disconnected.`);
         }
     }
 
+    // Echo event to help with testing / debugging
     public echo(socket, message)
     {
         socket.emit("echo", message);

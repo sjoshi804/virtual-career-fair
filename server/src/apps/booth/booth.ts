@@ -1,35 +1,59 @@
-import { Meeting } from "../meeting/meeting";
+import { ISerializable } from "../../db/iSerializable";
+import { MeetingNotes } from "../meetingNotes/meetingNotes";
 import { Queue } from "../queue/queue";
-import { Recruiter } from "../user/recruiter/recruiter"
-import { User } from "../user/user"
+import { BoothDBSchema } from "./boothDBSchema";
 
-class Booth
+class Booth implements ISerializable
 {
-    private queue: Queue;
-    private meetings: Array<Meeting>;
+    // Private member variables
+    private id: string;
 
-    public constructor()
+    private companyId: string;
+
+    private careerFairId: string;
+
+    private liveRecruiters: Array<string>; // list of ids of recruiters who are live
+    // Getters & Setters
+    public getId()
+    {
+        return this.id;
+    }
+
+    public getCompanyId()
+    {
+        return this.companyId;
+    }
+
+    public setCareerFairId(careerFairId: string)
+    {
+        this.careerFairId = careerFairId;
+    }
+
+    // Public member variables
+    public queue: Queue;
+
+    public constructor(serialized: BoothDBSchema, careerFairId: string)
     {
         this.queue = new Queue();
-        this.meetings = new Array<Meeting>();
+        this.careerFairId = careerFairId;
+        if (serialized != undefined)
+        {
+            this.id = serialized._id;
+            this.companyId = serialized.company;
+        }
     }
 
-    public getCompany()
+    // Upon completion of meeting,  save meeting notes
+    public async saveMeetingNotes(recruiterId: string, applicantId: string, notes: string)
     {
-        // TODO: Make call to database?
+        await MeetingNotes.db.save(new MeetingNotes(recruiterId, applicantId, this.companyId, this.careerFairId, notes));
     }
 
-    public startMeetingWithNextApplicant(recruiters: Array<Recruiter>)
+    public serialize()
     {
-        var nextApplicant = this.queue.dequeue();
-        var participants = new Array<User>(nextApplicant);
-        recruiters.forEach(recruiter => {
-            participants.push(recruiter)
-        });
-
-        var meeting = new Meeting(participants);
-        this.meetings.push(meeting);
-        return meeting;
+        const serialized = new BoothDBSchema(this);
+        this.id = serialized._id;
+        return serialized;
     }
 }
 
