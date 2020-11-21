@@ -1,10 +1,15 @@
+import { ISerializable } from "../../db/iSerializable";
+import { CareerFairDBSchema } from "../careerFair/careerFairDBSchema";
 import { Meeting } from "../meeting/meeting";
 import { Queue } from "../queue/queue";
 import { Recruiter } from "../user/recruiter/recruiter"
 import { User } from "../user/user"
+import { BoothDBSchema } from "./boothDBSchema";
 
-class Booth
+//TODO:
+class Booth implements ISerializable
 {
+    public id: string;
     private queue: Queue;
     private meetings: Array<Meeting>;
 
@@ -30,6 +35,14 @@ class Booth
         var meeting = new Meeting(participants);
         this.meetings.push(meeting);
         return meeting;
+    }
+
+    public serialize()
+    {
+        const serialized = new BoothDBSchema(this);
+        this.id = serialized._id;
+        return serialized;
+
     }
 }
 

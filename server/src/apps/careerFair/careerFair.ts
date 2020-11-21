@@ -1,6 +1,5 @@
 import { ISerializable } from "../../db/iSerializable";
 import { Booth } from "../booth/booth";
-import { Applicant } from "../user/applicant/applicant";
 import { CareerFairDBSchema } from "./careerFairDBSchema";
 import { CareerFairDBStrategy } from "./careerFairDBStrategy";
 
@@ -13,7 +12,7 @@ class CareerFair implements ISerializable
 
     private static liveCareerFairs = new Map<string, CareerFair>();
 
-    public static getLiveCareerFair(careerFairId)
+    public static async getLiveCareerFair(careerFairId)
     {
         // If career fair object already exists in live fairs, then return it -> speed is critical here
         if (this.liveCareerFairs.has(careerFairId))
@@ -24,14 +23,17 @@ class CareerFair implements ISerializable
         // Amortized cost of this across all requests to getCareerFair
         else
         {
+            // Clean up liveCareerFairs to optimize memory
             for (let [id, fair] of this.liveCareerFairs)
             {
-                // Check if fair is live
-
-                
+                // Check if fair is not live, mark fair as null
+                if (fair.endTime < new Date() || fair.startTime > new Date())
+                {
+                    this.liveCareerFairs.delete(id);
+                }
             }
 
-            return new CareerFair(this.db.findOne());
+            return new CareerFair(await this.db.findOne({_id: careerFairId}));
         }
     }
 
@@ -40,23 +42,35 @@ class CareerFair implements ISerializable
     // ID field
     public id: string;
 
+    // Organizer (id) field
+    public organizer: string;
+
     // Booths in career fair: companyId -> Booth
     public booths: Map<string, Booth>;
 
-    // Applicants in career fair: TODO: Do I need this
-    public applicants: Array<Applicant>;
+    // List of ids of all applicants who attended / are attending
+    public attendingApplicants: Array<string>;
+
+    // List of ids of all recruiters who attended / are attending
+    public attendingRecruiters: Array<string>;
 
     // Start Time
     public startTime: Date;
 
     // End Time
     public endTime: Date;
+
+    // Getters & Setters
+    public getId()
+    {
+        return this.id;
+    }
     
     // Regular constructor - takes in both DBSchema and regular parameters
     // if db schema present initialize from that, else rely on parameters
     public constructor(serialized: CareerFairDBSchema)
     {
-        
+
     }
 
     // Serialize using DB Schema object
