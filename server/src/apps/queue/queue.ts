@@ -1,6 +1,9 @@
+import { CareerFair } from "../careerFair/careerFair";
+import { CareerFairSocketProtocol } from "../socket/careerFairSocketProtocol";
+
 class Queue 
 {
-    // List of ids
+    // List of ids / usernames
     private applicantIds: Array<string> 
 
     public constructor(applicantIds?: Array<string>)
@@ -16,7 +19,7 @@ class Queue
     }
 
     // Removes a given Applicant from the queue
-    public leaveQueue(applicant: string)
+    public leaveQueue(applicant: string): void
     {
         if (this.isApplicantInQueue(applicant))
         {
@@ -25,7 +28,7 @@ class Queue
     }
 
     // Adds a Applicant to the queue
-    public joinQueue(applicant: string)
+    public joinQueue(applicant: string): boolean
     {
         if (!this.isApplicantInQueue(applicant))
         {
@@ -40,7 +43,7 @@ class Queue
     }
 
     // Dequeues the Applicant at the front of the queue
-    public dequeue()
+    public dequeue(): string
     {
         if (this.getLength() > 0)
         {
@@ -49,11 +52,12 @@ class Queue
         else
         {
             throw new Error("dequeue on empty queue");
+            return null;
         }
     }
 
     // Get length of queue - to estimate wait time
-    public getLength()
+    public getLength(): number
     {
         return this.applicantIds.length;
     }

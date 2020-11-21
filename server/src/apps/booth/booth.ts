@@ -12,6 +12,7 @@ class Booth implements ISerializable
 
     private careerFairId: string;
 
+    private liveRecruiters: Array<string>; // list of ids of recruiters who are live
     // Getters & Setters
     public getId()
     {
