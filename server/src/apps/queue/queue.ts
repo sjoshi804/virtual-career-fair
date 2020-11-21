@@ -1,35 +1,35 @@
-import { Applicant } from '../user/applicant/applicant'
+class Queue 
+{
+    // List of ids
+    private applicantIds: Array<string> 
 
-class Queue {
-    private applicantList: Array<Applicant>
-
-    public constructor(applicants?: Array<Applicant>)
+    public constructor(applicantIds?: Array<string>)
     {
-        if (applicants == null)
+        if (applicantIds == null)
         {
-            this.applicantList = new Array<Applicant>();
+            this.applicantIds = new Array<string>();
         }
         else
         {
-            this.applicantList = applicants;
+            this.applicantIds = applicantIds;
         }
     }
 
     // Removes a given Applicant from the queue
-    public leaveQueue(Applicant: Applicant)
+    public leaveQueue(applicant: string)
     {
-        if (this.isApplicantInQueue(Applicant))
+        if (this.isApplicantInQueue(applicant))
         {
-            this.applicantList.splice(this.applicantList.indexOf(Applicant), 1);
+            this.applicantIds.splice(this.applicantIds.indexOf(applicant), 1);
         }
     }
 
     // Adds a Applicant to the queue
-    public joinQueue(Applicant: Applicant)
+    public joinQueue(applicant: string)
     {
-        if (!this.isApplicantInQueue(Applicant))
+        if (!this.isApplicantInQueue(applicant))
         {
-            this.applicantList.push(Applicant);
+            this.applicantIds.push(applicant);
             return true;
         }
         else
@@ -44,7 +44,7 @@ class Queue {
     {
         if (this.getLength() > 0)
         {
-            return this.applicantList.splice(0, 1)[0];
+            return this.applicantIds.splice(0, 1)[0];
         }
         else
         {
@@ -55,12 +55,12 @@ class Queue {
     // Get length of queue - to estimate wait time
     public getLength()
     {
-        return this.applicantList.length;
+        return this.applicantIds.length;
     }
 
-    private isApplicantInQueue(Applicant: Applicant)
+    private isApplicantInQueue(applicant: string)
     {
-        return (this.applicantList.indexOf(Applicant) != -1)
+        return (this.applicantIds.indexOf(applicant) != -1)
     }
 }
 

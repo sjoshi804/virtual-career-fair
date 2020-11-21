@@ -1,40 +1,51 @@
 import { ISerializable } from "../../db/iSerializable";
-import { CareerFairDBSchema } from "../careerFair/careerFairDBSchema";
-import { Meeting } from "../meeting/meeting";
+import { MeetingNotes } from "../meetingNotes/meetingNotes";
 import { Queue } from "../queue/queue";
-import { Recruiter } from "../user/recruiter/recruiter"
-import { User } from "../user/user"
 import { BoothDBSchema } from "./boothDBSchema";
 
-//TODO:
 class Booth implements ISerializable
 {
-    public id: string;
-    private queue: Queue;
-    private meetings: Array<Meeting>;
+    // Private member variables
+    private id: string;
 
-    public constructor()
+    private companyId: string;
+
+    private careerFairId: string;
+
+    // Getters & Setters
+    public getId()
+    {
+        return this.id;
+    }
+
+    public getCompanyId()
+    {
+        return this.companyId;
+    }
+
+    public setCareerFairId(careerFairId: string)
+    {
+        this.careerFairId = careerFairId;
+    }
+
+    // Public member variables
+    public queue: Queue;
+
+    public constructor(serialized: BoothDBSchema, careerFairId: string)
     {
         this.queue = new Queue();
-        this.meetings = new Array<Meeting>();
+        this.careerFairId = careerFairId;
+        if (serialized != undefined)
+        {
+            this.id = serialized._id;
+            this.companyId = serialized.company;
+        }
     }
 
-    public getCompany()
+    // Upon completion of meeting,  save meeting notes
+    public async saveMeetingNotes(recruiterId: string, applicantId: string, notes: string)
     {
-        // TODO: Make call to database?
-    }
-
-    public startMeetingWithNextApplicant(recruiters: Array<Recruiter>)
-    {
-        var nextApplicant = this.queue.dequeue();
-        var participants = new Array<User>(nextApplicant);
-        recruiters.forEach(recruiter => {
-            participants.push(recruiter)
-        });
-
-        var meeting = new Meeting(participants);
-        this.meetings.push(meeting);
-        return meeting;
+        await MeetingNotes.db.save(new MeetingNotes(recruiterId, applicantId, this.companyId, this.careerFairId, notes));
     }
 
     public serialize()
@@ -42,7 +53,6 @@ class Booth implements ISerializable
         const serialized = new BoothDBSchema(this);
         this.id = serialized._id;
         return serialized;
-
     }
 }
 

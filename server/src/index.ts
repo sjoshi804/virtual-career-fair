@@ -16,7 +16,7 @@ import { logger } from "./middleware/logger";
 import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
 
 // Routers
-import { MeetingNotesRouter } from "./apps/meeting/routes";
+import { MeetingNotesRouter } from "./apps/meetingNotes/routes";
 import { CompanyRouter } from "./apps/company/routes";
 import { JobRouter } from "./apps/job/routes";
 import { ResumeRouter } from "./apps/resume/routes";
