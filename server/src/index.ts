@@ -28,7 +28,7 @@ import { OrganizerRouter } from "./apps/user/organizer/routes";
 // Express configuration
 let port = process.env.PORT || 3000;
 const app = express();
-app.options('*:*', cors());
+app.use(cors());
 app.set("port", process.env.PORT || 3000);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -71,8 +71,8 @@ var io = require('socket.io')(server,
 );
 
 // Register socket protocols
-const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
-careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
+//const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
+//careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
 
 // Start listening on server
 server.listen(app.get("port"), () => {
