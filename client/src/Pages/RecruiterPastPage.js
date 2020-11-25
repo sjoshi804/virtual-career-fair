@@ -17,6 +17,23 @@ export default class RecruiterPastPage extends React.Component {
         this.props.history.push({ pathname: route });
         };
   render() {
+    const students = ['Denise Wang', 'Siddharth Joshi', 'Arnav Garg'];
+    const items = []
+  
+    for (const [index, value] of students.entries()) {
+      items.push(
+        <tr>
+            <td>{value}</td>
+            <td>Full-time software engineering (frontend)</td>
+            <td>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </td>
+            <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
+        </tr>
+      )
+    }
+
+
     return (
         <div style={{ "text-align": "center", "margin": "20px 20px" }}>
             <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
@@ -41,46 +58,7 @@ export default class RecruiterPastPage extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>Denise Wang</td>
-                    <td>Full-time software engineering (frontend)</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
-                    </tr>
-                    <tr>
-                    <td>Siddharth Joshi</td>
-                    <td>Full-time software engineering (backend)</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
-                    </tr>
-                    <tr>
-                    <td>Arnav Garg</td>
-                    <td>Full-time software engineering (backend)</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
-                    </tr>
-                    <tr>
-                    <td>Denise Wang</td>
-                    <td>Full-time software engineering (frontend)</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
-                    </tr>
-                    <tr>
-                    <td>Siddharth Joshi</td>
-                    <td>Full-time software engineering (backend)</td>
-                    <td>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
-                    </tr> 
+                    {items} 
                 </tbody>
             </Table>
             </Card>

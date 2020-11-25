@@ -7,6 +7,79 @@ export default class StudentProfilePage extends React.Component {
         this.props.history.push({ pathname: route });
         };
   render() {
+    const livecareerfairs = ['1'];
+    const liveitems = []
+  
+    for (const [index, value] of livecareerfairs.entries()) {
+      liveitems.push(
+          
+        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+            <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
+            <Card.Body>
+            <Card.Text>
+                <p><b>Date: </b>Today, October 25, 2020</p>
+                <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                <Button onClick={this.handleRoute("/studentlive")} variant="outline-success">Join Now</Button>
+            </Card.Text>
+            </Card.Body>
+        </Card>
+      )
+    }
+    const registered = 1;
+    const upcoming_careerfairs = ['2', '3', '4'];
+    const upcoming_reg = []
+    const upcoming_unreg = []
+  
+    for (const [index, value] of upcoming_careerfairs.entries()) {
+        if (registered){
+            upcoming_reg.push(
+          
+                <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+                    <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
+                    <Card.Body>
+                    <Card.Text>
+                        <p><b>Date: </b>Today, October 25, 2020</p>
+                        <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
+                    </Card.Text>
+                    </Card.Body>
+                </Card>)
+        }
+        else{
+            upcoming_unreg.push(
+          
+                <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+                    <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
+                    <Card.Body>
+                    <Card.Text>
+                        <p><b>Date: </b>Today, October 25, 2020</p>
+                        <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
+                    </Card.Text>
+                    </Card.Body>
+                </Card>)
+        }
+      
+    }
+
+    const pastcareerfairs = ['7', '8', '9'];
+    const pastitems = []
+  
+    for (const [index, value] of pastcareerfairs.entries()) {
+      pastitems.push(
+          
+        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+            <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
+            <Card.Body>
+            <Card.Text>
+                <p><b>Date: </b>Today, October 25, 2020</p>
+                <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
+            </Card.Text>
+            </Card.Body>
+        </Card>
+      )
+    }
     return (
       <div style={{ "background-color": "white", color: "white", "text-align": "center" }}>
         <div style={{ "color": "black", "padding": "20px"}}>
@@ -31,56 +104,14 @@ export default class StudentProfilePage extends React.Component {
             <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
                <Card.Header><h2><b>Live Career Fairs</b></h2></Card.Header>
                 <p></p>
-                    <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} >
-                        <Card.Header><h3>Career Fair #1</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b> Registered</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Today, October 25, 2020</p>
-                            <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                            <Button onClick={this.handleRoute("/studentlive")} variant="outline-success">Join Now</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    {liveitems}
             </Card>
         </div>
         <div style={{"padding": "20px", "color": "black"}}>
             <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
             <Card.Header><h2><b>Upcoming Career Fairs (Registered)</b></h2></Card.Header>
                 <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
-                    <Card style={{ "padding-bottom": "5px"}}>
-                        <Card.Header><h3>Career Fair #2</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Registered</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Thursday, November 5, 2020</p>
-                            <p><b>Time: </b> 11 PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header><h3>Career Fair #3</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Registered</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Wednesday, November 11, 2020</p>
-                            <p><b>Time: </b> 11AM PST - 5PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header><h3>Career Fair #4</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Registered</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Tuesday, November 17, 2020</p>
-                            <p><b>Time: </b>10AM PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    {upcoming_reg}
                 </CardGroup>
             </Card>
             </div>
@@ -88,39 +119,7 @@ export default class StudentProfilePage extends React.Component {
                 <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
                 <Card.Header><h2><b>Upcoming Career Fairs (Not Registered)</b></h2></Card.Header>
                     <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
-                        <Card style={{ "padding-bottom": "5px"}}>
-                            <Card.Header><h3>Career Fair #5</h3></Card.Header>
-                            <Card.Body>
-                            <Card.Title><b>Status: </b>Not Registered</Card.Title>
-                            <Card.Text>
-                                <p><b>Date: </b>Thursday, November 5, 2020</p>
-                                <p><b>Time: </b> 11 PST - 3PM PST</p>
-                                <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
-                            </Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header><h3>Career Fair #6</h3></Card.Header>
-                            <Card.Body>
-                            <Card.Title><b>Status: </b> Not Registered</Card.Title>
-                            <Card.Text>
-                                <p><b>Date: </b>Wednesday, November 11, 2020</p>
-                                <p><b>Time: </b> 11AM PST - 5PM PST</p>
-                                <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
-                            </Card.Text>
-                            </Card.Body>
-                        </Card>
-                        <Card>
-                            <Card.Header><h3>Career Fair #7</h3></Card.Header>
-                            <Card.Body>
-                            <Card.Title><b>Status: </b> Not Registered</Card.Title>
-                            <Card.Text>
-                                <p><b>Date: </b>Tuesday, November 17, 2020</p>
-                                <p><b>Time: </b>10AM PST - 3PM PST</p>
-                                <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Fair</Button>
-                            </Card.Text>
-                            </Card.Body>
-                        </Card>
+                        {upcoming_unreg}
                     </CardGroup>
                 </Card>
             </div>
@@ -128,39 +127,7 @@ export default class StudentProfilePage extends React.Component {
             <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
             <Card.Header><h2><b>Past Career Fairs Attended</b></h2></Card.Header>
                 <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
-                    <Card style={{ "padding-bottom": "5px"}}>
-                        <Card.Header><h3>Career Fair #8</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Attended</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Thursday, November 5, 2020</p>
-                            <p><b>Time: </b> 11 PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header><h3>Career Fair #9</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Attended</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Wednesday, November 11, 2020</p>
-                            <p><b>Time: </b> 11AM PST - 5PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
-                    <Card>
-                        <Card.Header><h3>Career Fair #10</h3></Card.Header>
-                        <Card.Body>
-                        <Card.Title><b>Status: </b>Attended</Card.Title>
-                        <Card.Text>
-                            <p><b>Date: </b>Tuesday, November 17, 2020</p>
-                            <p><b>Time: </b>10AM PST - 3PM PST</p>
-                            <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
-                        </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    {pastitems}
                 </CardGroup>
             </Card>
             </div>
