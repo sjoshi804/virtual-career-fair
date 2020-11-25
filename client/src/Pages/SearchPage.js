@@ -15,7 +15,8 @@ export default class SearchPage extends React.Component {
     this.state = {
         dropDownValue: "Company",
         placeholder: "Search",
-        searchText: ""
+        searchText: "",
+        searchResults: <Companies></Companies>
     }
   }
   
@@ -23,23 +24,26 @@ export default class SearchPage extends React.Component {
     this.props.history.push({ pathname: route });
     };
 
-  changeValue(text, holder) {
+  changeValue(type, holder) {
     var element = <Fairs></Fairs>;
-    if (text == "Position")
+    
+    if (type == "Position")
     {
       element = <Positions></Positions>;
       
     }
-    else if (text == "Company")
+    else if (type == "Company")
     {
-      element = <Companies></Companies>;
+      console.log("changeValue:","Company", this.state.searchText);
+      element = <Companies keyword={this.state.searchText}></Companies>;
     }
     else
     {
       element = <Fairs></Fairs>;
     }
+    this.setState({dropDownValue: "C", holder: holder});
     ReactDOM.render(element, document.getElementById('next'));
-    this.setState({dropDownValue: text, placeholder: holder})  
+    this.setState({dropDownValue: type, holder: holder});
   }
 
   handleroute = routes => () => {
@@ -50,19 +54,24 @@ export default class SearchPage extends React.Component {
     this.setState({
       searchText: event.target.value
     });
+    console.log(event.target.value);
+    //this.handleSearchSubmit();
   };
 
   handleSearchSubmit = () => {
+    console.log("Search button has been pressed");
     if (this.state.searchText) {
-      this.props.history.push({
-        pathname: "/results",
-        state: {
-          searchText: this.state.searchText
-        }
-      });
-    } else {
-      alert("Please enter some search text!");
-    }
+      var placeholder;
+      if (this.state.dropDownValue != "Career Fair")
+      {
+        placeholder = "Search Keyword" ;
+      }
+      else
+      {
+        placeholder = "date";
+      }
+      this.changeValue(this.state.dropDownValue, placeholder)
+    } 
   };
 
   render() {
@@ -87,19 +96,15 @@ export default class SearchPage extends React.Component {
                 { this.state.dropDownValue !== "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
-            
-            <FormControl type={this.state.placeholder} onChange={this.handleSearchInput}
+           <FormControl type={this.state.placeholder} onChange={this.handleSearchInput}
               value={this.state.searchText} placeholder="Search Keywords" aria-describedby="basic-addon1" />
-            <InputGroup.Append>
-                <Button variant="primary" type="submit" id="basic-addon2" onClick={this.handleSearchSubmit}>Search</Button>
-            </InputGroup.Append>
         </InputGroup>
-        
+        <Button variant="primary" type="submit" id="basic-addon2" onClick={this.handleSearchSubmit}>Search</Button>
         </Card>
 
         <div  id="next">
-        <Companies></Companies>
-          </div>
+          <Companies></Companies>
+        </div>
       </div>
 
 
