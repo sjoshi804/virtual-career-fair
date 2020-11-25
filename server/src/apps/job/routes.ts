@@ -41,7 +41,7 @@ JobRouter.get("/:companyId/job", async (req, res) => {
     {
         _id: req.params.companyId
     }
-
+    
     // Check if company exists
     var company = await Company.db.findOne(filterQuery);
     if (company == null) {
@@ -49,7 +49,14 @@ JobRouter.get("/:companyId/job", async (req, res) => {
     }
     else {
         // Send all jobs
-        res.status(200).send(company.jobs)
+        if (company.jobs == undefined)
+        {
+            res.status(200).send([]);
+        }
+        else
+        {
+            res.status(200).send(company.jobs);
+        }
     }
 })
 
