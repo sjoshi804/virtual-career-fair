@@ -80,7 +80,7 @@ export default class SearchPage extends React.Component {
     if (this.state.dropDownValue == "Company")
     {
       this.state.companies.forEach(element => {
-        if (element.name.startsWith(this.state.searchText))
+        if (element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()))
         {
           searchResults.push(
           <CompanyCard 
