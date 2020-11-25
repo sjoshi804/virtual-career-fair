@@ -82,7 +82,15 @@ export default class SearchPage extends React.Component {
       this.state.companies.forEach(element => {
         if (element.name.startsWith(this.state.searchText))
         {
-          searchResults.push(<CompanyCard name={element.name} industry={element.industry} description={element.description}></CompanyCard>);
+          searchResults.push(
+          <CompanyCard 
+          key={element.name}
+          name={element.name} 
+          industry={element.industry}
+          description={element.description}>
+
+          </CompanyCard>
+          );
         }
       });
 
@@ -102,8 +110,8 @@ export default class SearchPage extends React.Component {
     }
 
     return (
-        <div id="root" style={{ "text-align": "center", "margin": "50px 50px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "50px"}}>
+        <div id="root" style={{ textAlign: "center", margin: "50px 50px" }}>
+        <Card style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", marginBottom: "50px"}}>
           
         
             <Card.Header><h1>Search for companies, job positions, or career fairs</h1></Card.Header>
