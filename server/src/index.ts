@@ -71,8 +71,8 @@ var io = require('socket.io')(server,
 );
 
 // Register socket protocols
-//const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
-//careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
+const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
+careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
 
 // Start listening on server
 server.listen(app.get("port"), () => {

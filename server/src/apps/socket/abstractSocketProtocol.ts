@@ -33,6 +33,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
             this.connectedClients.set(socket.handshake.query['username'], socket.id);
             console.log(`${this.protocolName}: ${socket.handshake.query['username']} was already connected. Replacing socket.id with new socket.id`);
         }
+        console.log(this.connectedClients);
     }
 
     // On disconnection removes username, socket.id from the map, if never existed logs possible error
@@ -47,6 +48,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
             this.connectedClients.delete(socket.handshake.query['username']);
             console.log(`${this.protocolName}: ${socket.handshake.query['username']} disconnected.`);
         }
+        console.log(this.connectedClients);
     }
 
     // Echo event to help with testing / debugging
