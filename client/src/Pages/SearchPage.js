@@ -90,11 +90,11 @@ export default class SearchPage extends React.Component {
     }
     else if (this.state.dropDownValue == "Position")
     {
-
+        //TODO: 
     }
     else if (this.state.dropDownValue == "Career Fair")
     {
-
+        //TODO: 
     }
     else
     {
@@ -127,12 +127,10 @@ export default class SearchPage extends React.Component {
         </Card>
 
         <CardDeck>
-        {searchResults}
+          {searchResults}
         </CardDeck>
       </div>
     );
-    
-  }
-  
+  }  
 }
 
