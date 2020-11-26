@@ -1,7 +1,5 @@
 import React from "react";
 import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
-import profile from '../Images/profile.jpg'; 
-// import profile from '../Images/profile.jpg'; 
 
 export default class RecruiterVideoCall extends React.Component {
     handleRoute = route => () => {
@@ -9,11 +7,14 @@ export default class RecruiterVideoCall extends React.Component {
         };
   render() {
     return (
-        <div>
-        <div style={{ "color": "black", "padding": "20px"}}>
-            HELLO!!! DOES THIS WORK?!?!
+        <div style={{ "color": "black", "margin": "auto"}}>
+            <video style={{ "margin": "20px"}} width="480" height="360" controls>
+                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
+            </video>
+            <video style={{ "margin": "20px"}} width="480" height="360" controls>
+                <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
+            </video>
         </div>
-      </div>
     );
   }
 }
