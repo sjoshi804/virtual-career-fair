@@ -34,7 +34,7 @@ export default class RecruiterLivePage extends React.Component {
             <h4>
                 <b>Join next meeting:</b>
                 <h6></h6>
-                <Button size="sm" variant="outline-success" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button>
+                <Button size="sm" variant="outline-success" onClick={this.handleRoute("/recruiter-video-call")}>Join Now</Button>
             </h4>
         </Card>
         <br></br>
