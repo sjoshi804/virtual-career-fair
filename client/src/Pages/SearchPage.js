@@ -112,7 +112,7 @@ export default class SearchPage extends React.Component {
     {
       this.state.jobs.forEach(element => {
         console.log(element);
-        var isMatch = false;
+        var isMatch = element.company.toLowerCase().startsWith(this.state.searchText.toLowerCase());
       
         for (let word of element.title.toLowerCase().split(" "))
         {
@@ -122,6 +122,7 @@ export default class SearchPage extends React.Component {
             break;
           }
         }
+
         if (isMatch)
         {
           searchResults.push(
