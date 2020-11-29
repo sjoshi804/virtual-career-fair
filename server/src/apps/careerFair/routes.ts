@@ -11,6 +11,7 @@
 import express = require('express');
 import { CareerFair } from './careerFair';
 import { Organizer } from '../user/organizer/organizer';
+import { User } from '../user/user';
 const CareerFairRouter = express.Router();
 
 // Get All CareerFairs
@@ -122,10 +123,50 @@ CareerFairRouter.delete("/:careerfairid", async (req, res) => {
     }
 });
 
-
-// 
+// Add applicant to career fair
 CareerFairRouter.post("/:careerfairid/registerApplicant/:applicantid", async (req, res) => {
-
+    // Get career fair
+    const filterQuery = {
+        _id: req.params.careerfairid
+    }
+    var careerfair = await CareerFair.db.findOne(filterQuery);
+    if (careerfair != null) {
+        // Check if applicant exists in the database
+        var applicantid = req.params.applicantid;
+        const filterQuery = {
+            _id: applicantid
+        }
+        var applicant = await User.db.findOne(filterQuery);
+        if (applicant != null) {
+            // Check if applicant is already registered
+            var applicants = careerfair.attendingApplicants;
+            if (!applicants.includes(applicantid)) {
+                careerfair.attendingApplicants.push(applicantid);
+                // Update career fair in DB
+                const updateQuery = {
+                    $set: careerfair
+                };
+                // Return 204 to indicate successful put request
+                if (await CareerFair.db.updateOne(filterQuery, updateQuery)) {
+                    res.sendStatus(204);
+                    return;
+                } 
+                // Update failed so return 500
+                else {
+                    res.sendStatus(500);
+                    return;
+                }
+            }
+        } 
+        // Could not find applicant 
+        else {
+            res.sendStatus(404);
+        }
+    }
+    // Couldn't find the Career Fair
+    else {
+        res.sendStatus(404);
+    }
 });
 
 // Get all companies associated with this career fair
