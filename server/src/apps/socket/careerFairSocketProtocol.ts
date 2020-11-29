@@ -39,6 +39,8 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
             {
                 if (socket.handshake.query['username'] != undefined)
                 {
+                    // TODO: Add recruiter / leave recruiter
+                    
                     // Handle connection
                     this.onConnection(socket);
 
@@ -142,6 +144,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
         // Dequeue next applicant
         const nextApplicant = currentFair.booths[company].queue.dequeue();
+        // TODO: Notify queue of this change
 
         // If this applicant is not connected, log error and give up, let client side retry
         if (!this.connectedClients.has(nextApplicant))

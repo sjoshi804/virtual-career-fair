@@ -2,11 +2,9 @@ import React from "react";
 
 import * as ReactDOM from 'react-dom';
 import { Form, CardDeck, InputGroup, FormControl, Card, Button, Dropdown, DropdownButton, Toast } from "react-bootstrap";
-import { Fairs } from './Fairs'
-import { Companies } from './Companies'
-import { Positions } from './Positions'
-import { CompanyCard } from "./companyCard";
-
+import { CompanyCard } from "./CompanyCard";
+import { FairCard } from "./FairCard";
+import { JobCard } from "./JobCard";
 
 export default class SearchPage extends React.Component {
 
@@ -15,7 +13,6 @@ export default class SearchPage extends React.Component {
     
     this.state = {
         dropDownValue: "Company",
-        placeholder: "Search",
         searchText: "",
         companies: [],
         fairs: [],
@@ -26,6 +23,7 @@ export default class SearchPage extends React.Component {
   async componentDidMount()
   {
     // TODO: Optimize this with pagination etc., #jobs and career fairs can grow very quickly and will make this page store too much data
+    // TODO: Update url to be set dynamically based on prod/dev otherwise may have issues in deployment with this
 
     // Get all companies
     const companies = await fetch('http://localhost:3000/company',
@@ -33,11 +31,28 @@ export default class SearchPage extends React.Component {
       method: "GET"
     })
     .then(response => response.json());
-    console.log(companies);
-    // Get all jobs
-    const fairs = []
 
-    const jobs = []
+    // Get all jobs - by looping through every company
+    var jobs = [];
+    for (let company of companies)
+    {
+      var jobsAtCompany = await fetch('http://localhost:3000/company/' + company._id + "/job",
+      {
+        method: "GET"
+      })
+      .then(response => response.json());
+      
+      jobsAtCompany.forEach(job => {
+        job.company = company.name;
+        jobs.push(job);
+      });
+    }
+
+    const fairs = await fetch('http://localhost:3000/careerFair',
+    {
+      method: "GET"
+    })
+    .then(response => response.json());
 
     this.setState(
       {
@@ -85,9 +100,7 @@ export default class SearchPage extends React.Component {
           searchResults.push(
           <CompanyCard 
           key={element.name}
-          name={element.name} 
-          industry={element.industry}
-          description={element.description}>
+          company={element}>
 
           </CompanyCard>
           );
@@ -96,13 +109,66 @@ export default class SearchPage extends React.Component {
 
       console.log(searchResults);
     }
-    else if (this.state.dropDownValue == "Position")
+    else if (this.state.dropDownValue == "Job")
     {
-        //TODO: 
+      this.state.jobs.forEach(element => {
+        console.log(element);
+        var isMatch = element.company.toLowerCase().startsWith(this.state.searchText.toLowerCase());
+      
+        for (let word of element.title.toLowerCase().split(" "))
+        {
+          if (word.startsWith(this.state.searchText.toLowerCase()))
+          {
+            isMatch = true;
+            break;
+          }
+        }
+
+        if (isMatch)
+        {
+          searchResults.push(
+          <JobCard 
+          key={element._id}
+          job={element}>
+
+          </JobCard>
+          );
+        }
+      });
     }
     else if (this.state.dropDownValue == "Career Fair")
     {
-        //TODO: 
+      this.state.fairs.forEach(element => {
+        var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()) || element.organizer.toLowerCase().startsWith(this.state.searchText.toLowerCase());
+        
+        // Convert startTime and endTime to date objects
+        element.startTime = new Date(element.startTime);
+        element.endTime = new Date(element.endTime);
+        // Set status based on current time
+        if (element.startTime < new Date() && element.endTime > new Date())
+        {
+          element.status = "Live";
+        }
+        else if (element.endTime < new Date())
+        {
+          element.status = "Past"
+        }
+        else
+        {
+          element.status = "Upcoming"
+        }
+
+        if (isMatch)
+        {
+          searchResults.push(
+          <FairCard 
+          key={element._id}
+          fair={element}>
+          
+          </FairCard>
+          );
+        }
+      });
     }
     else
     {
@@ -114,7 +180,7 @@ export default class SearchPage extends React.Component {
         <Card style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", marginBottom: "50px"}}>
           
         
-            <Card.Header><h1>Search for companies, job positions, or career fairs</h1></Card.Header>
+            <Card.Header><h1>Search for companies, jobs, or career fairs</h1></Card.Header>
         <InputGroup className="mb-3">
             <DropdownButton
                 as={InputGroup.Prepend}
@@ -124,12 +190,12 @@ export default class SearchPage extends React.Component {
              >
                 { this.state.dropDownValue !== "Company" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Company</div></Dropdown.Item> : null }
                 
-                { this.state.dropDownValue !== "Position" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Position</div></Dropdown.Item> : null }
+                { this.state.dropDownValue !== "Job" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "Search Keywords")}>Job</div></Dropdown.Item> : null }
 
                 { this.state.dropDownValue !== "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
-           <FormControl type={this.state.placeholder} onChange={this.handleSearchInput}
+           <FormControl type="text" onChange={this.handleSearchInput}
               value={this.state.searchText} placeholder="Search Keywords" aria-describedby="basic-addon1" />
         </InputGroup>
         </Card>

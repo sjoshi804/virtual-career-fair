@@ -1,10 +1,13 @@
 import { User } from '../user'
 import { OrganizerDBSchema } from './organizerDBSchema';
+import { OrganizerDBStrategy } from './organizerDBStrategy'; 
 import { ISerializable } from '../../../db/iSerializable';
 
 class Organizer extends User implements ISerializable {
     
     private affiliatedOrganization: string;
+
+    public static db = new OrganizerDBStrategy();
 
     public constructor(userType: number, name: string, emailID: string, password: string, token: string, 
                         affiliatedOrganization: string) {

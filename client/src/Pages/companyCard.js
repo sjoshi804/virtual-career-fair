@@ -12,13 +12,13 @@ class CompanyCard extends React.Component
                 <Card.Img variant="top" src={google} height="200" />
                 </div>
                 <Card.Body>
-                <Card.Title><b>{this.props.name}</b></Card.Title>
+                <Card.Title><b>{this.props.company.name}</b></Card.Title>
                 <Card.Text>
-                    {this.props.description}
+                    {this.props.company.description}
                 </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    {this.props.industry}
+                    {this.props.company.industry}
                 </Card.Footer>
             </Card>
         );

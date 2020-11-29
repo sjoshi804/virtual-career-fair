@@ -24,6 +24,7 @@ import { UserRouter } from "./apps/user/routes";
 import { ApplicantRouter } from "./apps/user/applicant/routes";
 import { RecruiterRouter } from "./apps/user/recruiter/routes";
 import { OrganizerRouter } from "./apps/user/organizer/routes";
+import { CareerFairRouter } from "./apps/careerFair/routes";
 
 // Express configuration
 let port = process.env.PORT || 3000;
@@ -48,6 +49,7 @@ app.use("/user", UserRouter);
 app.use("/applicant", ApplicantRouter);
 app.use("/recruiter", RecruiterRouter);
 app.use("/organizer", OrganizerRouter);
+app.use("/careerfair", CareerFairRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
