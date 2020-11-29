@@ -13,7 +13,6 @@ export default class SearchPage extends React.Component {
     
     this.state = {
         dropDownValue: "Company",
-        placeholder: "Search",
         searchText: "",
         companies: [],
         fairs: [],
@@ -49,9 +48,11 @@ export default class SearchPage extends React.Component {
       });
     }
 
-    console.log(jobs);
-   
-    const fairs = [];
+    const fairs = await fetch('http://localhost:3000/careerFair',
+    {
+      method: "GET"
+    })
+    .then(response => response.json());
 
     this.setState(
       {
@@ -137,7 +138,34 @@ export default class SearchPage extends React.Component {
     }
     else if (this.state.dropDownValue == "Career Fair")
     {
-        //TODO: 
+      this.state.fairs.forEach(element => {
+        var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase());
+
+        // Set status based on current time
+        if (element.startTime < Date() && element.endTime > Date())
+        {
+          element.status = "Live";
+        }
+        else if (element.endTime < Date())
+        {
+          element.status = "Past"
+        }
+        else
+        {
+          element.status = "Upcoming"
+        }
+
+        if (isMatch)
+        {
+          searchResults.push(
+          <FairCard 
+          key={element._id}
+          fair={element}>
+          
+          </FairCard>
+          );
+        }
+      });
     }
     else
     {
@@ -164,7 +192,7 @@ export default class SearchPage extends React.Component {
                 { this.state.dropDownValue !== "Career Fair" ? <Dropdown.Item as="button"><div onClick={(e) => this.changeValue(e.target.textContent, "date")}>Career Fair</div></Dropdown.Item> : null }
                 
             </DropdownButton>
-           <FormControl type={this.state.placeholder} onChange={this.handleSearchInput}
+           <FormControl type="text" onChange={this.handleSearchInput}
               value={this.state.searchText} placeholder="Search Keywords" aria-describedby="basic-addon1" />
         </InputGroup>
         </Card>
