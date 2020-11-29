@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "shell",
+			"group": "build",
+			"command": "tsc -p tsconfig.json",
+			"label": "tsc: build - tsconfig.json"
+		}
+	]
+}
