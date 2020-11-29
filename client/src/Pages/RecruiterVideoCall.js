@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, CardGroup, Image, Form} from "react-bootstrap";
-import Peer from "simple-peer";
+import Peer from 'peerjs';
+import { Socket } from "socket.io-client";
 const io = require('socket.io-client');
 
 export default class RecruiterVideoCall extends React.Component {
@@ -14,11 +15,14 @@ export default class RecruiterVideoCall extends React.Component {
         this.state = {
             stream: null
         }
+        
     }
+
 
     componentDidMount() {
         // Setup socket connection
-        this.clientSocket = io("ws://localhost:3000/careerFair", {
+        console.log(this.props.username);
+        this.clientSocket = io("ws://localhost:3000", {
             query: {
                 username: this.props.username   
             }
@@ -43,19 +47,60 @@ export default class RecruiterVideoCall extends React.Component {
         this.clientSocket.connect();
 
         this.echo();
-
+/*
         // Get user's video and audio stream
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
                 document.getElementById('myVideo').srcObject = stream;   
+                this.setState(
+                    {
+                        stream: stream
+                    }
+                )
             });
+            */
 
-        // if (this.props.username === "user2")
-        // {
-        //     console.log("I am the student.");
-        //     this.clientSocket.emit("")
-        // }
-    
+        const peer = new Peer();
+        peer.on('open', (id) =>
+        {
+            this.clientSocket.emit("peerId", peer.id);
+            console.log(id);
+        });
+
+        this.clientSocket.on("user2", (peerId) =>
+        {
+            if (peerId != peer.id)
+            {
+                var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                getUserMedia({video: true, audio: true}, function(stream) {
+                document.getElementById('myVideo').srcObject = stream; 
+                var call = peer.call(peerId, stream);
+                call.on('stream', function(remoteStream) {
+                    document.getElementById('partnerVideo').srcObject = remoteStream; 
+                });
+                }, function(err) {
+                console.log('Failed to get local stream' ,err);
+                });
+            }
+            else 
+            {
+                var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                peer.on('call', function(call) {
+                    
+                getUserMedia({video: true, audio: true}, function(stream) {
+                    document.getElementById('myVideo').srcObject = stream; 
+                call.answer(stream); // Answer the call with an A/V stream.
+                call.on('stream', function(remoteStream) {
+                // Show stream in some video/canvas element.
+                document.getElementById('partnerVideo').srcObject = remoteStream; 
+                });
+                }, function(err) {
+                console.log('Failed to get local stream' ,err);
+                });
+                });
+            }
+        });
+        
     }
 
     echo() {
@@ -63,52 +108,6 @@ export default class RecruiterVideoCall extends React.Component {
         this.clientSocket.emit("echo", "Hello World");
     }
 
-    startNextMeeting() {
-        const peer = new Peer({
-            initiator: true,
-            trickle: false,
-            config: {
-                iceServers: [
-                    {
-                        urls: "stun:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
-                    },
-                    {
-                        urls: "turn:numb.viagenie.ca",
-                        username: "sultan1640@gmail.com",
-                        credential: "98376683"
-                    }
-                ]
-            },
-            stream: this.state.stream,
-        });
-    
-        peer.on("signal", data => {
-            this.clientSocket.emit("startNextMeeting", { 
-                careerFair: 'careerFair', 
-                company: 'jobZ',
-                signalData: data
-            });
-        });
-    
-        peer.on("stream", stream => {
-          var partnerVideo = document.getElementById('partnerVideo');
-          if (partnerVideo) {
-                partnerVideo.srcObject = stream;
-            }
-        });
-    
-      }
-
-    startCall() {
-
-    }
-
-    acceptCall() {
-
-    }
-  
     render() {
         console.log(!this.state.stream);
         return (
@@ -122,12 +121,12 @@ export default class RecruiterVideoCall extends React.Component {
                 <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
                     <div style={{"display": "inline"}}>
                         <div style={{"display": "inline-block"}}>
-                            <video autoplay="true" id="myVideo" style={{ "margin": "20px"}} width="480" height="360" controls>
+                            <video autoplay="true" id="myVideo" style={{ "margin": "20px"}} width="480" height="360"  muted playsInline>
                                 <source src={this.state.stream} type="video/mp4"/>
                             </video>
                         </div>
                         <div style={{"display": "inline-block"}}>
-                            <video autoplay="true" id="partnerVideo" style={{ "margin": "20px"}} width="480" height="360" controls>
+                            <video autoplay="true" id="partnerVideo" style={{ "margin": "20px"}} width="480" height="360"  playsInline>
                                 <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
                             </video>
                         </div>
