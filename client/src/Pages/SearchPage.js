@@ -142,11 +142,11 @@ export default class SearchPage extends React.Component {
         var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase());
 
         // Set status based on current time
-        if (element.startTime < Date() && element.endTime > Date())
+        if (new Date(element.startTime) < new Date() && new Date(element.endTime) > new Date())
         {
           element.status = "Live";
         }
-        else if (element.endTime < Date())
+        else if (new Date(element.endTime) < new Date())
         {
           element.status = "Past"
         }
