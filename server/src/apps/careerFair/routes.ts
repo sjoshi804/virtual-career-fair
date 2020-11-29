@@ -11,7 +11,7 @@
 import express = require('express');
 import { CareerFair } from './careerFair';
 import { Organizer } from '../user/organizer/organizer';
-import { User } from '../user/user';
+
 const CareerFairRouter = express.Router();
 
 // Get All CareerFairs
