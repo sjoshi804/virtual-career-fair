@@ -10,7 +10,7 @@ import { socketAuthentication } from '../../middleware/socketAuthentication';
 describe('Socket', function() {
 
     var clientSocket: any;
-    const ioServer = socketIO.listen(3000, {
+    const ioServer = socketIO.listen(3002, {
         options: "*:*"
     });
     
@@ -39,7 +39,7 @@ describe('Socket', function() {
     beforeEach((done) =>  
     {
         // Setup Client
-        clientSocket = io.connect('http://localhost:3000/', {
+        clientSocket = io.connect('http://localhost:3002/', {
             'reconnection delay' : 0
             , 'reopen delay' : 0
             , 'force new connection' : true

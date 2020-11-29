@@ -27,7 +27,7 @@ describe('Queue', () => {
 
   it('dequeue - pop first element from queue and return it', () => {
     const result = ApplicantQueue.dequeue();
-    expect(result).to.equal(ApplicantA);
+    expect(result).to.equal("ApplicantA");
     expect(ApplicantQueue.getLength()).to.equal(2);
   });
 
