@@ -53,6 +53,15 @@ CareerFairRouter.get("/:careerfairid", async (req, res) => {
     }
     var careerfair = await CareerFair.db.findOne(filterQuery);
     if (careerfair != null) {
+        // Get name
+        const filterQuery = {
+            _id: careerfair.organizer
+        };
+        var organizer = await Organizer.db.findOne(filterQuery);
+        console.log(organizer);
+        if (organizer != null) {
+           careerfair.organizer = organizer.userData.affiliatedOrganization; 
+        }
         res.status(200).send(careerfair);
     } 
     // Did not find item in db
