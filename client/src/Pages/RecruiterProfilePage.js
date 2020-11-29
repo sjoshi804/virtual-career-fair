@@ -8,6 +8,62 @@ export default class RecruiterProfilePage extends React.Component {
         this.props.history.push({ pathname: route });
         };
   render() {
+    const livecareerfairs = ['UCLA Engineering Tech Fair'];
+    const liveitems = []
+  
+    for (const [index, value] of livecareerfairs.entries()) {
+      liveitems.push(
+          
+        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+            <Card.Header><h3>Career Fair :{value}</h3></Card.Header>
+            <Card.Body>
+            <Card.Text>
+                October 21, 2020 from 11AM-2PM PST
+                <Button variant="outline-success" onClick={this.handleRoute("/recruiter-live")}>Join Now</Button>
+            </Card.Text>
+            </Card.Body>
+        </Card>
+      )
+    }
+
+    const upcoming_careerfairs = ['Harvey Mudd College Computer Science Fair', 'University of Washington Engineering Fair', 'Columbia Universtiy Computer Science Fair'];
+    const upcoming_items = []
+  
+    for (const [index, value] of upcoming_careerfairs.entries()) {
+            upcoming_items.push(
+          
+                <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+                    <Card.Header><h3>Career Fair: {value}</h3></Card.Header>
+                    <Card.Body>
+                    <Card.Text>
+                        <p><b>Date: </b>Today, October 25, 2020</p>
+                        <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                        <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
+                    </Card.Text>
+                    </Card.Body>
+                </Card>)
+      
+    }
+
+    const pastcareerfairs = ['Harvey Mudd College Computer Science Fair', 'University of Washington Engineering Fair', 'Columbia Universtiy Computer Science Fair'];
+    const pastitems = []
+  
+    for (const [index, value] of pastcareerfairs.entries()) {
+      pastitems.push(
+          
+        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
+            <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
+            <Card.Body>
+            <Card.Text>
+                <p><b>Date: </b>Today, October 25, 2020</p>
+                <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
+                <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
+            </Card.Text>
+            </Card.Body>
+        </Card>
+      )
+    }
+
     return (
         <div>
         <div style={{ "color": "black", "padding": "20px"}}>
@@ -30,11 +86,7 @@ export default class RecruiterProfilePage extends React.Component {
         <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Live Career Fairs</h3></Card.Header>
         <Card.Body>
-            <Card.Title>Career Fair: UCLA Engineering Tech Fair</Card.Title>
-            <Card.Text>
-            October 21, 2020 from 11AM-2PM PST
-            </Card.Text>
-            <Button variant="outline-success" onClick={this.handleRoute("/recruiter-live")}>Join Now</Button>
+            {liveitems}
         </Card.Body>
         </Card>
         </div>
@@ -42,33 +94,7 @@ export default class RecruiterProfilePage extends React.Component {
       <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Upcoming Career Fairs</h3></Card.Header>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: Harvey Mudd College Computer Science Fair </Card.Title>
-            <Card.Text>
-            November 4, 2020 @ 11AM-3PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
-        </Card.Body>
-        </Card>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: University of Washington Engineering Fair </Card.Title>
-            <Card.Text>
-            November 5, 2020 @ 10AM-2PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
-        </Card.Body>
-        </Card>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: Columbia Universtiy Computer Science Fair </Card.Title>
-            <Card.Text>
-            November 6, 2020 @ 12-5PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/add-edit-booth")}>Add/Edit Booth</Button>
-        </Card.Body>
-        </Card>
+            {upcoming_items}
         </Card>
       </div>
 
@@ -76,33 +102,7 @@ export default class RecruiterProfilePage extends React.Component {
       <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Past Career Fairs</h3></Card.Header>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: Harvey Mudd College Computer Science Fair </Card.Title>
-            <Card.Text>
-            October 4, 2020 @ 11AM-3PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
-        </Card.Body>
-        </Card>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: University of Washington Engineering Fair </Card.Title>
-            <Card.Text>
-            October 5, 2020 @ 10AM-2PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
-        </Card.Body>
-        </Card>
-        <Card>
-        <Card.Body>
-            <Card.Title>Career Fair: Columbia Universtiy Computer Science Fair </Card.Title>
-            <Card.Text>
-            October 6, 2020 @ 12-5PM PST
-            </Card.Text>
-            <Button variant="outline-dark" onClick={this.handleRoute("/recruiter-past")}>View Fair</Button>
-        </Card.Body>
-        </Card>
+        {pastitems}
         </Card>
       </div>
       </div>

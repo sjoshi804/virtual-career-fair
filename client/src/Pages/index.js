@@ -19,6 +19,7 @@ import StudentUpcomingPage from "./StudentUpcomingPage"
 import StudentPastPage from "./StudentPastPage"
 import StudentLoginPage from "./StudentLoginPage"
 import RecruiterLoginPage from "./RecruiterLoginPage"
+import RecruiterVideoCall from "./RecruiterVideoCall.js"
 
 export { 
   StudentProfilePage,
@@ -42,4 +43,5 @@ export {
   RecruiterPastPage,
   StudentLoginPage,
   RecruiterLoginPage,
+  RecruiterVideoCall,
 };
