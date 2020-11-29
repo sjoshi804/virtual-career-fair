@@ -71,7 +71,8 @@ class Main extends React.Component {
           <Route exact path="/student-past" component={StudentPastPage} />
           <Route exact path="/student-login" component={StudentLoginPage} />
           <Route exact path="/recruiter-login" component={RecruiterLoginPage} />
-          <Route exact path="/recruiter-video-call" component={RecruiterVideoCall} />
+          <Route exact path="/recruiter-video-call" component={() => <RecruiterVideoCall username="user1"></RecruiterVideoCall>} />
+          <Route exact path="/recruiter-video-call-2" component={() => <RecruiterVideoCall username="user2"></RecruiterVideoCall>} />
           <Route component={RouteNotFound} />
         </Switch>
       </>
