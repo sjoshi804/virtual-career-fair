@@ -21,16 +21,18 @@ CareerFairRouter.get("/", async (req, res) => {
 
     // For each career fair, look up the name from the user
     // table using the organizer id
-    (careerfairs).forEach(async (careerfair) => {
+    for (let careerfair of careerfairs)
+    {
         // Get organizer
         const filterQuery = {
             _id: careerfair.organizer
         };
         var organizer = await Organizer.db.findOne(filterQuery);
+        console.log(organizer);
         if (organizer != null) {
            careerfair.organizer = organizer.userData.affiliatedOrganization; 
         }
-    });
+    }
 
     res.status(200).send(careerfairs);
 });
