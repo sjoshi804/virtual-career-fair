@@ -146,6 +146,9 @@ CareerFairRouter.post("/:careerfairid/registerApplicant/:applicantid", async (re
                 const updateQuery = {
                     $set: careerfair
                 };
+                const filterQuery = {
+                    _id: req.params.careerfairid
+                }
                 // Return 204 to indicate successful put request
                 if (await CareerFair.db.updateOne(filterQuery, updateQuery)) {
                     res.sendStatus(204);
