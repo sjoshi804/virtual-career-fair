@@ -139,7 +139,7 @@ export default class SearchPage extends React.Component {
     else if (this.state.dropDownValue == "Career Fair")
     {
       this.state.fairs.forEach(element => {
-        var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase());
+        var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()) || element.organizer.toLowerCase().startsWith(this.state.searchText.toLowerCase());
 
         // Set status based on current time
         if (new Date(element.startTime) < new Date() && new Date(element.endTime) > new Date())
