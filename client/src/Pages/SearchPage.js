@@ -2,7 +2,7 @@ import React from "react";
 
 import * as ReactDOM from 'react-dom';
 import { Form, CardDeck, InputGroup, FormControl, Card, Button, Dropdown, DropdownButton, Toast } from "react-bootstrap";
-import { CompanyCard } from "./CompanyCard";
+import { CompanyCard } from "./companyCard";
 import { FairCard } from "./FairCard";
 import { JobCard } from "./JobCard";
 
