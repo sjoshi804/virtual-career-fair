@@ -140,13 +140,16 @@ export default class SearchPage extends React.Component {
     {
       this.state.fairs.forEach(element => {
         var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()) || element.organizer.toLowerCase().startsWith(this.state.searchText.toLowerCase());
-
+        
+        // Convert startTime and endTime to date objects
+        element.startTime = new Date(element.startTime);
+        element.endTime = new Date(element.endTime);
         // Set status based on current time
-        if (new Date(element.startTime) < new Date() && new Date(element.endTime) > new Date())
+        if (element.startTime < new Date() && element.endTime > new Date())
         {
           element.status = "Live";
         }
-        else if (new Date(element.endTime) < new Date())
+        else if (element.endTime < new Date())
         {
           element.status = "Past"
         }
