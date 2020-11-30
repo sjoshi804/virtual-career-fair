@@ -8,11 +8,14 @@ const logPrefix = "AUTH:"
 // Make sure to always append / to endpoint
 const endpointsWithoutAuthentication = 
 {
-    "/user/login/": ["POST"],
-    "/user/initiateLogin/": ["POST"],
-    "/applicant/" : ["POST"],
-    "/recruiter/" : ["POST"],
-    "/organizer/" : ["POST"]
+    "/user/login/"              : ["POST"],
+    "/user/initiateLogin/"      : ["POST"],
+    "/applicant/"               : ["POST"],
+    "/recruiter/"               : ["POST"],
+    "/organizer/"               : ["POST"],
+    "/company/"                 : ["GET"],
+    "/careerFair/"              : ["GET"],
+    "/company/:companyId/job/"  : ["GET"],
 }
 
 // Checks if endpoint should be authenticated for a given method
@@ -21,7 +24,13 @@ const shouldAuthenticateEndpoint = (endpoint, httpMethod) =>
     // Ensure url ends with /
     if (endpoint.slice(-1) != "/")
     {
-        endpoint = endpoint += "/";
+        endpoint += "/";
+        // FIXME: Make less hacky
+        if (endpoint.startsWith("/company") && endpoint.slice(-5) == "/job/")
+        {
+            
+            endpoint = "/company/:companyId/job/";
+        }
     }
 
     // Check if endpoint in dict for authentication less endpoints
@@ -39,8 +48,13 @@ const authenticate = async (req, res, next) =>
 {
     if (shouldAuthenticateEndpoint(req.originalUrl, req.method))
     {
-        const authToken = req.header("Authorization").replace("Bearer ", "").replace("Basic ", "");
-        if (await User.validateToken(authToken))
+        var authToken = req.header("Authorization")
+        if (authToken !== undefined)
+        {
+            authToken = authToken.replace("Bearer ", "").replace("Basic ", "");
+        }
+
+        if (authToken !== undefined && await User.validateToken(authToken))
         {
             console.log(`${logPrefix} User has been authenticated -> forwarding to appropriate route`);
             // User has valid token
