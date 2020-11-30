@@ -36,11 +36,6 @@ class User implements IHasID {
         }
     }
 
-    // Verify that input password matches the user's saved password
-    public checkPassword(typedPassword: string) {
-        return passwordHash.verify(typedPassword, this.password);
-    }
-
     // Public method to get Token
     public getToken() {
         if (this.token == undefined)
