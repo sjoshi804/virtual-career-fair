@@ -36,7 +36,7 @@ describe("Resume", () => {
 });
 
 // Test Resume API
-const prefix = "/resume";
+const prefix = "/api/resume";
 describe('Resume API (/resume)', () => {
     // Reset database before all tests and after every test
     before(async () => {

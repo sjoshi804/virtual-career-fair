@@ -43,15 +43,15 @@ if (process.env.NODE_ENV != config.test) {
 }
 
 // Connect Base Endpoints to Routers
-app.use("/company", CompanyRouter);
-app.use("/company", JobRouter);
-app.use("/resume", ResumeRouter);
-app.use("/meetingNotes", MeetingNotesRouter);
-app.use("/user", UserRouter);
-app.use("/applicant", ApplicantRouter);
-app.use("/recruiter", RecruiterRouter);
-app.use("/organizer", OrganizerRouter);
-app.use("/careerfair", CareerFairRouter);
+app.use("/api/company", CompanyRouter);
+app.use("/api/company", JobRouter);
+app.use("/api/resume", ResumeRouter);
+app.use("/api/meetingNotes", MeetingNotesRouter);
+app.use("/api/user", UserRouter);
+app.use("/api/applicant", ApplicantRouter);
+app.use("/api/recruiter", RecruiterRouter);
+app.use("/api/organizer", OrganizerRouter);
+app.use("/api/careerfair", CareerFairRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {

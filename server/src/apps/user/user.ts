@@ -22,18 +22,12 @@ class User implements IHasID {
     public static db = new UserDBStrategy();
 
     // Constructor
-    public constructor(userType: number, name: string, emailId: string, password: string, token: string) {
+    public constructor(userType: number, name: string, emailId: string, password: string) {
         this.name = name;
         this.emailId = emailId;
 
-        if (token !== "") {
-            this.token = token;
-        }  
-        else
-            this.token = undefined;
-
         this.userType = userType;
-
+        
         if (passwordHash.isHashed(password))
             this.password = password;
         else {
@@ -42,14 +36,9 @@ class User implements IHasID {
         }
     }
 
-    // Verify that input password matches the user's saved password
-    public checkPassword(typedPassword: string) {
-        return passwordHash.verify(typedPassword, this.password);
-    }
-
     // Public method to get Token
     public getToken() {
-        if (this.token == null)
+        if (this.token == undefined)
             this.createToken();
         return this.token;
     }

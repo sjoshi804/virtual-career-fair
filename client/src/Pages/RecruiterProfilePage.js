@@ -18,7 +18,7 @@ export default class RecruiterProfilePage extends React.Component {
             <Card.Header><h3>Career Fair :{value}</h3></Card.Header>
             <Card.Body>
             <Card.Text>
-                October 21, 2020 from 11AM-2PM PST
+                <p><b>Date: </b>October 21, 2020 from 11AM-2PM PST</p>
                 <Button variant="outline-success" onClick={this.handleRoute("/recruiter-live")}>Join Now</Button>
             </Card.Text>
             </Card.Body>

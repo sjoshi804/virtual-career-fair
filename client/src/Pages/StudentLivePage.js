@@ -10,9 +10,14 @@ import qualcomm from '../Images/qualcomm.jpg';
 import paypal from '../Images/paypal.jpg'; 
 import netflix from '../Images/netflix.jpg'; 
 import {MoreInfo} from './MoreInfo'
+
 const io = require('socket.io-client');
 const clientSocket = io("ws://localhost:3000/careerFair");
 export default class StudentLivePage extends React.Component {
+    constructor()
+    {
+      super();
+    }
 
     componentDidMount()
     {

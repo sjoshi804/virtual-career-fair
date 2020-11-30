@@ -18,10 +18,12 @@ export default class CreateFairPage extends React.Component {
           <Form.Control type="fairname" placeholder="Enter the name of the career fair" />
         </Form.Group>
         <Form.Group controlId="formBasicPassword">
-          <Form.Label style={{"color": "black", "text-align": "left"}}>Fair Time Period</Form.Label>
+          <Card.Text>
+            <Form.Label style={{"color": "black", "text-align": "left"}}>Fair Time Period</Form.Label>
+          </Card.Text>
           <Form.Control type="date" placeholder="Time Period of the career fair" />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.handleroute("/org")}>
+        <Button variant="primary" type="submit" onClick={this.handleroute("/organizer")}>
           Create
         </Button>
         </Form>
