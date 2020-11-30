@@ -48,7 +48,7 @@ describe('Job', () => {
 });
 
 // Test Job API
-const prefix = "/company";
+const prefix = "/api/company";
 
 describe('Job API (/company)', () => {
 

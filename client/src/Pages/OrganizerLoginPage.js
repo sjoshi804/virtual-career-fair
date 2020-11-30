@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Card, Button } from "react-bootstrap";
 
 
-export default class LoginPage extends React.Component {
+export default class OrganizerLoginPage extends React.Component {
   handleroute = routes => () => {
     this.props.history.push({ pathname: routes });
   };

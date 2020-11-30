@@ -10,9 +10,10 @@ const endpointsWithoutAuthentication =
 {
     "/user/login/": ["POST"],
     "/user/initiateLogin/": ["POST"],
-    "/applicant/" : ["POST"],
-    "/recruiter/" : ["POST"],
-    "/organizer/" : ["POST"]
+    "/applicant/": ["POST"],
+    "/recruiter/": ["POST"],
+    "/organizer/": ["POST"],
+    "/search/": ["GET"]
 }
 
 // Checks if endpoint should be authenticated for a given method

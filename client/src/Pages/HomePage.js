@@ -1,6 +1,6 @@
 import React from "react";
 import {Button} from "react-bootstrap";
-import LoginPage from "./LoginPage"
+import OrganizerLoginPage from "./OrganizerLoginPage"
 import { Route, Switch } from "react-router-dom";
 
 export default class HomePage extends React.Component {
@@ -48,7 +48,7 @@ export default class HomePage extends React.Component {
         <Button variant="light" onClick={this.handleRoute("/login")}>Get Started</Button>
       </div>
       <Switch>
-         <Route exact path="/login" component={LoginPage} />
+         <Route exact path="/login" component={OrganizerLoginPage} />
       </Switch>
     </div>
     

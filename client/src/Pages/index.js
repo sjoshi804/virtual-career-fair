@@ -1,7 +1,7 @@
 import StudentProfilePage from "./StudentProfilePage";
 import StudentLivePage from "./StudentLivePage";
 import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
+import OrganizerLoginPage from "./OrganizerLoginPage";
 import OrganizerPage from "./OrganizerPage";
 import OrganizerLivePage from "./OrganizerLivePage";
 import OrganizerPastPage from "./OrganizerPastPage";
@@ -34,7 +34,7 @@ export {
   OrganizerLivePage,
   OrganizerPastPage,
   OrganizerUpcomingPage,
-  LoginPage,
+  OrganizerLoginPage,
   RecruiterAddEditBoothPage,
   RecruiterLivePage,
   SearchPage,

@@ -7,6 +7,8 @@ import { CompanyCard } from "./companyCard";
 import { FairCard } from "./FairCard";
 import { JobCard } from "./JobCard";
 
+import { baseUrl } from "../.config";
+
 export default class SearchPage extends React.Component {
 
   constructor() {
@@ -21,35 +23,34 @@ export default class SearchPage extends React.Component {
     }
   }
 
-  async componentDidMount()
-  {
+  async componentDidMount() {
     // TODO: Optimize this with pagination etc., #jobs and career fairs can grow very quickly and will make this page store too much data
     // TODO: Update url to be set dynamically based on prod/dev otherwise may have issues in deployment with this
 
     // Get all companies
-    const companies = await fetch('http://localhost:3000/company',
-    {
+    const companyUrl = baseUrl + '/company';
+    console.log(companyUrl);
+    const companies = await fetch(companyUrl, {
       method: "GET"
     })
     .then(response => response.json());
+    console.log(companies);
 
     // Get all jobs - by looping through every company
     var jobs = [];
-    for (let company of companies)
-    {
-      var jobsAtCompany = await fetch('http://localhost:3000/company/' + company._id + "/job",
-      {
-        method: "GET"
-      })
-      .then(response => response.json());
+    for (let company of companies) {
+        var jobsAtCompany = await fetch(baseUrl + '/company/' + company._id + "/job", {
+          method: "GET"
+        })
+        .then(response => response.json());
       
-      jobsAtCompany.forEach(job => {
-        job.company = company.name;
-        jobs.push(job);
-      });
+        jobsAtCompany.forEach(job => {
+          job.company = company.name;
+          jobs.push(job);
+        });
     }
 
-    const fairs = await fetch('http://localhost:3000/careerFair',
+    const fairs = await fetch(baseUrl + '/careerFair',
     {
       method: "GET"
     })
@@ -93,7 +94,7 @@ export default class SearchPage extends React.Component {
   // Also filters by keyword
   render() {
     var searchResults = [];
-    if (this.state.dropDownValue == "Company")
+    if (this.state.dropDownValue === "Company")
     {
       this.state.companies.forEach(element => {
         if (element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()))
@@ -110,7 +111,7 @@ export default class SearchPage extends React.Component {
 
       console.log(searchResults);
     }
-    else if (this.state.dropDownValue == "Job")
+    else if (this.state.dropDownValue === "Job")
     {
       this.state.jobs.forEach(element => {
         console.log(element);
@@ -137,7 +138,7 @@ export default class SearchPage extends React.Component {
         }
       });
     }
-    else if (this.state.dropDownValue == "Career Fair")
+    else if (this.state.dropDownValue === "Career Fair")
     {
       this.state.fairs.forEach(element => {
         var isMatch = element.name.toLowerCase().startsWith(this.state.searchText.toLowerCase()) || element.organizer.toLowerCase().startsWith(this.state.searchText.toLowerCase());

@@ -1,21 +1,21 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+import { baseUrl } from "../.config";
+
 const passwordHash = require('password-hash');
+
 export default class StudentLoginPage extends React.Component {
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
 
         // Redirect if already logged in
-        if (localStorage.getItem("Authorization") != undefined)
-        {
+        if (localStorage.getItem("Authorization") !== undefined) {
             props.history.push('/student');
         }
 
         // Set state
-        this.state = 
-        {
+        this.state = {
             email: localStorage.getItem("email") || "",
             firstName: "",
             lastName: "",
@@ -32,15 +32,15 @@ export default class StudentLoginPage extends React.Component {
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
     }
+
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
-        };
+    };
 
-    async signUp()
-    {
+    async signUp() {
         // Send request to sign up to backend
         const token = 
-            (await fetch('http://localhost:3000/applicant/',
+            (await fetch(baseUrl + '/applicant/',
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -58,10 +58,9 @@ export default class StudentLoginPage extends React.Component {
         this.props.history.push('/student');
     }
 
-    async signIn()
-    {
+    async signIn() {
         const hashedPassword = 
-        (await fetch('http://localhost:3000/user/initiateLogin/',
+        (await fetch(baseUrl + '/user/initiateLogin/',
         {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
@@ -73,10 +72,9 @@ export default class StudentLoginPage extends React.Component {
         )
         .then(response => response.json())).hashedPassword;
 
-        if (passwordHash.verify(this.state.password, hashedPassword))
-        {
+        if (passwordHash.verify(this.state.password, hashedPassword)) {
             const token = 
-            (await fetch('http://localhost:3000/user/login/',
+            (await fetch(baseUrl + '/user/login/',
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
@@ -90,15 +88,14 @@ export default class StudentLoginPage extends React.Component {
             localStorage.setItem("Authorization", token);
             this.props.history.push('/student');
         }
-        else
-        {
+
+        else {
             console.log("Incorect username or password");
         }        
     }
 
     // Change listeners to put form values in state
-    handleEmailChange(e)
-    {
+    handleEmailChange(e) {
         this.setState({email: e.target.value});
         if (localStorage.getItem("rememberMe"))
         {
@@ -106,23 +103,19 @@ export default class StudentLoginPage extends React.Component {
         }
     };
 
-    handlePasswordChange(e)
-    {
+    handlePasswordChange(e) {
         this.setState({password: e.target.value});
     }
 
-    handleFirstNameChange(e)
-    {
+    handleFirstNameChange(e) {
         this.setState({firstName: e.target.value});
     }
 
-    handleLastNameChange(e)
-    {
+    handleLastNameChange(e) {
         this.setState({lastName: e.target.value});
     }
 
-    handleRememberMeChange(e)
-    {
+    handleRememberMeChange(e) {
         console.log("remember me");
         if (e.target.checked)
         {
@@ -139,70 +132,70 @@ export default class StudentLoginPage extends React.Component {
     }
 
     render() {
-    return (
-        <div style={{"padding": "20px"}}>
-                <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px", "max-width": "80%", "margin": "auto"}}>
-                    <Tabs defaultActiveKey="signin" id="uncontrolled-tab-example" style={{"margin": "auto"}}>
-                        <Tab eventKey="signin" title="Sign In">
-                        <h3>Sign In</h3> 
-                        <Form style={{"padding-top": "10px"}}>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                                </Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange} />
-                            </Form.Group>
-                            <Button variant="primary" onClick={this.signIn}>
-                                Sign In
-                            </Button>
-                        </Form>
-                        </Tab>
-                        <Tab eventKey="signup" title="Sign Up">
-                        <h3>Create an account</h3> 
-                        <Form style={{"padding-top": "10px"}}>
-                            <Form>
-                            <Form.Row>
-                                <Col>
-                                First name
-                                <Form.Control placeholder="First name" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
-                                </Col>
-                                <Col>
-                                Last name
-                                <Form.Control placeholder="Last name" value={this.state.lastName} onChange={this.handleLastNameChange}/>
-                                </Col>
-                            </Form.Row>
+        return (
+            <div style={{"padding": "20px"}}>
+                    <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px", "max-width": "80%", "margin": "auto"}}>
+                        <Tabs defaultActiveKey="signin" id="uncontrolled-tab-example" style={{"margin": "auto"}}>
+                            <Tab eventKey="signin" title="Sign In">
+                            <h3>Sign In</h3> 
+                            <Form style={{"padding-top": "10px"}}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
+                                    <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange} />
+                                </Form.Group>
+                                <Button variant="primary" onClick={this.signIn}>
+                                    Sign In
+                                </Button>
                             </Form>
-                            <br></br>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                                </Form.Text>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
-                            </Form.Group>
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange}/>
-                            </Form.Group>
-                            <Button variant="primary" onClick={this.signUp}>
-                                Sign Up
-                            </Button>
-                        </Form>
-                        </Tab>
-                    </Tabs>
-                </Card>
-        </div>
-    );
+                            </Tab>
+                            <Tab eventKey="signup" title="Sign Up">
+                            <h3>Create an account</h3> 
+                            <Form style={{"padding-top": "10px"}}>
+                                <Form>
+                                <Form.Row>
+                                    <Col>
+                                    First name
+                                    <Form.Control placeholder="First name" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
+                                    </Col>
+                                    <Col>
+                                    Last name
+                                    <Form.Control placeholder="Last name" value={this.state.lastName} onChange={this.handleLastNameChange}/>
+                                    </Col>
+                                </Form.Row>
+                                </Form>
+                                <br></br>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
+                                    <Form.Text className="text-muted">
+                                    We'll never share your email with anyone else.
+                                    </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange}/>
+                                </Form.Group>
+                                <Button variant="primary" onClick={this.signUp}>
+                                    Sign Up
+                                </Button>
+                            </Form>
+                            </Tab>
+                        </Tabs>
+                    </Card>
+            </div>
+        );
     }
 }

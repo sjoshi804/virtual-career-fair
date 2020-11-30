@@ -21,12 +21,11 @@ var companyB = new Company("compB", "", "", "");
 var companyC = new Company("compC", "", "", "");
 var companyD = new Company("compD", "", "", "");
 var companies = new Array<Company>(companyA, companyB, companyC, companyD);
-var recruiterA = new Recruiter(1, "recA", "", "", "", "", "", 5);
+var recruiterA = new Recruiter(1, "recA", "", "", "", "", 5);
 recruiterA.setId(uuid());
-var recruiterB = new Recruiter(1, "recA", "", "", "", "", "", 3);
+var recruiterB = new Recruiter(1, "recA", "", "", "", "", 3);
 recruiterB.setId(uuid());
 var jobA = new Job("jobA");
-var jobB = new Job("jobB");
 
 // Test Company Class
 describe("Company", () => {
@@ -47,7 +46,7 @@ describe("Company", () => {
 });
 
 // Test Company API
-const prefix = "/company";
+const prefix = "/api/company";
 describe('Company API (/company)', () => {
 
     // Reset database before all tests and after every test
