@@ -31,7 +31,7 @@
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
 | POST              |/careerfair/:careerfairid/company |  creates the booth associated with a company  |
-| GET/UPDATE/DELETE |/careerfair/:careerfairid/company/:companyid | returns all active booth information about recruiters, applicants, queue, jobs, list of chat tuples [time, userid, message] |
+| GET/DELETE |/careerfair/:careerfairid/company/:companyid | returns all active booth information about recruiters, applicants, queue, jobs, list of chat tuples [time, userid, message] |
 
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
