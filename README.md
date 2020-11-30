@@ -32,11 +32,6 @@
 |-------------------|---------------------------------------------------------|-------------------------------|
 | POST              |/careerfair/:careerfairid/company |  creates the booth associated with a company  |
 | GET/UPDATE/DELETE |/careerfair/:careerfairid/company/:companyid | returns all active booth information about recruiters, applicants, queue, jobs, list of chat tuples [time, userid, message] |
-| POST              |/careerfair/:careerfairid/company/:companyid/addApplicantToQueue/:applicantid | |
-| POST              |/careerfair/:careerfairid/company/:companyid/removeApplicantFromQueue/:applicantid | |
-| POST              |/careerfair/:careerfairid/company/:companyid/startNextMeeting/ | get next applicant, add recruiter and applicant to meeting object, return link to the next meeting so frontend can start the call |
-| POST              |/careerfair/:careerfairid/company/:companyid/addRecruiter/:recruiterid |  add recruiter to active recruiters in careerfair.both in db |
-| POST              |/careerfair/:careerfairid/company/:companyid/leaveRecruiter/:recruiterid | remove recruiter to active recruiters in careerfair.both in db |
 
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
