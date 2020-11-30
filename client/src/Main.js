@@ -27,9 +27,13 @@ import { StudentProfilePage,
 
 
 class Main extends React.Component {
-  state = {
-    searchText: ""
-  };
+
+  constructor(props)
+  {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+
 
   handleRoute = route => () => {
     this.props.history.push({ pathname: route });
@@ -54,20 +58,30 @@ class Main extends React.Component {
     }
   };
 
+  logout()
+  {
+    // Delete auth token to log out
+    localStorage.removeItem("Authorization");
+    this.handleRoute("/")();
+  }
+
   render() {
     return (
       <>
-        <Navbar bg="dark" variant="dark">
-          <Nav className="mr-auto">
+        <Navbar bg="black" variant="light" stick="top">
+          <Nav className="mr auto">
             <Nav.Link onClick={this.handleRoute("/")}>JobZ</Nav.Link>
             <Nav.Link onClick={this.handleRoute("/student")}>Students</Nav.Link>
           </Nav>
-          <Form inline>
-            
-            <Button onClick={this.handleRoute("/search")} variant="outline-info">
+          
+            <Nav.Link onClick={this.handleRoute("/search")}>
               Searching for Something Specific?
-            </Button>
-          </Form>
+            </Nav.Link>
+          
+            {
+              localStorage.getItem("Authorization") != undefined ? <Nav.Link onClick={this.logout}>Sign Out</Nav.Link> : <Nav.Link onClick={this.handleRoute("/student-login")}>Sign In</Nav.Link>
+            }
+        
         </Navbar>
         <Switch>
       
