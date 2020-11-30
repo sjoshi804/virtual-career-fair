@@ -1,16 +1,26 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 const passwordHash = require('password-hash');
 export default class StudentLoginPage extends React.Component {
-    constructor()
+    constructor(props)
     {
-        super();
+        super(props);
+
+        // Redirect if already logged in
+        if (localStorage.getItem("Authorization") != undefined)
+        {
+            props.history.push('/student');
+        }
+
+        // Set state
         this.state = 
         {
-            email: null,
-            firstName: null,
-            lastName: null,
-            password: null
+            email: localStorage.getItem("email") || "",
+            firstName: "",
+            lastName: "",
+            password: "",
+            rememberMe: localStorage.getItem("rememberMe") || false
         }
 
         // Bind methods to instance
@@ -20,6 +30,7 @@ export default class StudentLoginPage extends React.Component {
         this.handlePasswordChange = this.handlePasswordChange.bind(this);
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
+        this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
     }
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
@@ -42,7 +53,9 @@ export default class StudentLoginPage extends React.Component {
             })
             .then(response => response.json())).token;
 
-        console.log(token);
+        localStorage.setItem("Authorization", token);
+
+        this.props.history.push('/student');
     }
 
     async signIn()
@@ -74,19 +87,24 @@ export default class StudentLoginPage extends React.Component {
             })
             .then(response => response.json())).token;
             
-            console.log(token);
+            localStorage.setItem("Authorization", token);
         }
         else
         {
             console.log("Incorect username or password");
         }
-        
+
+        this.props.history.push('/student');
     }
 
     // Change listeners to put form values in state
     handleEmailChange(e)
     {
         this.setState({email: e.target.value});
+        if (localStorage.getItem("rememberMe"))
+        {
+            localStorage.setItem("email", e.target.value);
+        }
     };
 
     handlePasswordChange(e)
@@ -102,6 +120,23 @@ export default class StudentLoginPage extends React.Component {
     handleLastNameChange(e)
     {
         this.setState({lastName: e.target.value});
+    }
+
+    handleRememberMeChange(e)
+    {
+        console.log("remember me");
+        if (e.target.checked)
+        {
+            this.setState({rememberMe: true});
+            localStorage.setItem("rememberMe", true);
+            localStorage.setItem("email", this.state.email);
+        }
+        else
+        {
+            this.setState({rememberMe: false});
+            localStorage.setItem("rememberMe", false);
+            localStorage.setItem("email", null);
+        }
     }
 
     render() {
@@ -124,7 +159,7 @@ export default class StudentLoginPage extends React.Component {
                                 <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" />
+                                <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange} />
                             </Form.Group>
                             <Button variant="primary" onClick={this.signIn}>
                                 Sign In
@@ -159,7 +194,7 @@ export default class StudentLoginPage extends React.Component {
                                 <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" />
+                                <Form.Check type="checkbox" label="Remember me" checked={this.state.rememberMe} onChange={this.handleRememberMeChange}/>
                             </Form.Group>
                             <Button variant="primary" onClick={this.signUp}>
                                 Sign Up
