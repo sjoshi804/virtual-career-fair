@@ -51,7 +51,11 @@ ApplicantRouter.get("/:userid", async (req, res) => {
     if(applicant != null) 
     {
         const applicantObj = new Applicant(applicant);
-        res.status(200).send(applicantObj.getToken());
+        res.status(201).send(
+            {
+                "AuthorizationToken": applicantObj.getToken()
+            }
+        );
     }
 
     // Did not find item in database
