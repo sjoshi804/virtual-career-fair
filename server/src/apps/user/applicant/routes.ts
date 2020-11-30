@@ -37,7 +37,6 @@ ApplicantRouter.post("/", async (req, res) => {
     }
 });
 
-
 // Get Specific Applicant
 ApplicantRouter.get("/:userid", async (req, res) => {
     const filterQuery = {
@@ -46,16 +45,10 @@ ApplicantRouter.get("/:userid", async (req, res) => {
     }
 
     var applicant = await Applicant.db.findOne(filterQuery);
-    
-    // TODO: Check if password correct etc. and then return token
+
     if(applicant != null) 
     {
-        const applicantObj = new Applicant(applicant);
-        res.status(201).send(
-            {
-                "AuthorizationToken": applicantObj.getToken()
-            }
-        );
+        res.status(200).send(applicant);
     }
 
     // Did not find item in database
