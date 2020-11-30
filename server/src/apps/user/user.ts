@@ -27,7 +27,7 @@ class User implements IHasID {
         this.emailId = emailId;
 
         this.userType = userType;
-
+        
         if (passwordHash.isHashed(password))
             this.password = password;
         else {

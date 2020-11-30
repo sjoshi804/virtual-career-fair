@@ -13,7 +13,7 @@ const UserRouter = express.Router();
 UserRouter.post("/login", async (req, res) => {
 
     const filterQuery = {
-        emailId: req.body.emailId
+        email: req.body.email
     }
     
     // Check if user exists in the database

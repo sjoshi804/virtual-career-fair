@@ -46,8 +46,7 @@ export default class StudentLoginPage extends React.Component {
         {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
-            body: 
-            JSON.stringify(
+            body: JSON.stringify(
             {
                 email: this.state.email,
                 password: this.state.hashedPassword
