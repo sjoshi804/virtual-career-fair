@@ -2,9 +2,28 @@ import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
 import { PrivateRoute } from "./PrivateRoute"
-import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, OrganizerLivePage, 
-  OrganizerPastPage,
-  OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage, StudentLoginPage, RecruiterLoginPage, RecruiterVideoCall} from "./Pages";
+
+import { StudentProfilePage,
+         HomePage,
+         RouteNotFound,
+         StudentLivePage,
+         RecruiterProfilePage,
+         ManageFairPage,
+         CreateFairPage,
+         OrganizerPage,
+         OrganizerLivePage,
+         OrganizerPastPage,
+         OrganizerUpcomingPage,
+         OrganizerLoginPage,
+         RecruiterAddEditBoothPage,
+         RecruiterLivePage,
+         StudentUpcomingPage,
+         SearchPage,
+         StudentPastPage,
+         RecruiterPastPage,
+         StudentLoginPage,
+         RecruiterLoginPage,
+         RecruiterVideoCall} from "./Pages";
 
 
 class Main extends React.Component {
@@ -51,28 +70,36 @@ class Main extends React.Component {
           </Form>
         </Navbar>
         <Switch>
-          <Route exact path="/" component={HomePage} />
-          <PrivateRoute path="/student" component={StudentProfilePage} redirectTo={"/student-login"} exact/>
-          <Route exact path="/results" component={SearchResultsPage} />
-          <Route exact path="/login" component={LoginPage} />
-          <Route exact path="/org" component={OrganizerPage} />
-          <Route exact path="/orglive" component={OrganizerLivePage} />
-          <Route exact path="/orgpast" component={OrganizerPastPage} />
-          <Route exact path="/orgupcoming" component={OrganizerUpcomingPage} />
-          <Route exact path="/createfair" component={CreateFairPage} />
-          <Route exact path="/managefair" component={ManageFairPage} />
-          <Route exact path="/studentlive" component={StudentLivePage} />
-          <Route exact path="/recruiter" component={RecruiterProfilePage} />
-          <Route exact path="/search" component={SearchPage} />
-          <Route exact path="/add-edit-booth" component={RecruiterAddEditBoothPage} />
-          <Route exact path="/recruiter-live" component={RecruiterLivePage} />
-          <Route exact path="/recruiter-past" component={RecruiterPastPage} />
-          <Route exact path="/student-upcoming" component={StudentUpcomingPage} />
-          <Route exact path="/student-past" component={StudentPastPage} />
-          <Route exact path="/student-login" component={StudentLoginPage} />
-          <Route exact path="/recruiter-login" component={RecruiterLoginPage} />
-          <Route exact path="/recruiter-video-call" component={RecruiterVideoCall} />
-          <Route component={RouteNotFound} />
+      
+            {/*Private Routes*/}
+            <PrivateRoute path="/student" component={StudentProfilePage} redirectTo={"/student-login"} exact/>
+            <PrivateRoute path="/student-live" component={StudentLivePage} redirectTo={"student-login"} exact/>
+            <PrivateRoute path="/student-past" component={StudentPastPage} redirectTo={"student-login"} exact/>
+            <PrivateRoute path="/student-upcoming" component={StudentUpcomingPage} redirectTo={"student-login"} exact/>
+
+            <PrivateRoute path="/organizer" component={OrganizerPage} redirectTo={"/organizer-login"} exact/>
+            <PrivateRoute path="/organizer-live" component={OrganizerLivePage} redirectTo={"/organizer-login"} exact/>
+            <PrivateRoute path="/organizer-past" component={OrganizerPastPage} redirectTo={"/organizer-login"} exact/>
+            <PrivateRoute path="/organizer-upcoming" component={OrganizerUpcomingPage} redirectTo={"/organizer-login"} exact/>
+            <PrivateRoute path="/createfair" component={CreateFairPage} redirectTo={"/organizer-login"} exact/>
+            <PrivateRoute path="/managefair" component={ManageFairPage} redirectTo={"/organizer-login"} exact/>
+
+            <PrivateRoute path="/recruiter" component={RecruiterProfilePage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-live" component={RecruiterLivePage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-video-call" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
+
+            {/*Public Routes*/}
+            <Route path="/" component={HomePage} exact/>
+            <Route path="/search" component={SearchPage} exact/>
+            <Route path="/student-login" component={StudentLoginPage} exact/>
+            <Route path="/recruiter-login" component={RecruiterLoginPage} exact/>
+            <Route path="/organizer-login" component={OrganizerLoginPage} exact/>
+
+            {/*Redirect on any incorrect URL*/}
+            <Route component={RouteNotFound} />
+
         </Switch>
       </>
     );

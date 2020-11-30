@@ -15,23 +15,23 @@ import { Organizer } from "./organizer/organizer";
 chai.use(chaiHttp);
 
 // Dummy objects to use in testing: Applicant, Recruiter, Organizer
-var applicantA = new Applicant(0, "appA", "test1@gmail.com", "Lakers", "", "Computer Science", 2021, "UCLA", "");
+var applicantA = new Applicant(null, 0, "appA", "test1@gmail.com", "Lakers", "Computer Science", 2021, "UCLA", "");
 applicantA.setId(uuid());
 var applicantAToken = applicantA.getToken();
-var applicantB = new Applicant(0, "appB", "test2@gmail.com", "Rockets", "", "Statistics", 2024, "UCSB", "");
+var applicantB = new Applicant(null, 0, "appB", "test2@gmail.com", "Rockets", "Statistics", 2024, "UCSB", "");
 applicantB.setId(uuid());
 var applicantBToken = applicantB.getToken();
 var applicants = new Array<Applicant>(applicantA, applicantB);
 
-var recruiterA = new Recruiter(1, "recA", "", "", "", "", "Software Developer", 5);
+var recruiterA = new Recruiter(1, "recA", "", "", "", "Software Developer", 5);
 recruiterA.setId(uuid());
-var recruiterB = new Recruiter(1, "recB", "", "", "", "", "Data Scientist", 3);
+var recruiterB = new Recruiter(1, "recB", "", "", "", "Data Scientist", 3);
 recruiterB.setId(uuid());
 var recruiters = new Array<Recruiter>(recruiterA, recruiterB);
 
-var organizerA = new Organizer(2, "orgA", "", "", "", "UCLA");
+var organizerA = new Organizer(2, "orgA", "", "", "UCLA");
 organizerA.setId(uuid());
-var organizerB = new Organizer(2, "orgB", "", "", "", "Stanford");
+var organizerB = new Organizer(2, "orgB", "", "", "Stanford");
 organizerB.setId(uuid());
 var organizers = new Array<Organizer>(organizerA, organizerB);
 
@@ -46,19 +46,10 @@ describe("Applicant", () => {
         expect(applicantB).to.be.an.instanceof(Applicant);
     });
 
-    // Check if password matches hashed password
-    it('check password hash is saved correctly', () => {
-        expect(applicantA.checkPassword('Lakers'));
-        expect(applicantB.checkPassword('Rockets'));
-        expect(!applicantA.checkPassword('lakers'));
-        expect(!applicantB.checkPassword('R0ckets'));
-        expect(!applicantA.checkPassword(''));
-    });
-
     // Check if tokens are valid
     it('token validation', () => {
-        expect(applicantA.validateToken(applicantAToken));
-        expect(applicantB.validateToken(applicantBToken));
+        expect(Applicant.validateToken(applicantAToken)).to.be.equal(applicantAToken);
+        expect(Applicant.validateToken(applicantBToken)).to.be.equal(applicantBToken);
     });
 
     // Be able to get updated tokens if expired, otherwise return same token
@@ -71,7 +62,7 @@ describe("Applicant", () => {
 });
 
 // Test Applicant API
-const applicant_prefix = '/applicant';
+const applicant_prefix = '/api/applicant';
 describe("Applicant API (/applicant)", () => {
     
     // Reset database before all tests and after every test
@@ -194,7 +185,7 @@ describe("Organizer", () => {
 });
 
 // Test Organizer API
-const organizer_prefix = '/organizer';
+const organizer_prefix = '/api/organizer';
 describe("Organizer API (/organizer)", () => {
     
     // Reset database before all tests and after every test
@@ -317,7 +308,7 @@ describe("Recruiter", () => {
 });
 
 // Test Recruiter API
-const recruiter_prefix = '/recruiter';
+const recruiter_prefix = '/api/recruiter';
 describe("Recruiter API (/recruiter)", () => {
     
     // Reset database before all tests and after every test
@@ -428,7 +419,7 @@ describe("Recruiter API (/recruiter)", () => {
 
 /* ***** User (Only Login) ******* */
 
-const user_prefix = '/user';
+const user_prefix = '/api/user';
 describe("User API (/user)", () => {
     // Reset database before all tests and after every test
     before(async () => {

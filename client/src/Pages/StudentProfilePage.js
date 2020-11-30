@@ -19,7 +19,7 @@ export default class StudentProfilePage extends React.Component {
             <Card.Text>
                 <p><b>Date: </b>Today, October 25, 2020</p>
                 <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button onClick={this.handleRoute("/studentlive")} variant="outline-success">Join Now</Button>
+                <Button onClick={this.handleRoute("/student-live")} variant="outline-success">Join Now</Button>
             </Card.Text>
             </Card.Body>
         </Card>

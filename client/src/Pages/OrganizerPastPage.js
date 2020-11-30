@@ -18,7 +18,7 @@ export default class OrganizerPastPage extends React.Component {
           <br></br>
           <h5><b>Time: </b>11 PST - 3PM PST</h5>
           <br></br>
-          <Button variant="light" onClick={this.handleRoute("/org")}>Back to Profile Page</Button>
+          <Button variant="light" onClick={this.handleRoute("/organizer")}>Back to Profile Page</Button>
          </Card.Body>
         </Card>
     <CardDeck>

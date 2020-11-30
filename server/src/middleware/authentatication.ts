@@ -15,7 +15,7 @@ const endpointsWithoutAuthentication =
     "/organizer/"               : ["POST"],
     "/company/"                 : ["GET"],
     "/careerFair/"              : ["GET"],
-    "/company/:companyId/job/"  : ["GET"],
+    "/company/:companyId/job/"  : ["GET"]
 }
 
 // Checks if endpoint should be authenticated for a given method
