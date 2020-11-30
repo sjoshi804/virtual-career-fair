@@ -48,7 +48,7 @@ export default class StudentLoginPage extends React.Component {
                 {
                     name: this.state.firstName + this.state.lastName,
                     email: this.state.email,
-                    password: this.state.password
+                    password: passwordHash.generate(this.state.password)
                 })
             })
             .then(response => 
