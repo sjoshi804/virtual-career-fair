@@ -10,7 +10,7 @@ export default class StudentLoginPage extends React.Component {
             email: "sjoshi804@gmail.com",
             firstName: "Siddharth",
             lastName: "Joshi",
-            hashedPassword: passwordHash.generate("12345")
+            password: "12345"
         }
         this.signUp = this.signUp.bind(this);
         this.signIn = this.signIn.bind(this);
@@ -41,21 +41,40 @@ export default class StudentLoginPage extends React.Component {
 
     async signIn()
     {
-        const token = 
-        (await fetch('http://localhost:3000/user/login',
+        const hashedPassword = 
+        (await fetch('http://localhost:3000/user/initiateLogin/',
         {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(
             {
-                email: this.state.email,
-                password: this.state.hashedPassword
+                email: this.state.email
             })
         }
         )
-        .then(response => response.json())).token;
+        .then(response => response.json())).hashedPassword;
 
-        console.log(token);
+        if (passwordHash.verify(this.state.password, hashedPassword))
+        {
+            const token = 
+            (await fetch('http://localhost:3000/user/login/',
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                {
+                    email: this.state.email
+                })
+            })
+            .then(response => response.json())).token;
+            
+            console.log(token);
+        }
+        else
+        {
+            console.log("Incorect username or password");
+        }
+        
     }
 
   render() {

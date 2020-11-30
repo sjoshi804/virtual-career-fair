@@ -1,37 +1,44 @@
 // Middleware that checks if user is logged in by validating the token passed if one is passed
 
-import { should } from "chai";
 import { User } from "../apps/user/user";
 
 const logPrefix = "AUTH:"
 
+//TODO: Prevent anyone but client from sending a request to login
 // Make sure to always append / to endpoint
 const endpointsWithoutAuthentication = 
-[
-    "/user/login/",
-    "/applicant/",
-    "/recruiter/",
-    "/organizer/"
-]
-
-// Ensures endpoints have slash appended for comparison with endpointsWithoutAuthentication
-const shouldAuthenticateEndpoint = (endpoint) =>
 {
-    if (endpoint.slice(-1) == "/")
+    "/user/login/": ["POST"],
+    "/user/initiateLogin/": ["POST"],
+    "/applicant/" : ["POST"],
+    "/recruiter/" : ["POST"],
+    "/organizer/" : ["POST"]
+}
+
+// Checks if endpoint should be authenticated for a given method
+const shouldAuthenticateEndpoint = (endpoint, httpMethod) =>
+{
+    // Ensure url ends with /
+    if (endpoint.slice(-1) != "/")
     {
-        return endpointsWithoutAuthentication.includes(endpoint);
+        endpoint = endpoint += "/";
+    }
+
+    // Check if endpoint in dict for authentication less endpoints
+    if (endpointsWithoutAuthentication[endpoint] != undefined)
+    {
+        return !endpointsWithoutAuthentication[endpoint].includes(httpMethod);
     }
     else
     {
-        return endpointsWithoutAuthentication.includes(endpoint + "/");
+        return true;
     }
 }
 
 const authenticate = async (req, res, next) =>
 {
-    if (!(shouldAuthenticateEndpoint(req.originalUrl) && req.method == "POST"))
+    if (shouldAuthenticateEndpoint(req.originalUrl, req.method))
     {
-        console.log(req.method, req.url, req.originalUrl);
         const authToken = req.header("Authorization").replace("Bearer ", "");
         if (await User.validateToken(authToken))
         {
