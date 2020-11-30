@@ -30,7 +30,7 @@ CareerFairRouter.get("/", async (req, res) => {
             _id: careerfair.organizer
         };
         var organizer = await Organizer.db.findOne(filterQuery);
-        console.log(organizer);
+        
         if (organizer != null) {
            careerfair.organizer = organizer.userData.affiliatedOrganization; 
         }
@@ -60,7 +60,7 @@ CareerFairRouter.get("/:careerfairid", async (req, res) => {
             _id: careerfair.organizer
         };
         var organizer = await Organizer.db.findOne(filterQuery);
-        console.log(organizer);
+        
         if (organizer != null) {
            careerfair.organizer = organizer.userData.affiliatedOrganization; 
         }

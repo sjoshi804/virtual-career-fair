@@ -19,14 +19,22 @@ ApplicantRouter.get("/", async (req, res) => {
 
 // Create New Applicant
 ApplicantRouter.post("/", async (req, res) => {
-    if (await Applicant.db.save(req.body)) {
-        // New Resource Created
-        res.sendStatus(201);
-    } else {
+    const successfulInsert = await Applicant.db.save(req.body);
+    if (successfulInsert) 
+    {
+        // Return token so that user is now 'logged in' as well
+        const applicantObj = new Applicant(req.body);
+        res.status(201).send(
+            {
+                token: applicantObj.getToken()
+            });
+    } 
+    else 
+    {
+        // Something failed in applicant creation, assume bad request
         res.sendStatus(400); 
     }
 });
-
 
 // Get Specific Applicant
 ApplicantRouter.get("/:userid", async (req, res) => {
@@ -34,10 +42,14 @@ ApplicantRouter.get("/:userid", async (req, res) => {
         _id: req.params.userid,
         userType: 0
     }
+
     var applicant = await Applicant.db.findOne(filterQuery);
-    if(applicant != null) {
+
+    if(applicant != null) 
+    {
         res.status(200).send(applicant);
     }
+
     // Did not find item in database
     else {
         res.sendStatus(404);

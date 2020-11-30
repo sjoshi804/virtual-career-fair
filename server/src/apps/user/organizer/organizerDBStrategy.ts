@@ -1,12 +1,11 @@
 import { AbstractDefaultDBCrudStrategy } from "../../../db/abstractDefaultDBCrudStrategy";
+import { UserDBStrategy } from "../userDBStrategy";
 import { OrganizerDBSchema } from "./organizerDBSchema";
 
-class OrganizerDBStrategy extends AbstractDefaultDBCrudStrategy<OrganizerDBSchema>
+class OrganizerDBStrategy extends UserDBStrategy
 {
-    private static collectionName = "user";
-
     public getCollectionName(): string {
-        return OrganizerDBStrategy.collectionName;
+        return super.getCollectionName();
     }
 }
 

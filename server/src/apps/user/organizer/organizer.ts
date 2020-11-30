@@ -9,9 +9,9 @@ class Organizer extends User implements ISerializable {
 
     public static db = new OrganizerDBStrategy();
 
-    public constructor(userType: number, name: string, emailID: string, password: string, token: string, 
+    public constructor(userType: number, name: string, emailID: string, password: string,
                         affiliatedOrganization: string) {
-        super(userType, name, emailID, password, token);
+        super(userType, name, emailID, password);
         this.affiliatedOrganization = affiliatedOrganization;
     }
 

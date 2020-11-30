@@ -19,7 +19,7 @@ export default class OrganizerPage extends React.Component {
             <Card.Text>
                 <p><b>Date: </b>Today, October 25, 2020</p>
                 <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button onClick={this.handleRoute("/orglive")} variant="outline-success">Observe Fair</Button>
+                <Button onClick={this.handleRoute("/organizer-live")} variant="outline-success">Observe Fair</Button>
             </Card.Text>
             </Card.Body>
         </Card>
@@ -38,7 +38,7 @@ export default class OrganizerPage extends React.Component {
             <Card.Text>
                 <p><b>Date: </b>Today, October 25, 2020</p>
                 <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button onClick={this.handleRoute("/orgupcoming")} variant="outline-success">Edit Fair</Button>
+                <Button onClick={this.handleRoute("/organizer-upcoming")} variant="outline-success">Edit Fair</Button>
             </Card.Text>
             </Card.Body>
         </Card>
@@ -57,7 +57,7 @@ export default class OrganizerPage extends React.Component {
             <Card.Text>
                 <p><b>Date: </b>Today, October 25, 2020</p>
                 <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button onClick={this.handleRoute("/orgpast")} variant="outline-success">View Fair History</Button>
+                <Button onClick={this.handleRoute("/organizer-past")} variant="outline-success">View Fair History</Button>
             </Card.Text>
             </Card.Body>
         </Card>

@@ -22,18 +22,12 @@ class User implements IHasID {
     public static db = new UserDBStrategy();
 
     // Constructor
-    public constructor(userType: number, name: string, emailId: string, password: string, token: string) {
+    public constructor(userType: number, name: string, emailId: string, password: string) {
         this.name = name;
         this.emailId = emailId;
 
-        if (token !== "") {
-            this.token = token;
-        }  
-        else
-            this.token = undefined;
-
         this.userType = userType;
-
+        
         if (passwordHash.isHashed(password))
             this.password = password;
         else {
@@ -42,30 +36,33 @@ class User implements IHasID {
         }
     }
 
-    // Verify that input password matches the user's saved password
-    public checkPassword(typedPassword: string) {
-        return passwordHash.verify(typedPassword, this.password);
-    }
-
     // Public method to get Token
     public getToken() {
-        if (this.token == null)
+        if (this.token == undefined)
             this.createToken();
         return this.token;
     }
 
     // Verify if a token is valid
-    public validateToken(token: string) {
-        var userData = this.getDataFromToken(token);
+    public static async validateToken(token: string) {
+        var userData = User.getDataFromToken(token);
 
         // Check for error
         if (message in userData) {
             console.log(userData);
             return false;
         }
-        // Verify that the data matches this user's data
-        if ((userData.name == this.name) && (userData.email == this.emailId) && 
-                    (userData.password  == this.password)) {
+
+        // Instantiate user object 
+        const filterQuery = {
+            emailId: userData.email
+        }
+        const user = await User.db.findOne(filterQuery);
+
+        // Verify that the data matches the instantiated user's data
+        if ((userData.name == user.name) && (userData.email == user.emailId) && 
+            (userData.password  == user.password)) 
+        {
             return true
         }
         
@@ -78,7 +75,7 @@ class User implements IHasID {
         if (this.token == null)
             return this.getToken();
         // Get data from token
-        var userData = this.getDataFromToken(this.token);
+        var userData = User.getDataFromToken(this.token);
         // Token expired, so create a new one
         if (userData.name == tokenExpired)
             this.createToken();
@@ -98,7 +95,7 @@ class User implements IHasID {
     }
 
     // Decode data from token
-    private getDataFromToken(token: string) {
+    private static getDataFromToken(token: string) {
         var data = null;
         if (token != null) {
             // Get data from encrypted token 

@@ -1,7 +1,5 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
-import profile from '../Images/profile.jpg'; 
-// import profile from '../Images/profile.jpg'; 
 
 export default class RecruiterLoginPage extends React.Component {
     handleRoute = route => () => {

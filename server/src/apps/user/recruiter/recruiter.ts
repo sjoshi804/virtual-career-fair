@@ -8,10 +8,10 @@ class Recruiter extends User implements ISerializable {
     private jobTitle: string;
     private yearsOfExperience: number;
 
-    public constructor(userType: number, name: string, emailId: string, password: string, token: string,
+    public constructor(userType: number, name: string, emailId: string, password: string,
         company: string, jobTitle: string, yearsOfExperience: number) {
 
-        super(userType, name, emailId, password, token);
+        super(userType, name, emailId, password);
         this.company = company;
         this.jobTitle = jobTitle;
         this.yearsOfExperience = yearsOfExperience;

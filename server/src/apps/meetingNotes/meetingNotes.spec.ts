@@ -49,7 +49,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
-    const prefix = "/meetingNotes"
+    const prefix = "/api/meetingNotes";
     it('POST / - creates new note', async () => 
     {
         // Create one note using post
