@@ -1,6 +1,5 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
-import { Redirect } from "react-router-dom";
 import { baseUrl } from "../.config";
 
 const passwordHash = require('password-hash');
@@ -20,7 +19,7 @@ export default class StudentLoginPage extends React.Component {
             firstName: "",
             lastName: "",
             password: "",
-            rememberMe: localStorage.getItem("rememberMe") || false
+            rememberMe: (localStorage.getItem("rememberMe") === "true") || false
         }
 
         // Bind methods to instance
@@ -145,7 +144,7 @@ export default class StudentLoginPage extends React.Component {
         {
             this.setState({rememberMe: false});
             localStorage.setItem("rememberMe", false);
-            localStorage.setItem("email", null);
+            localStorage.setItem("email", "");
         }
     }
 
