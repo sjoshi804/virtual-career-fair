@@ -10,7 +10,7 @@ export default class StudentLoginPage extends React.Component {
         super(props);
 
         // Redirect if already logged in
-        if (localStorage.getItem("Authorization") !== undefined) {
+        if (localStorage.getItem("Authorization") != undefined) {
             props.history.push('/student');
         }
 
