@@ -39,7 +39,7 @@ const authenticate = async (req, res, next) =>
 {
     if (shouldAuthenticateEndpoint(req.originalUrl, req.method))
     {
-        const authToken = req.header("Authorization").replace("Bearer ", "");
+        const authToken = req.header("Authorization").replace("Bearer ", "").replace("Basic ", "");
         if (await User.validateToken(authToken))
         {
             console.log(`${logPrefix} User has been authenticated -> forwarding to appropriate route`);

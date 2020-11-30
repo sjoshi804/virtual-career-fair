@@ -88,13 +88,12 @@ export default class StudentLoginPage extends React.Component {
             .then(response => response.json())).token;
             
             localStorage.setItem("Authorization", token);
+            this.props.history.push('/student');
         }
         else
         {
             console.log("Incorect username or password");
-        }
-
-        this.props.history.push('/student');
+        }        
     }
 
     // Change listeners to put form values in state

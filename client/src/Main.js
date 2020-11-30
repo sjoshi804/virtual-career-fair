@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter } from "react-router-dom";
 import { Navbar, Nav, Form, Button } from "react-bootstrap";
-
+import { PrivateRoute } from "./PrivateRoute"
 import { StudentProfilePage, HomePage, SearchResultsPage, RouteNotFound, StudentLivePage, RecruiterProfilePage, ManageFairPage, CreateFairPage, OrganizerPage, OrganizerLivePage, 
   OrganizerPastPage,
   OrganizerUpcomingPage, LoginPage, RecruiterAddEditBoothPage, RecruiterLivePage, StudentUpcomingPage, SearchPage, StudentPastPage, RecruiterPastPage, StudentLoginPage, RecruiterLoginPage, RecruiterVideoCall} from "./Pages";
@@ -52,7 +52,7 @@ class Main extends React.Component {
         </Navbar>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/student" component={StudentProfilePage} />
+          <PrivateRoute path="/student" component={StudentProfilePage} redirectTo={"/student-login"} exact/>
           <Route exact path="/results" component={SearchResultsPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/org" component={OrganizerPage} />
