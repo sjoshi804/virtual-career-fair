@@ -11,6 +11,7 @@ import config = require("./.config");
 // Core modules
 import { DBClient } from "./db/dbClient";
 import { logger } from "./middleware/logger";
+import { authenticate } from "./middleware/authentatication"
 
 // Socket Protocols
 import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
@@ -35,9 +36,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-//Initialize logger if non test environment (avoid cluttering stdout due to many API requests in test)
+//Initialize middleware if not in test environment
 if (process.env.NODE_ENV != config.test) {
   app.use(logger);
+  app.use(authenticate);
 }
 
 // Connect Base Endpoints to Routers

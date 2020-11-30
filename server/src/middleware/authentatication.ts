@@ -1,29 +1,35 @@
 // Middleware that checks if user is logged in by validating the token passed if one is passed
 
-import { networkInterfaces } from "os";
 import { User } from "../apps/user/user";
+
+const logPrefix = "authentication middleware:"
 
 const endpointsWithoutAuthentication = 
 [
     "/login"
 ]
-const authenticate = (req, res, next) =>
+
+const authenticate = async (req, res, next) =>
 {
     if (!endpointsWithoutAuthentication.includes(req.url))
     {
-        if (User.validateToken(req.get("authorization")))
+        const authToken = req.header("Authorization");
+        if (await User.validateToken(authToken))
         {
+            console.log(`${logPrefix} User has been authenticated -> forwarding to appropriate route`);
             // User has valid token
             next();
         }
         else
         {
+            console.log(`${logPrefix} Invalid or missing token. \nToken: ${authToken}. \nUnauthorized 401`);
             // Return 401 - indicates unauthorized
-            res.status(401);
+            res.sendStatus(401);
         }
     }
     else // No need to authenticate
     {
+        console.log(`${logPrefix} No need to authenticate this endpoint`)
         next();
     }
 }
