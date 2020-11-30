@@ -2,7 +2,7 @@
 
 import { User } from "../apps/user/user";
 
-const logPrefix = "authentication middleware:"
+const logPrefix = "AUTH:"
 
 const endpointsWithoutAuthentication = 
 [
@@ -13,7 +13,7 @@ const authenticate = async (req, res, next) =>
 {
     if (!endpointsWithoutAuthentication.includes(req.url))
     {
-        const authToken = req.header("Authorization");
+        const authToken = req.header("Authorization").replace("Bearer ", "");
         if (await User.validateToken(authToken))
         {
             console.log(`${logPrefix} User has been authenticated -> forwarding to appropriate route`);
@@ -22,7 +22,7 @@ const authenticate = async (req, res, next) =>
         }
         else
         {
-            console.log(`${logPrefix} Invalid or missing token. \nToken: ${authToken}. \nUnauthorized 401`);
+            console.log(`${logPrefix} \n\tInvalid or missing token \n\tToken: ${authToken} \n\tUnauthorized 401`);
             // Return 401 - indicates unauthorized
             res.sendStatus(401);
         }
