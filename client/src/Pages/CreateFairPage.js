@@ -23,7 +23,7 @@ export default class CreateFairPage extends React.Component {
           </Card.Text>
           <Form.Control type="date" placeholder="Time Period of the career fair" />
         </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.handleroute("/org")}>
+        <Button variant="primary" type="submit" onClick={this.handleroute("/organizer")}>
           Create
         </Button>
         </Form>

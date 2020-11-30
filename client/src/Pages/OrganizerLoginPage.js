@@ -12,41 +12,44 @@ export default class OrganizerLoginPage extends React.Component {
       <div style={{ "background-color": "white", color: "white", "max-width": "80%", "margin": "auto", "padding": "20px" }}>
         <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
-        <Form.Group>
-          <Card.Text>
-            <Form.Label style={{"color": "black", "text-align": "left"}}>Organizer Name</Form.Label>
-          </Card.Text>
-          <Form.Control type="email" placeholder="First Name" />
-          <Form.Control type="email" placeholder="Last Name" />
-        </Form.Group>
+          <Form.Group>
+            <Card.Text>
+              <Form.Label style={{"color": "black", "text-align": "left"}}>Organizer Name</Form.Label>
+            </Card.Text>
+            <Form.Control type="email" placeholder="First name" id="firstName"/>
+            <Form.Control type="email" placeholder="Last name" id="lastName"/>
+          </Form.Group>
 
-        <Form.Group controlId="formBasicEmail">
-          <Card.Text>
-            <Form.Label style={{"color": "black", "text-align": "left"}}>Organization Name</Form.Label>
-          </Card.Text>
-          <Form.Control type="email" placeholder="Enter organization name" />
-        </Form.Group>
-        <Form.Group>
-          <Card.Text>
-            <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Number</Form.Label>
-          </Card.Text>
-          <Form.Control type="tel" placeholder="(000) 000-0000"/>
-        </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Card.Text>
+              <Form.Label style={{"color": "black", "text-align": "left"}}>Organization Name</Form.Label>
+            </Card.Text>
+            <Form.Control type="email" placeholder="Enter organization name" id="organizationName"/>
+          </Form.Group>
+          <Form.Group>
+            <Card.Text>
+              <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Number</Form.Label>
+            </Card.Text>
+            <Form.Control type="tel" placeholder="(000) 000-0000" id="contactNumber"/>
+          </Form.Group>
 
-        <Form.Group controlId="formBasicEmail">
-          <Card.Text>
-            <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Email</Form.Label>
-          </Card.Text>
-          <Form.Control type="email" placeholder="Enter email" />
-        </Form.Group>
+          <Form.Group controlId="formBasicEmail">
+            <Card.Text>
+              <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Email</Form.Label>
+            </Card.Text>
+            <Form.Control type="email" placeholder="Enter email" id="email"/>
+          </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
-          <Form.Label style={{"color": "black", "text-align": "left"}}>Password</Form.Label>
-          <Form.Control type="password" placeholder="Password" />
-        </Form.Group>
-        <Button variant="primary" type="submit" onClick={this.handleroute("/org")}>
-          Sign Up
-        </Button>
+          <Form.Group controlId="formBasicPassword">
+            <Card.Text>
+              <Form.Label style={{"color": "black", "text-align": "left"}}>Password</Form.Label>
+            </Card.Text>
+            <Form.Control type="password" placeholder="Password" id="password"/>
+          </Form.Group>
+          
+          <Button variant="primary" type="submit" onClick={this.handleroute("/organizer")}>
+              Sign Up
+          </Button>
         </Form>
         </Card>
       </div>

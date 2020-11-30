@@ -28,13 +28,10 @@ export default class SearchPage extends React.Component {
     // TODO: Update url to be set dynamically based on prod/dev otherwise may have issues in deployment with this
 
     // Get all companies
-    const companyUrl = baseUrl + '/company';
-    console.log(companyUrl);
-    const companies = await fetch(companyUrl, {
+    const companies = await fetch(baseUrl + '/company', {
       method: "GET"
     })
     .then(response => response.json());
-    console.log(companies);
 
     // Get all jobs - by looping through every company
     var jobs = [];
@@ -108,8 +105,6 @@ export default class SearchPage extends React.Component {
           );
         }
       });
-
-      console.log(searchResults);
     }
     else if (this.state.dropDownValue === "Job")
     {
