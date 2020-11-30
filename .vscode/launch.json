@@ -5,9 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug Client",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3001",
+            "webRoot": "${workspaceFolder}/client"
+        },
+        {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Debug Server",
             "skipFiles": [
                 "<node_internals>/**"
             ],
