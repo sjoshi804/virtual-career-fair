@@ -1,12 +1,22 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
-import profile from '../Images/profile.jpg'; 
-// import profile from '../Images/profile.jpg'; 
 
 export default class StudentLoginPage extends React.Component {
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
+
+    signUp()
+    {
+        // Send request to sign up to backend
+        
+    }
+
+    signIn()
+    {
+        // Send request to sign in backend
+    }
+
   render() {
     return (
         <div style={{"padding": "20px"}}>
@@ -29,7 +39,7 @@ export default class StudentLoginPage extends React.Component {
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
                             </Form.Group>
-                            <Button variant="primary" type="submit" onClick={this.handleRoute("/student")}>
+                            <Button variant="primary" type="submit" onClick={this.signIn}>
                                 Submit
                             </Button>
                         </Form>
@@ -64,7 +74,7 @@ export default class StudentLoginPage extends React.Component {
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
                             </Form.Group>
-                            <Button variant="primary" type="submit" onClick={this.handleRoute("/student")}>
+                            <Button variant="primary" type="submit" onClick={this.signUp}>
                                 Submit
                             </Button>
                         </Form>

@@ -1,4 +1,3 @@
-import { AbstractDefaultDBCrudStrategy } from "../../db/abstractDefaultDBCrudStrategy"
 import { IDBCrudStrategy } from "../../db/iDBCrudStrategy";
 import { ISerializable } from "../../db/iSerializable";
 import { BoothDBSchema } from "./boothDBSchema"
