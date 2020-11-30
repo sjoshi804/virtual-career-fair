@@ -8,14 +8,14 @@ const logPrefix = "AUTH:"
 // Make sure to always append / to endpoint
 const endpointsWithoutAuthentication = 
 {
-    "/user/login/"              : ["POST"],
-    "/user/initiateLogin/"      : ["POST"],
-    "/applicant/"               : ["POST"],
-    "/recruiter/"               : ["POST"],
-    "/organizer/"               : ["POST"],
-    "/company/"                 : ["GET"],
-    "/careerFair/"              : ["GET"],
-    "/company/:companyId/job/"  : ["GET"]
+    "/api/user/login/"              : ["POST"],
+    "/api/user/initiateLogin/"      : ["POST"],
+    "/api/applicant/"               : ["POST"],
+    "/api/recruiter/"               : ["POST"],
+    "/api/organizer/"               : ["POST"],
+    "/api/company/"                 : ["GET"],
+    "/api/careerFair/"              : ["GET"],
+    "/api/company/:companyId/job/"  : ["GET"]
 }
 
 // Checks if endpoint should be authenticated for a given method
@@ -26,10 +26,10 @@ const shouldAuthenticateEndpoint = (endpoint, httpMethod) =>
     {
         endpoint += "/";
         // FIXME: Make less hacky
-        if (endpoint.startsWith("/company") && endpoint.slice(-5) == "/job/")
+        if (endpoint.startsWith("/api/company") && endpoint.slice(-5) == "/job/")
         {
             
-            endpoint = "/company/:companyId/job/";
+            endpoint = "/api/company/:companyId/job/";
         }
     }
 

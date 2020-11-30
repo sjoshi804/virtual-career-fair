@@ -38,8 +38,8 @@ app.use(cookieParser());
 
 //Initialize middleware if not in test environment
 if (process.env.NODE_ENV != config.test) {
-  app.use(authenticate);
   app.use(logger);
+  app.use(authenticate);
 }
 
 // Connect Base Endpoints to Routers

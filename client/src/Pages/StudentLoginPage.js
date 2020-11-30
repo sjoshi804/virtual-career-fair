@@ -114,7 +114,7 @@ export default class StudentLoginPage extends React.Component {
     // Change listeners to put form values in state
     handleEmailChange(e) {
         this.setState({email: e.target.value});
-        if (localStorage.getItem("rememberMe"))
+        if (localStorage.getItem("rememberMe") === "true")
         {
             localStorage.setItem("email", e.target.value);
         }
