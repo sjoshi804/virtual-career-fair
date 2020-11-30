@@ -7,13 +7,19 @@ export default class StudentLoginPage extends React.Component {
         super();
         this.state = 
         {
-            email: "sjoshi804@gmail.com",
-            firstName: "Siddharth",
-            lastName: "Joshi",
-            password: "12345"
+            email: null,
+            firstName: null,
+            lastName: null,
+            password: null
         }
+
+        // Bind methods to instance
         this.signUp = this.signUp.bind(this);
         this.signIn = this.signIn.bind(this);
+        this.handleEmailChange = this.handleEmailChange.bind(this);
+        this.handlePasswordChange = this.handlePasswordChange.bind(this);
+        this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+        this.handleLastNameChange = this.handleLastNameChange.bind(this);
     }
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
@@ -77,7 +83,28 @@ export default class StudentLoginPage extends React.Component {
         
     }
 
-  render() {
+    // Change listeners to put form values in state
+    handleEmailChange(e)
+    {
+        this.setState({email: e.target.value});
+    };
+
+    handlePasswordChange(e)
+    {
+        this.setState({password: e.target.value});
+    }
+
+    handleFirstNameChange(e)
+    {
+        this.setState({firstName: e.target.value});
+    }
+
+    handleLastNameChange(e)
+    {
+        this.setState({lastName: e.target.value});
+    }
+
+    render() {
     return (
         <div style={{"padding": "20px"}}>
                 <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px", "max-width": "80%", "margin": "auto"}}>
@@ -87,14 +114,14 @@ export default class StudentLoginPage extends React.Component {
                         <Form style={{"padding-top": "10px"}}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
                                 <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                                 </Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange} />
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
@@ -111,25 +138,25 @@ export default class StudentLoginPage extends React.Component {
                             <Form.Row>
                                 <Col>
                                 First name
-                                <Form.Control placeholder="First name" />
+                                <Form.Control placeholder="First name" value={this.state.firstName} onChange={this.handleFirstNameChange}/>
                                 </Col>
                                 <Col>
                                 Last name
-                                <Form.Control placeholder="Last name" />
+                                <Form.Control placeholder="Last name" value={this.state.lastName} onChange={this.handleLastNameChange}/>
                                 </Col>
                             </Form.Row>
                             </Form>
                             <br></br>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
                                 <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                                 </Form.Text>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control type="password" placeholder="Password" value={this.state.password} onChange={this.handlePasswordChange}/>
                             </Form.Group>
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
@@ -143,5 +170,5 @@ export default class StudentLoginPage extends React.Component {
                 </Card>
         </div>
     );
-  }
+    }
 }
