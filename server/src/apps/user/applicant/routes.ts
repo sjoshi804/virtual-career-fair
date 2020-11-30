@@ -19,8 +19,8 @@ ApplicantRouter.get("/", async (req, res) => {
 
 // Create New Applicant
 ApplicantRouter.post("/", async (req, res) => {
-    const applicant = await Applicant.db.save(req.body);
-    if (applicant != null) 
+    const successfulInsert = await Applicant.db.save(req.body);
+    if (successfulInsert) 
     {
         // Return token so that user is now 'logged in' as well
         const applicantObj = new Applicant(req.body);

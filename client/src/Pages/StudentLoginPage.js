@@ -39,7 +39,7 @@ export default class StudentLoginPage extends React.Component {
     async signUp()
     {
         // Send request to sign up to backend
-        const token = 
+        const response = 
             (await fetch('http://localhost:3000/applicant/',
             {
                 method: "POST",
@@ -48,14 +48,32 @@ export default class StudentLoginPage extends React.Component {
                 {
                     name: this.state.firstName + this.state.lastName,
                     email: this.state.email,
-                    password: this.state.hashedPassword
+                    password: this.state.password
                 })
             })
-            .then(response => response.json())).token;
+            .then(response => 
+            {
+                if (response.status == 400)
+                {
+                    return undefined
+                }
+                else
+                {
+                    return response.json()
+                }
+            }));
 
-        localStorage.setItem("Authorization", token);
-
-        this.props.history.push('/student');
+        // Check if token has been returned
+        if (response != undefined)
+        {   
+            localStorage.setItem("Authorization", response.token);
+            this.props.history.push('/student');
+        }
+        else
+        {
+            console.log("Token not returned. Display error message. User already exists.");
+        }
+        
     }
 
     async signIn()
