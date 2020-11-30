@@ -5,7 +5,7 @@ function PrivateRoute ({component: Component, redirectTo,...rest}) {
     
       <Route
         {...rest}
-        render={(props) => (localStorage.getItem("Authorization") != undefined)
+        render={(props) => (localStorage.getItem("Authorization") !== undefined)
           ? <Component {...props} />
           : <Redirect to={{pathname: redirectTo, state: {from: props.location}}} />}
       />
