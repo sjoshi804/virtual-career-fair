@@ -45,7 +45,7 @@ export default class HomePage extends React.Component {
             Organizers view their live, upcoming, or past career fairs. They can edit existing careers fairs or create a new career fair by filling out a form with details for the event.
           </h4>
         </p>
-        <Button variant="light" onClick={this.handleRoute("/login")}>Get Started</Button>
+        <Button variant="light" onClick={this.handleRoute("/organizer-login")}>Get Started</Button>
       </div>
       <Switch>
          <Route exact path="/login" component={OrganizerLoginPage} />
