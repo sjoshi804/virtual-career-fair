@@ -13,7 +13,7 @@ class Applicant extends User implements ISerializable {
     {
         if (serialized != undefined)
         {
-            super(serialized.userType, serialized.name, serialized.emailId, serialized.password)
+            super(serialized.userType, serialized.name, serialized.emailId, serialized.password);
         }
         else
         {

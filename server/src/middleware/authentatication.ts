@@ -1,18 +1,37 @@
 // Middleware that checks if user is logged in by validating the token passed if one is passed
 
+import { should } from "chai";
 import { User } from "../apps/user/user";
 
 const logPrefix = "AUTH:"
 
+// Make sure to always append / to endpoint
 const endpointsWithoutAuthentication = 
 [
-    "/login"
+    "/user/login/",
+    "/applicant/",
+    "/recruiter/",
+    "/organizer/"
 ]
+
+// Ensures endpoints have slash appended for comparison with endpointsWithoutAuthentication
+const shouldAuthenticateEndpoint = (endpoint) =>
+{
+    if (endpoint.slice(-1) == "/")
+    {
+        return endpointsWithoutAuthentication.includes(endpoint);
+    }
+    else
+    {
+        return endpointsWithoutAuthentication.includes(endpoint + "/");
+    }
+}
 
 const authenticate = async (req, res, next) =>
 {
-    if (!endpointsWithoutAuthentication.includes(req.url))
+    if (!(shouldAuthenticateEndpoint(req.originalUrl) && req.method == "POST"))
     {
+        console.log(req.method, req.url, req.originalUrl);
         const authToken = req.header("Authorization").replace("Bearer ", "");
         if (await User.validateToken(authToken))
         {

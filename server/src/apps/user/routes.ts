@@ -27,9 +27,10 @@ UserRouter.post("/login", async (req, res) => {
         if (currentUser.getPassword() == req.body.password) {
             // Send token
             var token = currentUser.getToken();
-            res.status(200).send({
-                "AuthorizationToken": token
-            });
+            res.status(200).send(
+                {
+                    token: token
+                });
         }
         // Return unauthorized error code
         else {

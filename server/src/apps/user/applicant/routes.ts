@@ -26,9 +26,8 @@ ApplicantRouter.post("/", async (req, res) => {
         const applicantObj = new Applicant(req.body);
         res.status(201).send(
             {
-                "AuthorizationToken": applicantObj.getToken()
-            }
-        );
+                token: applicantObj.getToken()
+            });
     } 
     else 
     {

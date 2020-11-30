@@ -1,20 +1,62 @@
 import React from "react";
 import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
-
+const passwordHash = require('password-hash');
 export default class StudentLoginPage extends React.Component {
+    constructor()
+    {
+        super();
+        this.state = 
+        {
+            email: "sjoshi804@gmail.com",
+            firstName: "Siddharth",
+            lastName: "Joshi",
+            hashedPassword: passwordHash.generate("12345")
+        }
+        this.signUp = this.signUp.bind(this);
+        this.signIn = this.signIn.bind(this);
+    }
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
 
-    signUp()
+    async signUp()
     {
         // Send request to sign up to backend
-        
+        const token = 
+            (await fetch('http://localhost:3000/applicant/',
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                {
+                    name: this.state.firstName + this.state.lastName,
+                    email: this.state.email,
+                    password: this.state.hashedPassword
+                })
+            })
+            .then(response => response.json())).token;
+
+        console.log(token);
     }
 
-    signIn()
+    async signIn()
     {
-        // Send request to sign in backend
+        const token = 
+        (await fetch('http://localhost:3000/user/login',
+        {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: 
+            JSON.stringify(
+            {
+                email: this.state.email,
+                password: this.state.hashedPassword
+            })
+        }
+        )
+        .then(response => response.json())).token;
+
+        console.log(token);
     }
 
   render() {
@@ -39,8 +81,8 @@ export default class StudentLoginPage extends React.Component {
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
                             </Form.Group>
-                            <Button variant="primary" type="submit" onClick={this.signIn}>
-                                Submit
+                            <Button variant="primary" onClick={this.signIn}>
+                                Sign In
                             </Button>
                         </Form>
                         </Tab>
@@ -74,8 +116,8 @@ export default class StudentLoginPage extends React.Component {
                             <Form.Group controlId="formBasicCheckbox">
                                 <Form.Check type="checkbox" label="Remember me" />
                             </Form.Group>
-                            <Button variant="primary" type="submit" onClick={this.signUp}>
-                                Submit
+                            <Button variant="primary" onClick={this.signUp}>
+                                Sign Up
                             </Button>
                         </Form>
                         </Tab>
