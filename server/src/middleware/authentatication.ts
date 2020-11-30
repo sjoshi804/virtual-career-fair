@@ -2,7 +2,7 @@
 
 import { User } from "../apps/user/user";
 
-const logPrefix = "AUTH:"
+const logPrefix = "^ AUTH:"
 
 //TODO: Prevent anyone but client from sending a request to login
 // Make sure to always append / to endpoint
