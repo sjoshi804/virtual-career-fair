@@ -22,7 +22,7 @@ UserRouter.post("/login", async (req, res) => {
     if (user != null) 
     {
         // Instantiate User Object
-        let currentUser = new User(user.userType, user.name, user.emailId,
+        let currentUser = new User(user.userType, user.name, user.email,
                                  user.password);
 
         // Send token

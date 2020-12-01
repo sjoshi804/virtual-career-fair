@@ -16,7 +16,7 @@ class ApplicantDBSchema extends UserDBSchema {
 
         // Copy over data to save in db
         this.name = applicant.getName();
-        this.emailId = applicant.getEmailId();
+        this.email = applicant.getemail();
         this.password = applicant.getPassword();
         this.userType = applicant.getUserType();
         

@@ -16,7 +16,7 @@ class OrganizerDBSchema extends UserDBSchema {
 
         // Copy over data to save in db
         this.name = organizer.getName();
-        this.emailId = organizer.getEmailId();
+        this.email = organizer.getemail();
         this.password = organizer.getPassword();
         this.userType = organizer.getUserType();
         
