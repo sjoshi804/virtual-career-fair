@@ -1,3 +1,4 @@
+import { stringify } from "querystring";
 import { CareerFair } from "../careerFair/careerFair";
 import { User } from "../user/user";
 import { AbstractSocketProtocol } from "./abstractSocketProtocol";
@@ -15,9 +16,21 @@ class CareerFairSocketUserTable
     // First map in tuple is socketId->userId, second is userId->socketId
     private map: Map<string, [Map<string, string>, Map<string, string>]>;
 
+    // Initialize map
+    constructor()
+    {
+        this.map = new Map<string, [Map<string, string>, Map<string, string>]>();
+    }
+
     // Insert
     public insert(careerFair: string, socketId: string, userId: string)
     {
+        // If career fair not accessed before, initialize maps for it
+        if (!this.map.has(careerFair))
+        {
+            this.map.set(careerFair, [new Map<string, string>(), new Map<string, string>()]);
+        }
+
         this.map.get(careerFair)[0].set(socketId, userId);
         this.map.get(careerFair)[0].set(userId, socketId);
     }
@@ -116,6 +129,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     private constructor()
     {
         super();
+        this.users = new CareerFairSocketUserTable();
     }
 
     static getOrCreate()
@@ -133,7 +147,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     // Logger function
     static log(methodName, data)
     {
-        console.log(`${CareerFairSocketProtocol.protocolName} ${methodName}:\n\t${data}`);
+        console.log(`${CareerFairSocketProtocol.protocolName} ${methodName}:\n\t${JSON.stringify(data)}`);
     }   
 
     // Methods required to implement by ISocketProtocol Interface
@@ -155,7 +169,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 // Register disconnection event
                 socket.on('disconnect', () =>
                 {
-                    CareerFairSocketProtocol.log("disconnect", null);
+                    CareerFairSocketProtocol.log("disconnect", "N/A");
                     this.onDisconnection(socket);
                 });
 

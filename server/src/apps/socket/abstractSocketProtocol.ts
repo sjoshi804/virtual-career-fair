@@ -21,7 +21,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
     }
 
     // onConnection adds username, socket.id to connected clients 
-    // if duplicate for username, replaces old one FIXME:
+    // FIXME
     public onConnection(socket: any, token: string) 
     {
         var username = User.getDataFromToken(token);

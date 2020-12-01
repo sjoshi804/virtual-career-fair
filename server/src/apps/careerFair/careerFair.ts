@@ -70,7 +70,7 @@ class CareerFair implements ISerializable
     // if db schema present initialize from that, else rely on parameters
     public constructor(serialized: CareerFairDBSchema)
     {
-
+        //TODO: Finish this constructor
     }
 
     // Serialize using DB Schema object

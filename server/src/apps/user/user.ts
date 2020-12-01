@@ -100,8 +100,7 @@ class User implements IHasID {
         var data = {
             id: this.id
         }
-        this.token = jwt.sign(data, tokenSecret, 
-            {expiresIn: '4h'});
+        this.token = jwt.sign(data, tokenSecret);
     }
 
     // Decode data from token

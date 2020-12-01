@@ -51,7 +51,7 @@ export default class StudentLivePage extends React.Component {
 
         // Join careerFair
         this.clientSocket.emit("join", {
-          careerFair: this.props.careerFairId,
+          careerFair: this.props.careerFairId || "test-career-fair-id",
           token: localStorage.getItem("Authorization")
         });
 
@@ -70,10 +70,12 @@ export default class StudentLivePage extends React.Component {
           })*/
 
           // Put booth data in company object
+          company.id = company;
           company.status = "Available"
           company.queue = 0
           company.position = null
           company.recruiters = ["Joe Bruin", "John Doe"]
+          
         }
         
         this.setState({
@@ -93,7 +95,7 @@ export default class StudentLivePage extends React.Component {
     {
       this.clientSocket.emit("joinQueue", 
       {
-        careerFair: this.props.careerFairId,
+        careerFair: this.props.careerFairId || "test-career-fair-id",
         company: companyId
       });
     }
