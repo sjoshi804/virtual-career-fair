@@ -11,7 +11,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
     protected namespace: any;
 
     // Map from username -> socket.id
-    protected connectedClients: Map<string, string>;
+    private connectedClients: Map<string, string>;
 
 
     constructor()
@@ -21,7 +21,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
     }
 
     // onConnection adds username, socket.id to connected clients 
-    // if duplicate for username, replaces old one - TODO: Think about this more
+    // if duplicate for username, replaces old one FIXME:
     public onConnection(socket: any, token: string) 
     {
         var username = User.getDataFromToken(token);
@@ -39,7 +39,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
         console.log(this.connectedClients);
     }
 
-    // On disconnection removes username, socket.id from the map, if never existed logs possible error
+    // On disconnection removes username, socket.id from the map, if never existed logs possible error FIXME:
     public onDisconnection(socket: any) 
     {
         if (!this.connectedClients.has(socket.handshake.query['username']))

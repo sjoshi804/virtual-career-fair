@@ -1,4 +1,5 @@
 import { CareerFair } from "../careerFair/careerFair";
+import { User } from "../user/user";
 import { AbstractSocketProtocol } from "./abstractSocketProtocol";
 
 /*
@@ -8,8 +9,107 @@ import { AbstractSocketProtocol } from "./abstractSocketProtocol";
     TODO: ROBUSTIFY THIS
 */
 
+
+class CareerFairSocketUserTable
+{
+    // First map in tuple is socketId->userId, second is userId->socketId
+    private map: Map<string, [Map<string, string>, Map<string, string>]>;
+
+    // Insert
+    public insert(careerFair: string, socketId: string, userId: string)
+    {
+        this.map.get(careerFair)[0].set(socketId, userId);
+        this.map.get(careerFair)[0].set(userId, socketId);
+    }
+
+    // Gets
+    public getUserId(careerFair: string, socketId: string)
+    {
+        return this.map.get(careerFair)[0].get(socketId);
+    }
+
+    public getSocketId(careerFair: string, userId: string)
+    {
+        return this.map.get(careerFair)[1].get(userId);
+    }
+
+    // Has
+    public hasSocketId(socketId: string, careerFair?: string)
+    {
+        if (careerFair == undefined)
+        {
+            var has = false;
+            for (let [key, value] of this.map)
+            {
+                has = has || value[0].has(socketId)
+                if (has)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else 
+        {
+            return this.map.get(careerFair)[0].has(socketId)
+        }
+    }
+
+    public hasUserId(userId: string, careerFair?: string)
+    {
+        if (careerFair == undefined)
+        {
+            var has = false;
+            for (let [key, value] of this.map)
+            {
+                has = has || value[1].has(userId)
+                if (has)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        else 
+        {
+            return this.map.get(careerFair)[1].has(userId)
+        }
+    }
+
+    // Deletes
+    public deleteBySocketId(socketId: string)
+    {
+        // Track which fairs to delete
+        var careerFairsToDelete = []
+
+        // Delete socket from all career fairs, delete userId id from all
+        for (let [key, value] of this.map)
+        {
+            const userId = value[0].get(socketId);
+            value[0].delete(socketId);
+            value[1].delete(userId);
+
+            // Mark fair for deletion if no users left
+            if (value[0].size == 0)
+            {
+                careerFairsToDelete.push(key);
+            }
+        }
+
+        // Delete empty fairs
+        for (let key of careerFairsToDelete)
+        {
+            this.map.delete(key);
+        }        
+    }
+}
+
 class CareerFairSocketProtocol extends AbstractSocketProtocol
 {
+    // Member Variables
+    // Users map from careerFairId ->  BidirectionalMap<socket.id, user.id)
+    private users: CareerFairSocketUserTable
+
     // Implementing singleton pattern
     private static instance = new CareerFairSocketProtocol();
 
@@ -27,8 +127,14 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         return this.instance;
     }
 
-    // Member variables
-    protocolName = "CareerFairSocketProtocol";
+    // Protocol Name
+    static protocolName = "CareerFairSocketProtocol";
+
+    // Logger function
+    static log(methodName, data)
+    {
+        console.log(`${CareerFairSocketProtocol.protocolName} ${methodName}:\n\t${data}`);
+    }   
 
     // Methods required to implement by ISocketProtocol Interface
     registerEventListeners(namespace: any) 
@@ -40,7 +146,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 // Register echo event
                 socket.on("echo", (message) =>
                 {
-                    console.log(`${this.protocolName}: Echo test -  ${message}`);
+                    CareerFairSocketProtocol.log("echo", message);
                     this.echo(socket, message);
                 });
 
@@ -49,86 +155,119 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 // Register disconnection event
                 socket.on('disconnect', () =>
                 {
+                    CareerFairSocketProtocol.log("disconnect", null);
                     this.onDisconnection(socket);
                 });
 
                 // Register join room event - each room corresponds to a live career fair
                 socket.on("join", (data) =>
                 {
-                    this.onConnection(socket, data.token);
-                    this.joinRoom(socket, data.room);
+                    CareerFairSocketProtocol.log("join", data);
+                    this.joinRoom(socket, data.careerFair, data.token);
                 });
 
                 // Register joinQueue method
                 socket.on("joinQueue", (data) =>
                 {
-                    console.log(`${this.protocolName}: joinQueue\n\t${socket.handshake.query['Authorization']}\n\t${data}`)
+                    CareerFairSocketProtocol.log("joinQueue", data);
                     this.joinQueue(socket, data.careerFair, data.company);
                 });
 
                 // Register leaveQueue method
                 socket.on("leaveQueue", (data) =>
                 {
+                    CareerFairSocketProtocol.log("leaveQueue", data);
                     this.leaveQueue(socket, data.careerFair, data.company);
                 });
 
                 // Register startNextMeeting method
                 socket.on("startNextMeeting", (data) => 
-                {   
+                {   CareerFairSocketProtocol.log("startNextMeeting", data);
                     this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
                 });
                 
                 // Cancel meeting
                 socket.on("cancelMeeting", (data) =>
                 {
-                    this.cancelMeeting(socket, data.applicant)
+                    CareerFairSocketProtocol.log("cancelMeeting", data);
+                    this.cancelMeeting(socket, data.applicant, data.careerFair)
                 });
 
                 // Accept Meeting Call
                 socket.on("acceptMeetingCall", (data) =>
                 {
+                    CareerFairSocketProtocol.log("acceptMeetingCall", data);
                     this.acceptMeetingCall(data.recruiter, data.signal)
                 });
             }
         );
     }
 
-    // Private event handlers
-    private joinRoom(socket, room: string)
+    // Connection to room 
+    private joinRoom(socket, careerFair: string, token: string)
     {
-        if (CareerFair.db.count({_id: room }) == 0)
+        // Get userId from token
+        const userId = User.getDataFromToken(token).id;
+
+        // If career fair doesn't exist
+        if (CareerFair.db.count({_id: careerFair }) == 0)
         {
             socket.emit("error", "This career fair doesn't exist.")
         }
+        // If token invalid
+        else if (userId == null)
+        {    
+            socket.emit("error", "Invalid token.");
+        }
         else
         {
-            socket.join(room);
+            // Add to users
+            this.users.insert(careerFair, socket.id, userId);
+
+            // Join room
+            socket.join(careerFair);
         }
     }
 
+    //  Disconnection
+    public onDisconnection(socket: any)
+    {
+        this.users.deleteBySocketId(socket.id);
+    }
+
+    // Private Event Handlers
+
     private async joinQueue(socket: any, careerFair: string, company: string)
     {
+        // Get live career fair instance
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
-        if (!currentFair.booths[company].queue.joinQueue(socket.handshake.query['username']))
+
+        // If failed to join queue with user id log error
+        if (!currentFair.booths.get(company).queue.joinQueue(this.users.getUserId(careerFair, socket.id)))
         {
             socket.emit("error", "Error joining queue.")
         }
+        // UpdateQueue to notify all of update
         else
         {
-            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
+            this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength());
         }
     }
 
     private async leaveQueue(socket: any, careerFair: string, company: string)
     {
+        // Get live career fair instance 
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
-        if (!currentFair.booths[company].queue.leaveQueue(socket.handshake.query['username']))
+
+        // If failed to leave queue, send error 
+        if (!currentFair.booths.get(company).queue.leaveQueue(this.users.getUserId(careerFair, socket.id)))
         {
             socket.emit("error", "Error leaving queue.")
         }
+        // UpdateQueue to notify all of update
         else
         {
-            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
+            this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength());
         }
         
     }
@@ -138,12 +277,20 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Get career fair
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
 
-        // Dequeue next applicant
-        const nextApplicant = currentFair.booths[company].queue.dequeue();
-        // TODO: Notify queue of this change
+        // If empty queue, return error
+        if (currentFair.booths.get(company).queue.getLength() == 0)
+        {
+            socket.emit("error", "No applicants in queue").
+        }
+
+        // Else get next applicant
+        const nextApplicant = currentFair.booths.get(company).queue.dequeue();
+
+        // Notify queue of change
+        this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength())
 
         // If this applicant is not connected, log error and give up, let client side retry
-        if (!this.connectedClients.has(nextApplicant))
+        if (!this.users.hasUserId(nextApplicant, careerFair)
         {
             socket.emit("error", "Applicant not logged in.");
             //TODO: More robust solution to this, currently applicant is dropped from queue if not logged in when it is their turn
@@ -151,39 +298,39 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Else, return confirmation to caller i.e. recruiter - starts timeout on recruiter client side to end call if applicant doesn't pick up for too long
         else
         {
-            // Confirmation of meeting creation, with username of applicant to call
-            socket.emit("outgoingMeetingCall", 
+            // Send calling notification to 
+            socket.emit("callingApplicant",
             {
                 applicant: nextApplicant
-            })
+            });
 
             // Call applicant
-            this.namespace.to(this.connectedClients[nextApplicant]).emit("incomingMeetingCall", 
+            this.namespace.to(this.users.getSocketId(careerFair, nextApplicant)).emit("incomingMeetingCall", 
             {
-                signal: signalData,
-                company: company
+                company: company,
+                recruiter: socket.id
             });
         }
     }
 
-    private cancelMeeting(socket, applicant)
+    private cancelMeeting(socket: any, applicant: string, careerFair: string)
     {
         // Cancel call to applicant
-        if (!this.connectedClients.has(applicant))
+        if (!this.users.hasUserId(applicant, careerFair))
         {
             socket.emit("error", "Applicant no longer logged in.");
         }
         else
         {
-            this.namespace.to(this.connectedClients[applicant]).emit("cancelCall");
+            this.namespace.to(this.users.getSocketId(careerFair, applicant)).emit("cancelCall");
         }
     }
 
-    private acceptMeetingCall(recruiter: string, signal: any) 
+    private acceptMeetingCall(recruiter: string, peerJsId: string) 
     {
         this.namespace.to(recruiter).emit("acceptMeetingCall", 
         {
-            signal: signal
+            peerJsId: peerJsId
         });
     }
 

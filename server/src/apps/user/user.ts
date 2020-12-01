@@ -1,7 +1,7 @@
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 import { tokenSecret } from '../../.config';
-
+import {v4 as uuid } from 'uuid'
 import { IHasID } from '../../db/iHasID';
 import { UserDBStrategy } from './userDBStrategy';
 
@@ -15,14 +15,16 @@ class User implements IHasID {
     private email: string;
     private password: string;
     private token: string;
-    private id: string;
     private userType: number;
+
+    // Protected Fields
+    protected id: string;
 
     // DataBase
     public static db = new UserDBStrategy();
 
     // Constructor
-    public constructor(userType: number, name: string, email: string, password: string) {
+    public constructor(userType: number, name: string, email: string, password: string, id?: string) {
         this.name = name;
         this.email = email;
 
@@ -33,6 +35,16 @@ class User implements IHasID {
         else {
             var hashedPassword = passwordHash.generate(password);
             this.password = hashedPassword;
+        }
+
+        // If id not passed in, create one
+        if (id == undefined)
+        {
+            this.id = uuid();
+        }
+        else
+        {
+            this.id = id;
         }
     }
 
@@ -86,23 +98,20 @@ class User implements IHasID {
     // Generate token that expires in 4 hours
     private createToken() {
         var data = {
-            name: this.name,
-            email: this.email,
-            password: this.password
+            id: this.id
         }
-        this.token = jwt.sign({data: data}, tokenSecret, 
+        this.token = jwt.sign(data, tokenSecret, 
             {expiresIn: '4h'});
     }
 
     // Decode data from token
     public static getDataFromToken(token: string) {
-        var data = null;
+        var decoded = null;
         if (token != null) {
             // Get data from encrypted token 
             try {
                 // Verify also checks for expiry time
-                var decoded = jwt.verify(token, tokenSecret);
-                var data = decoded.data;
+                decoded = jwt.verify(token, tokenSecret);
             } 
             catch(err) {
                 console.log(err)
@@ -111,7 +120,7 @@ class User implements IHasID {
         else {
             throw Error('no token to extract data from');
         }
-        return data
+        return decoded
     }
 
     /**** Getter and setter methods for private members ****/
