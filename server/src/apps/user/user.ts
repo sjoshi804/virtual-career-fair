@@ -95,7 +95,7 @@ class User implements IHasID {
     }
 
     // Decode data from token
-    private static getDataFromToken(token: string) {
+    public static getDataFromToken(token: string) {
         var data = null;
         if (token != null) {
             // Get data from encrypted token 
@@ -103,10 +103,12 @@ class User implements IHasID {
                 // Verify also checks for expiry time
                 var decoded = jwt.verify(token, tokenSecret);
                 var data = decoded.data;
-            } catch(err) {
-                return err;
+            } 
+            catch(err) {
+                console.log(err)
             }
-        } else {
+        } 
+        else {
             throw Error('no token to extract data from');
         }
         return data

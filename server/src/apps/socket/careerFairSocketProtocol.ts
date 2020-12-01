@@ -37,62 +37,58 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         this.namespace.on('connection', 
             socket =>
             {
-                if (socket.handshake.query['username'] != undefined)
+                // Register echo event
+                socket.on("echo", (message) =>
                 {
-                    // TODO: Add recruiter / leave recruiter
-                    
-                    // Handle connection
-                    this.onConnection(socket);
+                    console.log(`${this.protocolName}: Echo test -  ${message}`);
+                    this.echo(socket, message);
+                });
 
-                    // Register disconnection event
-                    socket.on('disconnect', () =>
-                    {
-                        this.onDisconnection(socket);
-                    });
+                // TODO: Add recruiter / leave recruiter                    
 
-                    // Register echo event
-                    socket.on("echo", (message) =>
-                    {
-                        console.log("Echo test: " + message);
-                        this.echo(socket, message);
-                    });
+                // Register disconnection event
+                socket.on('disconnect', () =>
+                {
+                    this.onDisconnection(socket);
+                });
 
-                    // Register join room event - each room corresponds to a live career fair
-                    socket.on("join", (room) =>
-                    {
-                        this.joinRoom(socket, room);
-                    });
+                // Register join room event - each room corresponds to a live career fair
+                socket.on("join", (data) =>
+                {
+                    this.onConnection(socket, data.token);
+                    this.joinRoom(socket, data.room);
+                });
 
-                    // Register joinQueue method
-                    socket.on("joinQueue", (data) =>
-                    {
-                        this.joinQueue(socket, data.careerFair, data.company);
-                    });
+                // Register joinQueue method
+                socket.on("joinQueue", (data) =>
+                {
+                    console.log(`${this.protocolName}: joinQueue\n\t${socket.handshake.query['Authorization']}\n\t${data}`)
+                    this.joinQueue(socket, data.careerFair, data.company);
+                });
 
-                    // Register leaveQueue method
-                    socket.on("leaveQueue", (data) =>
-                    {
-                        this.leaveQueue(socket, data.careerFair, data.company);
-                    });
+                // Register leaveQueue method
+                socket.on("leaveQueue", (data) =>
+                {
+                    this.leaveQueue(socket, data.careerFair, data.company);
+                });
 
-                    // Register startNextMeeting method
-                    socket.on("startNextMeeting", (data) => 
-                    {   
-                        this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
-                    });
-                    
-                    // Cancel meeting
-                    socket.on("cancelMeeting", (data) =>
-                    {
-                        this.cancelMeeting(socket, data.applicant)
-                    });
+                // Register startNextMeeting method
+                socket.on("startNextMeeting", (data) => 
+                {   
+                    this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
+                });
+                
+                // Cancel meeting
+                socket.on("cancelMeeting", (data) =>
+                {
+                    this.cancelMeeting(socket, data.applicant)
+                });
 
-                    // Accept Meeting Call
-                    socket.on("acceptMeetingCall", (data) =>
-                    {
-                        this.acceptMeetingCall(data.recruiter, data.signal)
-                    });
-                }
+                // Accept Meeting Call
+                socket.on("acceptMeetingCall", (data) =>
+                {
+                    this.acceptMeetingCall(data.recruiter, data.signal)
+                });
             }
         );
     }

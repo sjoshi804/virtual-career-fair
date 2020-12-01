@@ -69,11 +69,11 @@ class Main extends React.Component {
     return (
       <>
         <Navbar bg="black" variant="light" stick="top">
-          <Nav className="mr auto">
+          <Nav className="mr-auto">
             <Nav.Link onClick={this.handleRoute("/")}>JobZ</Nav.Link>
             <Nav.Link onClick={this.handleRoute("/student")}>Students</Nav.Link>
           </Nav>
-          
+          <Nav className="ml-auto">
             <Nav.Link onClick={this.handleRoute("/search")}>
               Searching for Something Specific?
             </Nav.Link>
@@ -81,7 +81,7 @@ class Main extends React.Component {
             {
               localStorage.getItem("Authorization") != undefined ? <Nav.Link onClick={this.logout}>Sign Out</Nav.Link> : <Nav.Link onClick={this.handleRoute("/student-login")}>Sign In</Nav.Link>
             }
-        
+        </Nav>
         </Navbar>
         <Switch>
       

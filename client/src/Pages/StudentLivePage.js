@@ -10,56 +10,106 @@ import qualcomm from '../Images/qualcomm.jpg';
 import paypal from '../Images/paypal.jpg'; 
 import netflix from '../Images/netflix.jpg'; 
 import {MoreInfo} from './MoreInfo'
-
+import { baseUrl } from "../.config";
 const io = require('socket.io-client');
-const clientSocket = io("ws://localhost:3000/careerFair");
+
 export default class StudentLivePage extends React.Component {
-    constructor()
+    constructor(props)
     {
-      super();
+      super(props);
+      this.state = 
+      {
+        companies: []
+      }
+      this.echo = this.echo.bind(this);
     }
 
-    componentDidMount()
+    async componentDidMount()
     {
+        
+        this.clientSocket = io("ws://localhost:3000/careerFair");
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
-        clientSocket.on("queueUpdate", (data) =>
+        this.clientSocket.on("queueUpdate", (data) =>
         {
 
         });
 
         // Register handler for announcement
-        clientSocket.on("announcement", (data) =>
+        this.clientSocket.on("announcement", (data) =>
         {
 
         });
 
         // For test / debug purposes enable echo
-        clientSocket.on("echo", (message) =>
+        this.clientSocket.on("echo", (message) =>
         {
             console.log("Echo received: " + message);
         });
 
         // Connect
-        clientSocket.connect();
+        this.clientSocket.connect();
 
         // Join careerFair
-        clientSocket.emit("join", "CAREER_FAIR_ID");
+        this.clientSocket.emit("join", {
+          careerFair: this.props.careerFairId,
+          token: localStorage.getItem("Authorization")
+        });
+
+        // Load companies at careerFair
+        // FIXME: Get this from the career fair api
+        const companies = await fetch(baseUrl + '/company', {
+          method: "GET"
+        })
+        .then(response => response.json());
+        
+        for (let company of companies)
+        {
+          /* TODO: Uncomment when this endpoint is ready
+          boothData = await fetch(baseUrl + `/careerFairId/${this.props.careerFairId}/company/${company._id}`, {
+            method: "GET"
+          })*/
+
+          // Put booth data in company object
+          company.status = "Available"
+          company.queue = 0
+          company.position = null
+          company.recruiters = ["Joe Bruin", "John Doe"]
+        }
+        
+        this.setState({
+          companies: companies
+        })
     }
 
     echo()
     {
         console.log("Attempting to echo");
-        clientSocket.emit("echo", "Hello World");
+        this.clientSocket.emit("echo", "Hello World");
     }
 
+    // Methods to communicate with backend socket
+    // --------------------------------------------------
+    joinQueue = (companyId) => () =>
+    {
+      this.clientSocket.emit("joinQueue", 
+      {
+        careerFair: this.props.careerFairId,
+        company: companyId
+      });
+    }
+
+    // --------------------------------------------------
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
   render() {
-    const companies = ['Netflix', 'Google', 'Snapchat', 'Qualcomm', 'Tesla', 'Microsoft', 'Facebook', 'Apple', 'Paypal'];
-    const items = []
-  
-    for (const [index, value] of companies.entries()) {
+    var items = []
+    for (const [index, value] of this.state.companies.entries()) {
+      var onlineRecruiters = [];
+      value.recruiters.forEach(element => {
+        onlineRecruiters.push(
+        <b>{element}</b>)
+      });
       items.push(
           
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -67,20 +117,20 @@ export default class StudentLivePage extends React.Component {
             <Card.Img variant="top" src={google} height="200" />
             </div>
             <Card.Body>
-            <Card.Title>{value}</Card.Title>
+            <Card.Title>{value.name}</Card.Title>
             <MoreInfo></MoreInfo>
-            <Card.Text>
-                <br></br>
-                <b>Recruiter: </b> John Doe
-                <br></br>
-                <br></br>
-                <b>Status: </b> In session
-            </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
+            <small className="text-muted"> 
+            { value.position != null ?
+            <h7 style={{"font-size": "15px"}}>
+              <b>Position: </b> {value.position}/{value.queue}</h7> :
+              <h7 style={{"font-size": "15px"}}>
+              <b>Queue: </b> {value.queue}</h7> 
+            }
+
             <h1></h1>
-            <Button variant="outline-secondary" size="sm" onClick={this.echo}>In Session</Button></small>
+            <Button  size="sm" onClick={this.joinQueue("Microsoft")} variant={value.status ? "outline-success" : "outline-danger"} >Join Queue</Button></small>
             <br></br>
             </Card.Footer>
         </Card>
