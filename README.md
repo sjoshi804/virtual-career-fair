@@ -25,7 +25,7 @@
 | GET/POST          |/careerfair                                              | |
 | GET/UPDATE/DELETE |/careerfair/:careerfairid                                | |
 | POST              | /careerfair/:careerfairid/registerApplicant/:applicantid| only register an applicant that already exists in the db|
-| GET               | /careerfair/:careerfairid/company                       | |
+| GET               | /careerfair/:careerfairid/company                       | Gets all the companies at this career fair (from booths in career fair document)|
 
 ### Booth
 | Type | Endpoint | Description (optional)
