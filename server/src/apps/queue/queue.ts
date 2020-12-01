@@ -19,11 +19,16 @@ class Queue
     }
 
     // Removes a given Applicant from the queue
-    public leaveQueue(applicant: string): void
+    public leaveQueue(applicant: string): boolean
     {
         if (this.isApplicantInQueue(applicant))
         {
             this.applicantIds.splice(this.applicantIds.indexOf(applicant), 1);
+            return true;
+        }
+        else 
+        {
+            return false;
         }
     }
 

@@ -280,7 +280,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // If empty queue, return error
         if (currentFair.booths.get(company).queue.getLength() == 0)
         {
-            socket.emit("error", "No applicants in queue").
+            socket.emit("error", "No applicants in queue");
         }
 
         // Else get next applicant
@@ -290,7 +290,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength())
 
         // If this applicant is not connected, log error and give up, let client side retry
-        if (!this.users.hasUserId(nextApplicant, careerFair)
+        if (!this.users.hasUserId(nextApplicant, careerFair))
         {
             socket.emit("error", "Applicant not logged in.");
             //TODO: More robust solution to this, currently applicant is dropped from queue if not logged in when it is their turn
