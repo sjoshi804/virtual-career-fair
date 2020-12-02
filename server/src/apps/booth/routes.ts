@@ -36,7 +36,10 @@ BoothRouter.post("/:careerfairid/company", async (req, res) => {
             // Create DBSchema object using request body
             const booth = new Booth(null, careerfairid, companyId);
             careerfair.booths[companyId] = booth
-            const updateQuery = careerfair;
+            const updateQuery = 
+            {
+                $set: careerfair
+            }
             // Return resource created code
             if (await CareerFair.db.updateOne(filterQuery, updateQuery)) {
                 res.sendStatus(201);
