@@ -25,7 +25,8 @@ import { StudentProfilePage,
          RecruiterLoginPage,
          RecruiterVideoCall,
          StudentVideoCall,
-         StudentResumePage, } from "./Pages";
+         StudentResumePage, 
+         RecruiterResumePage, } from "./Pages";
 
 
 class Main extends React.Component {
@@ -93,6 +94,7 @@ class Main extends React.Component {
             <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-video-call" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-resume" component={RecruiterResumePage} redirectTo={"/recruiter-login"} exact/>
 
             {/*Public Routes*/}
             <Route path="/" component={HomePage} exact/>

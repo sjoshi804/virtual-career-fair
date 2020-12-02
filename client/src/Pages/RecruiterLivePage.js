@@ -20,7 +20,7 @@ export default class RecruiterLivePage extends React.Component {
             <td>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
             </td>
-            <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
+            <td><Button size="sm" variant="outline-dark" onClick={this.handleRoute("/recruiter-resume")}>View Resume</Button></td>
         </tr>
       )
     }
