@@ -1,7 +1,7 @@
 import React from "react";
 import {Card, CardDeck, Button} from "react-bootstrap";
 import google from '../Images/google.jpg'; 
-import {MoreInfo} from './MoreInfo'
+import { MoreInfo } from './MoreInfo'
 import { baseUrl } from "../.config";
 import Peer from 'peerjs';
 const io = require('socket.io-client');
@@ -218,7 +218,7 @@ export default class StudentLivePage extends React.Component {
             src={value.image || google} maxHeight="250px" />
             <Card.Body>
             <Card.Title><b>{value.name}</b></Card.Title>
-            <MoreInfo></MoreInfo>
+            <MoreInfo company={value}></MoreInfo>
             </Card.Body>
             <Card.Footer>
             <small className="text-muted"> 
