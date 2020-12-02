@@ -62,7 +62,7 @@ export default class StudentLivePage extends React.Component {
     for (const [index, value] of companies.entries()) {
       items.push(
           
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
             <div style={{ "width": "200px", "margin": "auto"}}> 
             <Card.Img variant="top" src={google} height="200" />
             </div>
@@ -78,7 +78,7 @@ export default class StudentLivePage extends React.Component {
             </Card.Text>
             </Card.Body>
             <Card.Footer>
-            <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Position: </b> 2/10</h7> 
+            <small className="text-muted"> <h6 style={{"fontSize": "15px"}}><b>Position: </b> 2/10</h6> 
             <h1></h1>
             <Button variant="outline-secondary" size="sm" onClick={this.echo}>In Session</Button></small>
             <br></br>
@@ -89,8 +89,8 @@ export default class StudentLivePage extends React.Component {
 //<Button variant="outline-success" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button></small>
    
     return (
-      <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+      <div style={{ "textAlign": "center", "margin": "20px 20px" }}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "marginBottom": "20px"}}>
           <br></br>
           <h2><b>Career Fair #1</b></h2>
           <br></br>

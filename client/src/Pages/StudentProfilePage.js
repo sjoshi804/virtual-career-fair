@@ -81,9 +81,9 @@ export default class StudentProfilePage extends React.Component {
       )
     }
     return (
-      <div style={{ "background-color": "white", color: "white", "text-align": "center" }}>
+      <div style={{ "background-color": "white", color: "white", "textAlign": "center" }}>
         <div style={{ "color": "black", "padding": "20px"}}>
-            <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <Card className="text-center" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
                 <Card.Header><h1>Profile</h1></Card.Header>
                 <Card.Body>
                     <Image src={profile} rounded height="150px"/>
@@ -101,32 +101,32 @@ export default class StudentProfilePage extends React.Component {
             </Card>
         </div>
         <div style={{"padding": "20px", "color": "black"}}>
-            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+            <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
                <Card.Header><h2><b>Live Career Fairs</b></h2></Card.Header>
                 <p></p>
                     {liveitems}
             </Card>
         </div>
         <div style={{"padding": "20px", "color": "black"}}>
-            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+            <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
             <Card.Header><h2><b>Upcoming Career Fairs (Registered)</b></h2></Card.Header>
-                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
+                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
                     {upcoming_reg}
                 </CardGroup>
             </Card>
             </div>
             <div style={{"padding": "20px", "color": "black"}}>
-                <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+                <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
                 <Card.Header><h2><b>Upcoming Career Fairs (Not Registered)</b></h2></Card.Header>
-                    <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
+                    <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
                         {upcoming_unreg}
                     </CardGroup>
                 </Card>
             </div>
             <div style={{"padding": "20px", "color": "black"}}>
-            <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+            <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
             <Card.Header><h2><b>Past Career Fairs Attended</b></h2></Card.Header>
-                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "padding-top": "20px"}}>
+                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
                     {pastitems}
                 </CardGroup>
             </Card>

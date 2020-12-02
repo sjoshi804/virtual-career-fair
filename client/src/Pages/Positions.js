@@ -7,7 +7,7 @@ export const Positions = () => {
   
     for (const [index, value] of fairs.entries()) {
       items.push(
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <div style={{ "width": "200px", "margin": "auto"}}> 
        
         </div>
@@ -22,7 +22,7 @@ export const Positions = () => {
         </Card.Text>
         </Card.Body>
         <Card.Footer>
-        <small className="text-muted"> <h7 style={{"font-size": "15px"}}><b>Students in Queue: </b> 15 </h7> 
+        <small className="text-muted"> <h7 style={{"fontSize": "15px"}}><b>Students in Queue: </b> 15 </h7> 
         <h1></h1>
         <Button variant="outline-secondary" size="sm">Join Booth</Button></small>
         <br></br>

@@ -67,7 +67,7 @@ export default class RecruiterProfilePage extends React.Component {
     return (
         <div>
         <div style={{ "color": "black", "padding": "20px"}}>
-            <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <Card className="text-center" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
                 <Card.Header><h2>Profile</h2></Card.Header>
                 <Card.Body>
                     <Image src={profile} rounded height="150px"/>
@@ -83,7 +83,7 @@ export default class RecruiterProfilePage extends React.Component {
         </div>
 
       <div style={{ "background-color": "white", color: "white", "color": "black", "padding": "20px" }}>
-        <Card className="text-center" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card className="text-center" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Live Career Fairs</h3></Card.Header>
         <Card.Body>
             {liveitems}
@@ -91,16 +91,16 @@ export default class RecruiterProfilePage extends React.Component {
         </Card>
         </div>
 
-      <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+      <div style={{ "background-color": "white", color: "white", "textAlign": "center", "color": "black", "padding": "20px" }}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Upcoming Career Fairs</h3></Card.Header>
             {upcoming_items}
         </Card>
       </div>
 
 
-      <div style={{ "background-color": "white", color: "white", "text-align": "center", "color": "black", "padding": "20px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+      <div style={{ "background-color": "white", color: "white", "textAlign": "center", "color": "black", "padding": "20px" }}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card.Header><h3>Past Career Fairs</h3></Card.Header>
         {pastitems}
         </Card>

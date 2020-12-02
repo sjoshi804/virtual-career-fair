@@ -10,11 +10,11 @@ export default class OrganizerLoginPage extends React.Component {
   render() {
     return (
       <div style={{ "background-color": "white", color: "white", "max-width": "80%", "margin": "auto", "padding": "20px" }}>
-        <Card style={{"padding": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Form>
           <Form.Group>
             <Card.Text>
-              <Form.Label style={{"color": "black", "text-align": "left"}}>Organizer Name</Form.Label>
+              <Form.Label style={{"color": "black", "textAlign": "left"}}>Organizer Name</Form.Label>
             </Card.Text>
             <Form.Control type="email" placeholder="First name" id="firstName"/>
             <Form.Control type="email" placeholder="Last name" id="lastName"/>
@@ -22,27 +22,27 @@ export default class OrganizerLoginPage extends React.Component {
 
           <Form.Group controlId="formBasicEmail">
             <Card.Text>
-              <Form.Label style={{"color": "black", "text-align": "left"}}>Organization Name</Form.Label>
+              <Form.Label style={{"color": "black", "textAlign": "left"}}>Organization Name</Form.Label>
             </Card.Text>
             <Form.Control type="email" placeholder="Enter organization name" id="organizationName"/>
           </Form.Group>
           <Form.Group>
             <Card.Text>
-              <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Number</Form.Label>
+              <Form.Label style={{"color": "black", "textAlign": "left"}}>Contact Number</Form.Label>
             </Card.Text>
             <Form.Control type="tel" placeholder="(000) 000-0000" id="contactNumber"/>
           </Form.Group>
 
           <Form.Group controlId="formBasicEmail">
             <Card.Text>
-              <Form.Label style={{"color": "black", "text-align": "left"}}>Contact Email</Form.Label>
+              <Form.Label style={{"color": "black", "textAlign": "left"}}>Contact Email</Form.Label>
             </Card.Text>
             <Form.Control type="email" placeholder="Enter email" id="email"/>
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">
             <Card.Text>
-              <Form.Label style={{"color": "black", "text-align": "left"}}>Password</Form.Label>
+              <Form.Label style={{"color": "black", "textAlign": "left"}}>Password</Form.Label>
             </Card.Text>
             <Form.Control type="password" placeholder="Password" id="password"/>
           </Form.Group>
@@ -66,7 +66,7 @@ export default class LoginPage extends React.Component{
     render() {
         return (
             <div>
-      <div style={{padding: "100px", "text-align": "center", background: "#9393A6", "color": "white"}}>
+      <div style={{padding: "100px", "textAlign": "center", background: "#9393A6", "color": "white"}}>
         <h1>JobZ</h1>
         <p>
           <h4>

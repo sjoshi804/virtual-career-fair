@@ -8,8 +8,8 @@ export default class OrganizerUpcomingPage extends React.Component {
         };
   render() {
     return (       
-      <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+      <div style={{ "textAlign": "center", "margin": "20px 20px" }}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "marginBottom": "20px"}}>
         <Card.Body>
           <br></br>
           <h2><b>Career Fair #6  (Schedueled)</b></h2>
@@ -23,7 +23,7 @@ export default class OrganizerUpcomingPage extends React.Component {
          </Card.Body>
         </Card>
     <CardDeck>
-        <Card  border="success" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+        <Card  border="success" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
             <div style={{ "width": "200px", "margin": "auto"}}> 
             </div>
             <Card.Body>
@@ -37,8 +37,8 @@ export default class OrganizerUpcomingPage extends React.Component {
             <DetailedStatsUpc></DetailedStatsUpc>
             </Card.Body>
         </Card>
-        <Card  border="danger" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "width": "300px"}}>
-            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+        <Card  border="danger" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "width": "300px"}}>
+            <div style={{ "width": "200px", "margin": "auto", "paddingTop": "10px"}}> 
             </div>
             <Card.Body>
             <Card.Title>Number of Students at Fair</Card.Title>
@@ -52,8 +52,8 @@ export default class OrganizerUpcomingPage extends React.Component {
             </Card.Body>
         </Card>
         
-        <Card  border="dark" style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-            <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+        <Card  border="dark" style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <div style={{ "width": "200px", "margin": "auto", "paddingTop": "10px"}}> 
             </div>
             <Card.Body>
             <Card.Title>Number of Companies at Fair</Card.Title>
