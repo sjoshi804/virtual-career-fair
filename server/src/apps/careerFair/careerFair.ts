@@ -3,6 +3,7 @@ import { ISerializable } from "../../db/iSerializable";
 import { Booth } from "../booth/booth";
 import { CareerFairDBSchema } from "./careerFairDBSchema";
 import { CareerFairDBStrategy } from "./careerFairDBStrategy";
+import { v4 as uuid } from 'uuid';
 
 class CareerFair implements ISerializable
 {
@@ -73,6 +74,7 @@ class CareerFair implements ISerializable
         endTime?: Date, attendingApplicants?: Array<string>, attendingRecruiters?: Array<string>, booths?: Map<string, Booth>)
     {
         if (serialized != undefined) {
+            this.id = serialized._id;
             this.organizer = serialized.organizer;
             this.startTime = serialized.startTime;
             this.endTime = serialized.endTime;
@@ -93,6 +95,7 @@ class CareerFair implements ISerializable
             })
         }
         else {
+            this.id = uuid();
             this.organizer = organizer;
             this.startTime = startTime;
             this.endTime = endTime;
@@ -117,7 +120,9 @@ class CareerFair implements ISerializable
     // Serialize using DB Schema object
     public serialize()
     {
-        return new CareerFairDBSchema(this)
+        var serialized = new CareerFairDBSchema(this)
+        // this.id = serialized._id;
+        return serialized;
     }
 }
 
