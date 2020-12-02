@@ -14,7 +14,7 @@ const endpointsWithoutAuthentication =
     "/api/recruiter/"               : ["POST"],
     "/api/organizer/"               : ["POST"],
     "/api/company/"                 : ["GET"],
-    "/api/careerFair/"              : ["GET"],
+    "/api/careerfair/"              : ["GET"],
     "/api/company/:companyId/job/"  : ["GET"]
 }
 

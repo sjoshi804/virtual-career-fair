@@ -14,7 +14,7 @@ import { logger } from "./middleware/logger";
 import { authenticate } from "./middleware/authentatication"
 
 // Socket Protocols
-import { CareerFairSocketProtocol } from "./apps/socket/careerFairSocketProtocol";
+import { CareerFairSocketProtocol } from "./apps/socket/careerfairSocketProtocol";
 
 // Routers
 import { MeetingNotesRouter } from "./apps/meetingNotes/routes";
@@ -25,7 +25,8 @@ import { UserRouter } from "./apps/user/routes";
 import { ApplicantRouter } from "./apps/user/applicant/routes";
 import { RecruiterRouter } from "./apps/user/recruiter/routes";
 import { OrganizerRouter } from "./apps/user/organizer/routes";
-import { CareerFairRouter } from "./apps/careerFair/routes";
+import { CareerFairRouter } from "./apps/careerfair/routes";
+import { BoothRouter } from "./apps/booth/routes";
 
 // Express configuration
 let port = process.env.PORT || 3000;
@@ -46,12 +47,13 @@ if (process.env.NODE_ENV != config.test) {
 app.use("/api/company", CompanyRouter);
 app.use("/api/company", JobRouter);
 app.use("/api/resume", ResumeRouter);
-app.use("/api/meetingNotes", MeetingNotesRouter);
+app.use("/api/meetingnotes", MeetingNotesRouter);
 app.use("/api/user", UserRouter);
 app.use("/api/applicant", ApplicantRouter);
 app.use("/api/recruiter", RecruiterRouter);
 app.use("/api/organizer", OrganizerRouter);
 app.use("/api/careerfair", CareerFairRouter);
+app.use("/api/careerfair", BoothRouter);
 
 //Serve react app build if in production
 if (process.env.NODE_ENV === 'production') {
@@ -76,7 +78,7 @@ var io = require('socket.io')(server,
 
 // Register socket protocols
 const careerFairSocketProtocol = CareerFairSocketProtocol.getOrCreate();
-careerFairSocketProtocol.registerEventListeners(io.of('/careerFair'));
+careerFairSocketProtocol.registerEventListeners(io.of('/careerfair'));
 
 // Start listening on server
 server.listen(app.get("port"), () => {

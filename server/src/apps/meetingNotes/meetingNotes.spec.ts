@@ -37,7 +37,7 @@ describe('MeetingNotes', () => {
 // Test MeetingNotes API
 
 
-describe('MeetingNotes API (/meetingNotes)', () => {
+describe('MeetingNotes API (/meetingnotes)', () => {
 
     // Reset database before all tests and after every test
     before(async () => {
@@ -49,7 +49,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         await DBClient.mongoClient.db(testDatabaseName).dropDatabase();
     });
 
-    const prefix = "/api/meetingNotes";
+    const prefix = "/api/meetingnotes";
     it('POST / - creates new note', async () => 
     {
         // Create one note using post
@@ -221,7 +221,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
     });
 
 
-    it('GET /company/:companyId/careerFair/:careerFairId - gets all notes for company from a given career fair', async () => 
+    it('GET /company/:companyId/careerfair/:careerFairId - gets all notes for company from a given career fair', async () => 
     {
         // Create notesA-D
         await request(server).post(prefix + "/").send(noteA)
@@ -269,7 +269,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
             );
 
         // Confirm that notes are filtered by career fair
-        await request(server).get(prefix + "/company/company-1/careerFair/careerFair-1")
+        await request(server).get(prefix + "/company/company-1/careerfair/careerfair-1")
             .then(
                 async res =>
                 {
@@ -285,7 +285,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
                 }
             );          
 
-        await request(server).get(prefix + "/company/company-1/careerFair/careerFair-2")
+        await request(server).get(prefix + "/company/company-1/careerfair/careerfair-2")
             .then(
                 async res =>
                 {
@@ -347,7 +347,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
 
         // Confirm notesA-D can be retrieved individually
         await request(server)
-        .get(prefix + "/company/" + noteA.companyId + "/careerFair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
+        .get(prefix + "/company/" + noteA.companyId + "/careerfair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
         .then( 
             async res =>
             {
@@ -358,7 +358,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .get(prefix + "/company/" + noteB.companyId + "/careerFair/" + noteB.careerFairId + "/applicant/" + noteB.applicantId)
+        .get(prefix + "/company/" + noteB.companyId + "/careerfair/" + noteB.careerFairId + "/applicant/" + noteB.applicantId)
         .then( 
             async res =>
             {
@@ -369,7 +369,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .get(prefix + "/company/" + noteC.companyId + "/careerFair/" + noteC.careerFairId + "/applicant/" + noteC.applicantId)
+        .get(prefix + "/company/" + noteC.companyId + "/careerfair/" + noteC.careerFairId + "/applicant/" + noteC.applicantId)
         .then( 
             async res =>
             {
@@ -380,7 +380,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .get(prefix + "/company/" + noteD.companyId + "/careerFair/" + noteD.careerFairId + "/applicant/" + noteD.applicantId)
+        .get(prefix + "/company/" + noteD.companyId + "/careerfair/" + noteD.careerFairId + "/applicant/" + noteD.applicantId)
         .then( 
             async res =>
             {
@@ -407,7 +407,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
             );
         
         // Update noteA.notes
-        await request(server).patch(prefix + "/company/" + noteA.companyId + "/careerFair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
+        await request(server).patch(prefix + "/company/" + noteA.companyId + "/careerfair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
             .send({notes: "This is a note."})
             .then(
                 async res =>
@@ -424,7 +424,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
             );
         
         // Attempt to update other fields
-        await request(server).patch(prefix + "/company/" + noteA.companyId + "/careerFair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
+        await request(server).patch(prefix + "/company/" + noteA.companyId + "/careerfair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
             .send({notes: "This is a note.", applicantId: "blah"})
             .then(
                 async res =>
@@ -492,7 +492,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
 
         // Delete notesA-D individually
         await request(server)
-        .delete(prefix + "/company/" + noteA.companyId + "/careerFair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
+        .delete(prefix + "/company/" + noteA.companyId + "/careerfair/" + noteA.careerFairId + "/applicant/" + noteA.applicantId)
         .then( 
             async res =>
             {
@@ -505,7 +505,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .delete(prefix + "/company/" + noteB.companyId + "/careerFair/" + noteB.careerFairId + "/applicant/" + noteB.applicantId)
+        .delete(prefix + "/company/" + noteB.companyId + "/careerfair/" + noteB.careerFairId + "/applicant/" + noteB.applicantId)
         .then( 
             async res =>
             {
@@ -520,7 +520,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .delete(prefix + "/company/" + noteC.companyId + "/careerFair/" + noteC.careerFairId + "/applicant/" + noteC.applicantId)
+        .delete(prefix + "/company/" + noteC.companyId + "/careerfair/" + noteC.careerFairId + "/applicant/" + noteC.applicantId)
         .then( 
             async res =>
             {
@@ -535,7 +535,7 @@ describe('MeetingNotes API (/meetingNotes)', () => {
         );
 
         await request(server)
-        .delete(prefix + "/company/" + noteD.companyId + "/careerFair/" + noteD.careerFairId + "/applicant/" + noteD.applicantId)
+        .delete(prefix + "/company/" + noteD.companyId + "/careerfair/" + noteD.careerFairId + "/applicant/" + noteD.applicantId)
         .then( 
             async res =>
             {
