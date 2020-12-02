@@ -32,7 +32,7 @@ class CareerFairSocketUserTable
         }
 
         this.map.get(careerFair)[0].set(socketId, userId);
-        this.map.get(careerFair)[0].set(userId, socketId);
+        this.map.get(careerFair)[1].set(userId, socketId);
     }
 
     // Gets
@@ -196,7 +196,8 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
                 // Register startNextMeeting method
                 socket.on("startNextMeeting", (data) => 
-                {   CareerFairSocketProtocol.log("startNextMeeting", data);
+                {   
+                    CareerFairSocketProtocol.log("startNextMeeting", data);
                     this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
                 });
                 
@@ -218,7 +219,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     }
 
     // Connection to room 
-    private joinRoom(socket, careerFair: string, token: string)
+    private async joinRoom(socket, careerFair: string, token: string)
     {
         // Get userId from token
         const userId = User.getDataFromToken(token).id;
@@ -226,12 +227,12 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // If career fair doesn't exist
         if (CareerFair.db.count({_id: careerFair }) == 0)
         {
-            socket.emit("error", "This career fair doesn't exist.")
+            socket.emit("customError", "This career fair doesn't exist.")
         }
         // If token invalid
         else if (userId == null)
         {    
-            socket.emit("error", "Invalid token.");
+            socket.emit("customError", "Invalid token.");
         }
         else
         {
@@ -240,6 +241,24 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
             // Join room
             socket.join(careerFair);
+
+            // Emit
+            var booths = new Map<string, Map<string, string>>();
+            const currentFair = await CareerFair.getLiveCareerFair(careerFair);
+            if (currentFair.booths != undefined)
+            {
+                for (var key in currentFair.booths) 
+                {
+                    if (Object.prototype.hasOwnProperty.call(currentFair.booths, key)) 
+                    {
+                        const booth = currentFair.booths[key];
+                        booths[key] = new Map<string, string>();
+                        booths[key]["numInQueue"] = booth.queue.getLength();
+                        booths[key]["position"] = booth.queue.getPosition(userId);
+                    }
+                }
+            }
+            socket.emit("boothData", booths);
         }
     }
 
@@ -250,21 +269,34 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     }
 
     // Private Event Handlers
-
+    public static numJoin = 0;
     private async joinQueue(socket: any, careerFair: string, company: string)
     {
         // Get live career fair instance
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
 
-        // If failed to join queue with user id log error
-        if (!currentFair.booths.get(company).queue.joinQueue(this.users.getUserId(careerFair, socket.id)))
+        // If failed to join queue with user id log customError
+        console.log("NumJoin", CareerFairSocketProtocol.numJoin);
+        CareerFairSocketProtocol.numJoin += 1;
+        console.log(this.users.getUserId(careerFair, socket.id));
+        if (!currentFair.booths[company].queue.joinQueue(this.users.getUserId(careerFair, socket.id)))
         {
-            socket.emit("error", "Error joining queue.")
+            socket.emit("customError", "customError joining queue.")
         }
         // UpdateQueue to notify all of update
-        else
+        else 
         {
-            this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength());
+            // Update career fair object
+            CareerFair.updateLiveCareerFair(careerFair, currentFair);
+
+            // Inform sender of position
+            socket.emit("updatePosition", 
+            {
+                company: company,
+                position: currentFair.booths[company].queue.getLength() - 1
+            })
+            // Send update queue to everyone
+            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
         }
     }
 
@@ -273,15 +305,36 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Get live career fair instance 
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
 
-        // If failed to leave queue, send error 
-        if (!currentFair.booths.get(company).queue.leaveQueue(this.users.getUserId(careerFair, socket.id)))
+        // If failed to leave queue, send customError 
+        if (!currentFair.booths[company].queue.leaveQueue(this.users.getUserId(careerFair, socket.id)))
         {
-            socket.emit("error", "Error leaving queue.")
+            socket.emit("customError", "customError leaving queue.")
         }
         // UpdateQueue to notify all of update
         else
         {
-            this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength());
+            // Update career fair object
+            CareerFair.updateLiveCareerFair(careerFair, currentFair);
+            
+            // Inform sender of position
+            socket.emit("updatePosition", 
+            {
+                company: company,
+                position:  -1 // indicates not in queue
+            })
+
+            // Inform others in queue of new position
+            currentFair.booths[company].queue.applicantIds.forEach(applicant => {
+                const socketId = this.users.getSocketId(careerFair, applicant);
+                this.namespace.to(socketId).emit("updatePosition",
+                    {
+                        company: company,
+                        position: currentFair.booths[company].queue.getPosition(applicant)
+                    });
+            });
+
+            // Update everyone of queue state
+            this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength());
         }
         
     }
@@ -291,22 +344,22 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Get career fair
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
 
-        // If empty queue, return error
-        if (currentFair.booths.get(company).queue.getLength() == 0)
+        // If empty queue, return customError
+        if (currentFair.booths[company].queue.getLength() == 0)
         {
-            socket.emit("error", "No applicants in queue");
+            socket.emit("customError", "No applicants in queue");
         }
 
         // Else get next applicant
-        const nextApplicant = currentFair.booths.get(company).queue.dequeue();
+        const nextApplicant = currentFair.booths[company].queue.dequeue();
 
         // Notify queue of change
-        this.updateQueue(careerFair, company, currentFair.booths.get(company).queue.getLength())
+        this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength())
 
-        // If this applicant is not connected, log error and give up, let client side retry
+        // If this applicant is not connected, log customError and give up, let client side retry
         if (!this.users.hasUserId(nextApplicant, careerFair))
         {
-            socket.emit("error", "Applicant not logged in.");
+            socket.emit("customError", "Applicant not logged in.");
             //TODO: More robust solution to this, currently applicant is dropped from queue if not logged in when it is their turn
         }
         // Else, return confirmation to caller i.e. recruiter - starts timeout on recruiter client side to end call if applicant doesn't pick up for too long
@@ -332,7 +385,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Cancel call to applicant
         if (!this.users.hasUserId(applicant, careerFair))
         {
-            socket.emit("error", "Applicant no longer logged in.");
+            socket.emit("customError", "Applicant no longer logged in.");
         }
         else
         {
@@ -353,7 +406,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     // Update queue broadcasts to all clients that the queue has been updated for a given company at a given career fair
     public updateQueue(careerFair: string, company: string, numInQueue: number)
     {
-        this.namespace.sockets.in(careerFair).broadcast.emit('queueUpdate',
+        this.namespace.to(careerFair).emit('queueUpdate',
         {
             company: company,
             numInQueue: numInQueue

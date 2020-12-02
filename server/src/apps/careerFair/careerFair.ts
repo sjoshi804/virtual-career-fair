@@ -1,4 +1,3 @@
-import { throws } from "assert";
 import { ISerializable } from "../../db/iSerializable";
 import { Booth } from "../booth/booth";
 import { CareerFairDBSchema } from "./careerFairDBSchema";
@@ -16,15 +15,11 @@ class CareerFair implements ISerializable
 
     public static async getLiveCareerFair(careerFairId)
     {
-        // If career fair object already exists in live fairs, then return it -> speed is critical here
-        if (this.liveCareerFairs.has(careerFairId))
-        {
-            return this.liveCareerFairs.get(careerFairId);
-        }
         // First time a new live fair is being requested for, will retrieve from db and clean up liveCareerFairs to remove those that are no longer live
         // Amortized cost of this across all requests to getCareerFair
-        else
+        if (!this.liveCareerFairs.has(careerFairId))
         {
+            /*
             // Clean up liveCareerFairs to optimize memory
             for (let [id, fair] of this.liveCareerFairs)
             {
@@ -34,9 +29,16 @@ class CareerFair implements ISerializable
                     this.liveCareerFairs.delete(id);
                 }
             }
-
-            return new CareerFair(await this.db.findOne({_id: careerFairId}));
+            */
+            this.liveCareerFairs.set(careerFairId, new CareerFair(await this.db.findOne({_id: careerFairId})));
         }
+
+        return this.liveCareerFairs.get(careerFairId);
+    }
+
+    public static updateLiveCareerFair(careerFairId: string, careerFair: CareerFair)
+    {
+        this.liveCareerFairs.set(careerFairId, careerFair);
     }
 
     // Instance member fields
@@ -82,15 +84,31 @@ class CareerFair implements ISerializable
             this.attendingApplicants = new Array<string>();
             this.attendingRecruiters = new Array<string>();
 
-            serialized.attendingApplicants.forEach(aid => {
-                this.attendingApplicants.push(aid);
-            })
+            if (serialized.attendingApplicants != undefined)
+            {
+                serialized.attendingApplicants.forEach(aid => {
+                    this.attendingApplicants.push(aid);
+                })
+            }   
 
-            serialized.attendingRecruiters.forEach(rid => {
-                this.attendingRecruiters.push(rid);
-            })
+            if (serialized.attendingRecruiters != undefined)
+            {
+                serialized.attendingRecruiters.forEach(rid => {
+                    this.attendingRecruiters.push(rid);
+                })
+            }
 
-            this.booths = serialized.booths;
+            if (serialized.booths != undefined)
+            {
+                for (var key in serialized.booths) 
+                {
+                    if (Object.prototype.hasOwnProperty.call(serialized.booths, key)) 
+                    {
+                        const booth = serialized.booths[key];
+                        this.booths[key] = new Booth(null, booth.careerFairId, booth.companyId);
+                    }
+                }
+            }
         }
         else {
             this.id = uuid();
@@ -101,17 +119,26 @@ class CareerFair implements ISerializable
             this.attendingApplicants = new Array<string>();
             this.attendingRecruiters = new Array<string>();
 
-            attendingApplicants.forEach(aid => {
-                this.attendingApplicants.push(aid);
-            })
+            if (attendingApplicants != undefined)
+            {
+                attendingApplicants.forEach(aid => {
+                    this.attendingApplicants.push(aid);
+                })
+            }
 
-            attendingRecruiters.forEach(rid => {
-                this.attendingRecruiters.push(rid);
-            })
+            if (attendingRecruiters != undefined)
+            {
+                attendingRecruiters.forEach(rid => {
+                    this.attendingRecruiters.push(rid);
+                })
+            }
 
-            booths.forEach((booth, cid) => {
-                this.booths.set(cid, booth);
-            })
+            if (booths != undefined)
+            {
+                booths.forEach((booth, cid) => {
+                    this.booths.set(cid, booth);
+                })
+            }
         }
     }
 

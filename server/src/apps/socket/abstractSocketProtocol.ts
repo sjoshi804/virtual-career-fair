@@ -39,12 +39,12 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
         console.log(this.connectedClients);
     }
 
-    // On disconnection removes username, socket.id from the map, if never existed logs possible error FIXME:
+    // On disconnection removes username, socket.id from the map, if never existed logs possible customError FIXME:
     public onDisconnection(socket: any) 
     {
         if (!this.connectedClients.has(socket.handshake.query['username']))
         {
-            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was never connected, but attempted to disconnect. Possible error.`);
+            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was never connected, but attempted to disconnect. Possible customError.`);
         }
         else
         {

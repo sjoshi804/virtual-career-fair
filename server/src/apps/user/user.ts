@@ -109,6 +109,7 @@ class User implements IHasID {
         if (token != null) {
             // Get data from encrypted token 
             try {
+                token = token.replace("Bearer ", "").replace("Basic ", "");
                 // Verify also checks for expiry time
                 decoded = jwt.verify(token, tokenSecret);
             } 

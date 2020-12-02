@@ -9,6 +9,7 @@
 import express = require('express');
 import { CareerFair } from '../careerfair/careerfair';
 import { CareerFairDBSchema } from '../careerFair/careerFairDBSchema';
+import { User } from '../user/user';
 import { Booth } from './booth';
 import { BoothDBSchema } from './boothDBSchema';
 
@@ -56,22 +57,34 @@ BoothRouter.post("/:careerfairid/company", async (req, res) => {
     }
 });
 
-BoothRouter.get("/:careerfairid/company/:companyid", async (req, res) => {
+BoothRouter.get("/:careerfairid/company/:companyId", async (req, res) => {
     const careerfairid = req.params.careerfairid;
     // Get career fair and make sure it exists
-    const filterQuery = {
+    const filterQuery = 
+    {
         _id: careerfairid
     }
-    var careerfair = await CareerFair.db.findOne(filterQuery);
-    if (careerfair != null) {
-        if ( ! (req.params.companyid in careerfair.booths) ) {
-            res.sendStatus(404);
-        }
-        else {
-            res.status(200).send(careerfair.booths[req.params.companyid]);
+
+    const count = await CareerFair.db.count(filterQuery);
+    if (count > 0) 
+    {
+        const careerFair = await CareerFair.getLiveCareerFair(careerfairid);
+        if (careerFair.booths.hasOwnProperty(req.params.companyId) || careerFair.booths.has(req.params.companyId))
+        {
+            const numInQueue = careerFair.booths[req.params.companyId].queue.getLength();
+            const applicantId = User.getDataFromToken(req.header("Authorization")).id;
+            const applicantInQueue = careerFair.booths[req.params.companyId].queue.isApplicantInQueue(applicantId);
+            const positionInQueue = careerFair.booths[req.params.companyId].queue.getPosition(applicantId)
+            res.send(
+                {
+                    numInQueue: numInQueue,
+                    position: applicantInQueue? positionInQueue : null
+                }
+            )
         }
     }
-    else {
+    else 
+    {
         res.sendStatus(404);
     }
 });

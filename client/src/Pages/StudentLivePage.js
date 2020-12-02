@@ -5,7 +5,7 @@ import {MoreInfo} from './MoreInfo'
 import { baseUrl } from "../.config";
 import Peer from 'peerjs';
 const io = require('socket.io-client');
-const testCareerFairId = "test-career-fair-id";
+const testCareerFairId = "5fc39d53403560f171489b2a";
 
 export default class StudentLivePage extends React.Component {
     constructor(props)
@@ -13,6 +13,7 @@ export default class StudentLivePage extends React.Component {
       super(props);
       this.state = 
       {
+        careerFairId: testCareerFairId,
         companies: []
       }
       this.echo = this.echo.bind(this);
@@ -29,7 +30,7 @@ export default class StudentLivePage extends React.Component {
         SOCKET
         */
         // Create socket
-        this.clientSocket = io("ws://localhost:3000/careerFair");
+        this.clientSocket = io("ws://localhost:3000/careerfair");
 
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
         this.clientSocket.on("queueUpdate", (data) =>
@@ -59,10 +60,52 @@ export default class StudentLivePage extends React.Component {
           );
         });
 
+        // Handler for position update
+        this.clientSocket.on("updatePosition", (data) =>
+        {
+          const companyId = data.company;
+          const position = data.position;
+          console.log(companyId, "position", position);
+
+          // Update UI to reflect this
+          this.setState(
+            {
+              companies: companies.map(
+                company => 
+                {
+                  if (company.id == companyId)
+                  {
+                    company.position = position;
+                    return company;
+                  }
+                  else 
+                  {
+                    return company;
+                  }
+                }
+              )
+            }
+          );
+        });
+
         // TODO: Register handler for announcement
         this.clientSocket.on("announcement", (data) =>
         {
           console.log(data.message);
+        });
+
+        this.clientSocket.on("boothData", (data) =>
+        {
+          // Booth data
+          var newCompanies = []
+          for (let company of this.state.companies)
+          {
+            company.numInQueue = data[company.id]["numInQueue"];
+            company.position = data[company.id]["position"];
+            newCompanies.push(company);
+          }
+
+          this.setState({companies: newCompanies});
         });
 
         // For test / debug purposes enable echo
@@ -76,7 +119,7 @@ export default class StudentLivePage extends React.Component {
 
         // Join careerFair
         this.clientSocket.emit("join", {
-          careerFair: this.props.careerFairId || testCareerFairId,
+          careerFair: this.state.careerFairId || testCareerFairId,
           token: localStorage.getItem("Authorization")
         });
 
@@ -94,25 +137,20 @@ export default class StudentLivePage extends React.Component {
         Load Booth Data
         */
         // FIXME: Get this from the career fair api
-        const companies = await fetch(baseUrl + '/company', {
+        var headers = new Headers();
+        headers.append("Authorization", localStorage.getItem("Authorization"));
+        const companies =  await fetch(baseUrl + `/careerfair/${this.state.careerFairId}/company/`, {
+          headers: headers,
           method: "GET"
         })
         .then(response => response.json());
+        console.log("Companies retrieved");
         
         for (let company of companies)
         {
-          /* TODO: Uncomment when this endpoint is ready
-          boothData = await fetch(baseUrl + `/careerFairId/${this.props.careerFairId}/company/${company._id}`, {
-            method: "GET"
-          })*/
-
-          // Put booth data in company object
-          company.id = company;
-          company.status = "Available"
-          company.numInQueue = 0
-          company.position = null
-          company.recruiters = ["Joe Bruin", "John Doe"]
-          
+          company.id = company._id;
+          company.numInQueue = 0;
+          company.position = -1;
         }
         
         this.setState({
@@ -132,7 +170,7 @@ export default class StudentLivePage extends React.Component {
     {
       this.clientSocket.emit("joinQueue", 
       {
-        careerFair: this.props.careerFairId || testCareerFairId,
+        careerFair: this.state.careerFairId || testCareerFairId,
         company: companyId
       });
     }
@@ -141,7 +179,7 @@ export default class StudentLivePage extends React.Component {
     {
       this.clientSocket.emit("leaveQueue", 
       {
-        careerFair: this.props.careerFairId || testCareerFairId,
+        careerFair: this.state.careerFairId || testCareerFairId,
         company: companyId
       });
     }
@@ -170,25 +208,29 @@ export default class StudentLivePage extends React.Component {
       });
       items.push(
           
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-            <div style={{ "width": "200px", "margin": "auto"}}> 
-            <Card.Img variant="top" src={google} height="200" />
-            </div>
+            <Card style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", maxWidth: "200px"}}>
+            <Card.Img variant="top" style={{ height: "auto",
+                    width: "80%",
+                    marginTop: "5%",
+                    marginBottom: "5%",
+                    marginLeft: "10%"
+            }}
+            src={value.image || google} maxHeight="250px" />
             <Card.Body>
-            <Card.Title>{value.name}</Card.Title>
+            <Card.Title><b>{value.name}</b></Card.Title>
             <MoreInfo></MoreInfo>
             </Card.Body>
             <Card.Footer>
             <small className="text-muted"> 
-            { value.position != null ?
+            { value.position != -1 ?
             <h7 style={{"font-size": "15px"}}>
-              <b>Position: </b> {value.position}/{value.numInQueue}</h7> :
+              <b>Position: </b> {value.position + 1}/{value.numInQueue}</h7> :
               <h7 style={{"font-size": "15px"}}>
               <b>Queue: </b> {value.numInQueue}</h7> 
             }
 
             <h1></h1>
-            <Button  size="sm" onClick={this.joinQueue("Microsoft")} variant={value.status ? "outline-success" : "outline-danger"} >Join Queue</Button></small>
+            <Button  size="sm" onClick={value.position == -1 ? this.joinQueue(value.id) : this.leaveQueue(value.id)} variant={value.position == -1 ? "outline-success" : "outline-danger"} >{value.position == -1 ? "Join Queue" : "Leave Queue"}</Button></small>
             <br></br>
             </Card.Footer>
         </Card>

@@ -1,10 +1,8 @@
 const io = require('socket.io-client');
-import { doesNotMatch } from 'assert';
 import { expect } from 'chai';
-import { waitForDebugger } from 'inspector';
 import 'mocha';
 const socketIO = require('socket.io')
-import { socketAuthentication } from '../../middleware/socketAuthentication';
+
 //import { CareerFairSocketProtocol } from './careerFairSocketProtocol';
 
 describe('Socket', function() {
