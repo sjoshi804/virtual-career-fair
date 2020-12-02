@@ -9,7 +9,7 @@
 import express = require('express');
 import { Applicant } from './applicant';
 const ApplicantRouter = express.Router();
-
+import { v4 as uuid } from 'uuid';
 
 // Get All Applicants
 ApplicantRouter.get("/", async (req, res) => {
@@ -19,6 +19,8 @@ ApplicantRouter.get("/", async (req, res) => {
 
 // Create New Applicant
 ApplicantRouter.post("/", async (req, res) => {
+    //FIXME: Ensure id is string, FUTURE: make less hacky
+    req.body._id = uuid();
     const successfulInsert = await Applicant.db.save(req.body);
     if (successfulInsert) 
     {
