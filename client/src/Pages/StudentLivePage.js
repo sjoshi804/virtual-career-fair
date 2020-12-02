@@ -1,17 +1,11 @@
 import React from "react";
 import {Card, CardDeck, Button} from "react-bootstrap";
 import google from '../Images/google.jpg'; 
-import microsoft from '../Images/microsoft.jpg'; 
-import facebook from '../Images/facebook.jpg'; 
-import apple from '../Images/apple.jpg'; 
-import tesla from '../Images/tesla.jpg'; 
-import snapchat from '../Images/snapchat.jpg'; 
-import qualcomm from '../Images/qualcomm.jpg'; 
-import paypal from '../Images/paypal.jpg'; 
-import netflix from '../Images/netflix.jpg'; 
 import {MoreInfo} from './MoreInfo'
 import { baseUrl } from "../.config";
+import Peer from 'peerjs';
 const io = require('socket.io-client');
+const testCareerFairId = "test-career-fair-id";
 
 export default class StudentLivePage extends React.Component {
     constructor(props)
@@ -24,20 +18,51 @@ export default class StudentLivePage extends React.Component {
       this.echo = this.echo.bind(this);
     }
 
+    /*
+      - Retrieve booth data to display
+      - Establish socket connection and join career fair room
+      - Create peer js object and register incoming call handler
+    */
     async componentDidMount()
-    {
-        
+    {   
+        /*
+        SOCKET
+        */
+        // Create socket
         this.clientSocket = io("ws://localhost:3000/careerFair");
+
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
         this.clientSocket.on("queueUpdate", (data) =>
         {
+          const companyId = data.company;
+          const numInQueue = data.numInQueue;
+          console.log(companyId, numInQueue);
 
+          // Update UI to reflect this
+          this.setState(
+            {
+              companies: companies.map(
+                company => 
+                {
+                  if (company.id == companyId)
+                  {
+                    company.numInQueue = numInQueue;
+                    return company;
+                  }
+                  else 
+                  {
+                    return company;
+                  }
+                }
+              )
+            }
+          );
         });
 
-        // Register handler for announcement
+        // TODO: Register handler for announcement
         this.clientSocket.on("announcement", (data) =>
         {
-
+          console.log(data.message);
         });
 
         // For test / debug purposes enable echo
@@ -51,11 +76,23 @@ export default class StudentLivePage extends React.Component {
 
         // Join careerFair
         this.clientSocket.emit("join", {
-          careerFair: this.props.careerFairId || "test-career-fair-id",
+          careerFair: this.props.careerFairId || testCareerFairId,
           token: localStorage.getItem("Authorization")
         });
 
-        // Load companies at careerFair
+        /*
+        Instantiate Peer JS Peer
+        */
+       this.peer = new Peer();
+       this.peer.on('open', (id) =>
+       {
+          this.peerJsId = id; 
+          console.log("PeerJSId", id);
+       });
+
+        /*
+        Load Booth Data
+        */
         // FIXME: Get this from the career fair api
         const companies = await fetch(baseUrl + '/company', {
           method: "GET"
@@ -72,7 +109,7 @@ export default class StudentLivePage extends React.Component {
           // Put booth data in company object
           company.id = company;
           company.status = "Available"
-          company.queue = 0
+          company.numInQueue = 0
           company.position = null
           company.recruiters = ["Joe Bruin", "John Doe"]
           
@@ -80,7 +117,7 @@ export default class StudentLivePage extends React.Component {
         
         this.setState({
           companies: companies
-        })
+        });
     }
 
     echo()
@@ -95,8 +132,27 @@ export default class StudentLivePage extends React.Component {
     {
       this.clientSocket.emit("joinQueue", 
       {
-        careerFair: this.props.careerFairId || "test-career-fair-id",
+        careerFair: this.props.careerFairId || testCareerFairId,
         company: companyId
+      });
+    }
+
+    leaveQueue = (companyId) => () =>
+    {
+      this.clientSocket.emit("leaveQueue", 
+      {
+        careerFair: this.props.careerFairId || testCareerFairId,
+        company: companyId
+      });
+    }
+
+    acceptIncomingCall = (recruiter) => () =>
+    {
+      // 
+      this.clientSocket.emit("acceptMeetingCall", 
+      {
+        recruiter: recruiter, 
+        peerJsId: this.peerJsId
       });
     }
 
@@ -126,9 +182,9 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted"> 
             { value.position != null ?
             <h7 style={{"font-size": "15px"}}>
-              <b>Position: </b> {value.position}/{value.queue}</h7> :
+              <b>Position: </b> {value.position}/{value.numInQueue}</h7> :
               <h7 style={{"font-size": "15px"}}>
-              <b>Queue: </b> {value.queue}</h7> 
+              <b>Queue: </b> {value.numInQueue}</h7> 
             }
 
             <h1></h1>

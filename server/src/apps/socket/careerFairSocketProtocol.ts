@@ -211,7 +211,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 socket.on("acceptMeetingCall", (data) =>
                 {
                     CareerFairSocketProtocol.log("acceptMeetingCall", data);
-                    this.acceptMeetingCall(data.recruiter, data.signal)
+                    this.acceptMeetingCall(data.recruiter, data.peerJsId)
                 });
             }
         );
