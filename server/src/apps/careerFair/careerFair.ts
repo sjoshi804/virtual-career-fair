@@ -90,9 +90,7 @@ class CareerFair implements ISerializable
                 this.attendingRecruiters.push(rid);
             })
 
-            serialized.booths.forEach((boothSchema, cid) => {
-                this.booths.set(cid, new Booth(boothSchema, this.id, cid));
-            })
+            this.booths = serialized.booths;
         }
         else {
             this.id = uuid();

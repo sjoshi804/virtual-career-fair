@@ -15,9 +15,10 @@ import { BoothDBSchema } from './boothDBSchema';
 const BoothRouter = express.Router();
 
 // Create booth associated with this company
-BoothRouter.post("/:careerfairid/company/:companyId", async (req, res) => {
+BoothRouter.post("/:careerfairid/company", async (req, res) => {
     const careerfairid = req.params.careerfairid;
-    
+    const companyId = req.body.companyId;
+
     // Get career fair and make sure it exists
     const filterQuery = {
         _id: careerfairid
@@ -25,14 +26,16 @@ BoothRouter.post("/:careerfairid/company/:companyId", async (req, res) => {
     var careerfair = await CareerFair.db.findOne(filterQuery);
     if (careerfair != null) {
         // If this company does not already have a booth in this career fair
-        if (!(req.params.companyId in careerfair.booths)) {
+        if (careerfair.booths == null)
+        {
+            careerfair.booths = new Map<string, Booth>();
+        }
+        if (!(companyId in careerfair.booths)) {
             // TODO: Validate Company ID to make sure this company exists
             // Create DBSchema object using request body
-            const booth = new Booth(null, careerfairid, req.params.companyId);
-            careerfair.booths[booth.getCompanyId()] = booth
-            const updateQuery = {
-                $set: careerfair
-            }
+            const booth = new Booth(null, careerfairid, companyId);
+            careerfair.booths[companyId] = booth
+            const updateQuery = careerfair;
             // Return resource created code
             if (await CareerFair.db.updateOne(filterQuery, updateQuery)) {
                 res.sendStatus(201);
