@@ -12,7 +12,7 @@ import netflix from '../Images/netflix.jpg';
 import {MoreInfo} from './MoreInfo'
 
 const io = require('socket.io-client');
-const clientSocket = io("ws://localhost:3000/careerFair");
+const clientSocket = io("ws://localhost:3000/careerfair");
 export default class StudentLivePage extends React.Component {
     constructor()
     {

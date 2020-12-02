@@ -1,4 +1,5 @@
 import { Booth } from "./booth";
+import { v4 as uuid } from 'uuid';
 
 //TODO:
 class BoothDBSchema
@@ -7,11 +8,9 @@ class BoothDBSchema
     public _id: string;
     public company: string;
 
-    constructor(object: Booth)
-    {
-
+    constructor(object: Booth) {
+        
     }
-
 }
 
 export { BoothDBSchema }

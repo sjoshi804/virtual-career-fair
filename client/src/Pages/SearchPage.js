@@ -47,7 +47,7 @@ export default class SearchPage extends React.Component {
         });
     }
 
-    const fairs = await fetch(baseUrl + '/careerFair',
+    const fairs = await fetch(baseUrl + '/careerfair',
     {
       method: "GET"
     })

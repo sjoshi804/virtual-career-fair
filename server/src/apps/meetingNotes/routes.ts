@@ -2,7 +2,7 @@ import express = require('express');
 import { MeetingNotes } from './meetingNotes';
 const MeetingNotesRouter = express.Router();
 
-// Prefix: /meetingNotes
+// Prefix: /meetingnotes
 
 // Create meeting note
 MeetingNotesRouter.post("/", async (req, res) =>
@@ -29,7 +29,7 @@ MeetingNotesRouter.get("/company/:companyId/applicant/:applicantId", async(req, 
 });
 
 // Get all notes for company, career fair
-MeetingNotesRouter.get("/company/:companyId/careerFair/:careerFairId", async(req, res) =>
+MeetingNotesRouter.get("/company/:companyId/careerfair/:careerFairId", async(req, res) =>
 {
     res.send(await MeetingNotes.db.findMany({
         companyId: req.params.companyId,
