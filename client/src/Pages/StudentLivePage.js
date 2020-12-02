@@ -226,9 +226,9 @@ export default class StudentLivePage extends React.Component {
             <small className="text-muted"> 
             { value.position != -1 ?
             <h6 style={{"fontSize": "15px"}}>
-              <b>Position: </b> {value.position + 1}/{value.numInQueue}</h7> :
+              <b>Position: </b> {value.position + 1}/{value.numInQueue}</h6> :
               <h6 style={{"fontSize": "15px"}}>
-              <b>Queue: </b> {value.numInQueue}</h7> 
+              <b>Queue: </b> {value.numInQueue}</h6> 
             }
             <h1></h1>
             <Button  size="sm" onClick={value.position == -1 ? this.joinQueue(value.id) : this.leaveQueue(value.id)} variant={value.position == -1 ? "outline-success" : "outline-danger"} >{value.position == -1 ? "Join Queue" : "Leave Queue"}</Button></small>
