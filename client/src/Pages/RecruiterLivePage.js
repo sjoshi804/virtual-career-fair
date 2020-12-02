@@ -83,7 +83,7 @@ export default class RecruiterLivePage extends React.Component {
                         </Form.Group>
                         <Button size="sm" variant="outline-dark">Save</Button>
                     </td>
-                    <td><Button size="sm" variant="outline-dark" href="https://writing.colostate.edu/guides/documents/resume/functionalSample.pdf">View Resume</Button></td>
+                    <td><Button size="sm" variant="outline-dark" onClick={this.handleRoute("/recruiter-resume")}>View Resume</Button></td>
                     </tr>
                 </tbody>
             </Table>

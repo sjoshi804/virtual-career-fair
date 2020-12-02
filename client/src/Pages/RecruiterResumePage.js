@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, CardDeck} from "react-bootstrap";
+import {Button, Card, CardDeck, FormControl} from "react-bootstrap";
 import OrganizerLoginPage from "./OrganizerLoginPage"
 import { Route, Switch } from "react-router-dom";
 import { ExperienceInputForm } from "./ExperienceInputForm";
@@ -36,10 +36,8 @@ export default class RecruiterResumePage extends React.Component {
                 <h7>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h7>
             </Card.Text>
             </Card.Body>
-            <Card.Footer>
-            <ExperienceInputForm></ExperienceInputForm>
-            </Card.Footer>
         </Card>
+        <CardDeck style={{"margin": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
         <Card style={{"margin": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
             <Card.Header> <h3>Skills</h3> </Card.Header>
             <Card.Body>
@@ -49,10 +47,18 @@ export default class RecruiterResumePage extends React.Component {
             <h6><b>Technologies/Environment:</b> Windows, Win32 API/GUI, Linux, MySQL, OpenGL, ASP.NET</h6>
             </Card.Text>
             </Card.Body>
-            <Card.Footer>
-            <SkillsInputForm></SkillsInputForm>
-            </Card.Footer>
         </Card>
+        <Card style={{"margin": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+            <Card.Header> <h3>Notes</h3> </Card.Header>
+            <Card.Body>
+            <Card.Text>
+            <FormControl as="textarea" aria-label="With textarea" />
+            <br></br>
+            <Button variant="outline-dark">Save</Button>
+            </Card.Text>
+            </Card.Body>
+        </Card>
+        </CardDeck>
     </div>
     
     );
