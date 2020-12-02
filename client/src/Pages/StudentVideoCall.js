@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, CardGroup, Image, Form} from "react-bootstrap";
 
-export default class RecruiterVideoCall extends React.Component {
+export default class StudentVideoCall extends React.Component {
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
@@ -28,15 +28,6 @@ export default class RecruiterVideoCall extends React.Component {
                     </div>
                 </div>
                 <Button style={{"margin": "auto", "width": "30%", "margin-bottom": "20px"}} variant="outline-danger">End Call</Button>{' '}
-            </Card>
-        </div>
-        <div className="text-center" style={{ "color": "black", "padding": "20px"}}>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "padding": "20px"}}>
-                <h2>Notes</h2>
-                <Form.Group style={{"width": "80%", "margin": "auto"}} controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={6} />
-                </Form.Group>
-                <Button size="sm" variant="outline-dark" style={{"width": "50px", "margin": "auto", "margin-top": "20px" }}>Save</Button>  
             </Card>
         </div>
         </div>
