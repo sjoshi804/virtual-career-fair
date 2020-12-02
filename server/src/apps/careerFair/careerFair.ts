@@ -1,7 +1,9 @@
+import { throws } from "assert";
 import { ISerializable } from "../../db/iSerializable";
 import { Booth } from "../booth/booth";
 import { CareerFairDBSchema } from "./careerFairDBSchema";
 import { CareerFairDBStrategy } from "./careerFairDBStrategy";
+import { v4 as uuid } from 'uuid';
 
 class CareerFair implements ISerializable
 {
@@ -68,15 +70,59 @@ class CareerFair implements ISerializable
     
     // Regular constructor - takes in both DBSchema and regular parameters
     // if db schema present initialize from that, else rely on parameters
-    public constructor(serialized: CareerFairDBSchema)
+    public constructor(serialized: CareerFairDBSchema, organizer?: string, startTime?: Date, 
+        endTime?: Date, attendingApplicants?: Array<string>, attendingRecruiters?: Array<string>, booths?: Map<string, Booth>)
     {
-        //TODO: Finish this constructor
+        if (serialized != undefined) {
+            this.id = serialized._id;
+            this.organizer = serialized.organizer;
+            this.startTime = serialized.startTime;
+            this.endTime = serialized.endTime;
+            this.booths = new Map<string, Booth>();
+            this.attendingApplicants = new Array<string>();
+            this.attendingRecruiters = new Array<string>();
+
+            serialized.attendingApplicants.forEach(aid => {
+                this.attendingApplicants.push(aid);
+            })
+
+            serialized.attendingRecruiters.forEach(rid => {
+                this.attendingRecruiters.push(rid);
+            })
+
+            serialized.booths.forEach((boothSchema, cid) => {
+                this.booths.set(cid, new Booth(boothSchema, this.id, cid));
+            })
+        }
+        else {
+            this.id = uuid();
+            this.organizer = organizer;
+            this.startTime = startTime;
+            this.endTime = endTime;
+            this.booths = new Map<string, Booth>();
+            this.attendingApplicants = new Array<string>();
+            this.attendingRecruiters = new Array<string>();
+
+            attendingApplicants.forEach(aid => {
+                this.attendingApplicants.push(aid);
+            })
+
+            attendingRecruiters.forEach(rid => {
+                this.attendingRecruiters.push(rid);
+            })
+
+            booths.forEach((booth, cid) => {
+                this.booths.set(cid, booth);
+            })
+        }
     }
 
     // Serialize using DB Schema object
     public serialize()
     {
-        return new CareerFairDBSchema(this)
+        var serialized = new CareerFairDBSchema(this)
+        // this.id = serialized._id;
+        return serialized;
     }
 }
 

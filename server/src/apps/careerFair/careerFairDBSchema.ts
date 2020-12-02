@@ -41,6 +41,7 @@ class CareerFairDBSchema
         }
 
         // Serialize the booths hash table
+        this.booths = new Map<string, BoothDBSchema>();
         for (let [id, booth] of object.booths)
         {
             this.booths.set(id, booth.serialize());

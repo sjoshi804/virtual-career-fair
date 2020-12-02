@@ -25,22 +25,22 @@
 | GET/POST          |/careerfair                                              | |
 | GET/UPDATE/DELETE |/careerfair/:careerfairid                                | |
 | POST              | /careerfair/:careerfairid/registerApplicant/:applicantid| only register an applicant that already exists in the db|
-| GET               | /careerfair/:careerfairid/company                       | |
+| GET               | /careerfair/:careerfairid/company                       | Gets all the companies at this career fair (from booths in career fair document)|
 
 ### Booth
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
 | POST              |/careerfair/:careerfairid/company |  creates the booth associated with a company  |
-| GET/UPDATE/DELETE |/careerfair/:careerfairid/company/:companyid | returns all active booth information about recruiters, applicants, queue, jobs, list of chat tuples [time, userid, message] |
+| GET/DELETE |/careerfair/:careerfairid/company/:companyid | returns all active booth information about recruiters, applicants, queue, jobs, list of chat tuples [time, userid, message] |
 
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
-| POST                   |/meetingNote ||
-| GET                    |/meetingNote/company/:companyid                                                 | see all meeting notes |
-| GET                    |/meetingNote/company/:companyid/applicant/:applicantid                          | |
-| GET                    |/meetingNote/company/:companyid/careerfair/:careerfairid                        | |
-| GET/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
+| POST                   |/meetingnote ||
+| GET                    |/meetingnote/company/:companyid                                                 | see all meeting notes |
+| GET                    |/meetingnote/company/:companyid/applicant/:applicantid                          | |
+| GET                    |/meetingnote/company/:companyid/careerfair/:careerfairid                        | |
+| GET/UPDATE/DELETE |/meetingnote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
 
 ### User
 | Type | Endpoint | Description (optional)

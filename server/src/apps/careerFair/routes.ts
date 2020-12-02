@@ -11,6 +11,7 @@
 import express = require('express');
 import { CareerFair } from './careerFair';
 import { User } from '../user/user';
+import { Company } from '../company/company';
 import { Organizer } from '../user/organizer/organizer';
 
 const CareerFairRouter = express.Router();
@@ -175,7 +176,38 @@ CareerFairRouter.post("/:careerfairid/registerApplicant/:applicantid", async (re
 
 // Get all companies associated with this career fair
 CareerFairRouter.get("/:careerfairid/company", async (req, res) => {
-    
+    // Get career fair
+    const filterQuery = {
+        _id: req.params.careerfairid
+    }
+    var careerfair = await CareerFair.db.findOne(filterQuery);
+    // Make sure career fair exists
+    if (careerfair != null) {
+        // Ensure there is a valid object
+        if (careerfair.booths) {
+            var companyIds = [];
+            // Get all company Ids in map
+            for (var companyId in careerfair.booths) {
+                companyIds.push(companyId);
+            }
+            // Get all matching companies in one go
+            const companyQuery = {
+                _id: {
+                    $in: companyIds
+                }
+            }
+            var companies = await Company.db.findMany(companyQuery);
+            res.status(200).send(companies);
+        } else {
+            // Send empty object
+            res.status(200).send({});
+        }
+    }
+    // Career fair doesn't exist so return error
+    else {
+        res.sendStatus(404);
+        return;
+    }
 });
 
 export { CareerFairRouter };
