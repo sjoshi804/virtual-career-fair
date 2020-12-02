@@ -95,7 +95,7 @@ export default class StudentProfilePage extends React.Component {
                         <p> <b>Expected graduation: </b> June 2021 </p>
                         <p> <b>Seeking:</b> Full time software engineering roles.</p>
                     </Card.Text>
-                    <Button variant="light">Upload Resume</Button>
+                    <Button variant="light" onClick={this.handleRoute("/student-resume")}>Upload Resume</Button>
                 </Card.Body>
                 {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             </Card>
