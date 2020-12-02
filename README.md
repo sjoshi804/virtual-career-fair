@@ -76,7 +76,7 @@
 ``` 
 {
   fullName: string,
-  emailId: string,
+  email: string,
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
   applicant/recruiter/organizer data: json

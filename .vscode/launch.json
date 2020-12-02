@@ -22,7 +22,8 @@
             "preLaunchTask": "tsc: build - tsconfig.json",
             "outFiles": [
                 "${workspaceFolder}/server/dist/**/*.js"
-            ]
+            ],
+            "smartStep": true
         }
     ]
 }

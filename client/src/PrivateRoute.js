@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+// TODO: Check that local storage auth token is valid
 function PrivateRoute ({component: Component, redirectTo,...rest}) {
     return (
       <Route

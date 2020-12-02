@@ -1,7 +1,7 @@
 var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 import { tokenSecret } from '../../.config';
-
+import {v4 as uuid } from 'uuid'
 import { IHasID } from '../../db/iHasID';
 import { UserDBStrategy } from './userDBStrategy';
 
@@ -12,19 +12,21 @@ class User implements IHasID {
 
     // Private fields
     private name: string;
-    private emailId: string;
+    private email: string;
     private password: string;
     private token: string;
-    private id: string;
     private userType: number;
+
+    // Protected Fields
+    protected id: string;
 
     // DataBase
     public static db = new UserDBStrategy();
 
     // Constructor
-    public constructor(userType: number, name: string, emailId: string, password: string) {
+    public constructor(userType: number, name: string, email: string, password: string, id?: string) {
         this.name = name;
-        this.emailId = emailId;
+        this.email = email;
 
         this.userType = userType;
         
@@ -33,6 +35,16 @@ class User implements IHasID {
         else {
             var hashedPassword = passwordHash.generate(password);
             this.password = hashedPassword;
+        }
+
+        // If id not passed in, create one
+        if (id == undefined)
+        {
+            this.id = uuid();
+        }
+        else
+        {
+            this.id = id;
         }
     }
 
@@ -55,12 +67,12 @@ class User implements IHasID {
 
         // Instantiate user object 
         const filterQuery = {
-            emailId: userData.email
+            email: userData.email
         }
         const user = await User.db.findOne(filterQuery);
 
         // Verify that the data matches the instantiated user's data
-        if ((userData.name == user.name) && (userData.email == user.emailId) && 
+        if ((userData.name == user.name) && (userData.email == user.email) && 
             (userData.password  == user.password)) 
         {
             return true
@@ -86,30 +98,29 @@ class User implements IHasID {
     // Generate token that expires in 4 hours
     private createToken() {
         var data = {
-            name: this.name,
-            email: this.emailId,
-            password: this.password
+            id: this.id
         }
-        this.token = jwt.sign({data: data}, tokenSecret, 
-            {expiresIn: '4h'});
+        this.token = jwt.sign(data, tokenSecret);
     }
 
     // Decode data from token
-    private static getDataFromToken(token: string) {
-        var data = null;
+    public static getDataFromToken(token: string) {
+        var decoded = null;
         if (token != null) {
             // Get data from encrypted token 
             try {
+                token = token.replace("Bearer ", "").replace("Basic ", "");
                 // Verify also checks for expiry time
-                var decoded = jwt.verify(token, tokenSecret);
-                var data = decoded.data;
-            } catch(err) {
-                return err;
+                decoded = jwt.verify(token, tokenSecret);
+            } 
+            catch(err) {
+                console.log(err)
             }
-        } else {
+        } 
+        else {
             throw Error('no token to extract data from');
         }
-        return data
+        return decoded
     }
 
     /**** Getter and setter methods for private members ****/
@@ -125,8 +136,8 @@ class User implements IHasID {
     }
 
     // Get Email Id
-    public getEmailId() {
-        return this.emailId;
+    public getemail() {
+        return this.email;
     }
 
     // Get Password
@@ -140,8 +151,8 @@ class User implements IHasID {
     }
 
     // Update Email ID
-    public setEmailId(emailId: string) {
-        this.emailId = emailId;
+    public setemail(email: string) {
+        this.email = email;
     }
 
     // Update Password

@@ -1,6 +1,6 @@
 import { CareerFair } from "./careerFair";
 import { v4 as uuid } from 'uuid';
-import { BoothDBSchema } from "../booth/boothDBSchema";
+import { Booth } from "../booth/booth";
 
 class CareerFairDBSchema
 {
@@ -12,8 +12,9 @@ class CareerFairDBSchema
     // Organizer: id field
     public organizer: string;
 
-    // Booths in career fair: companyId -> BoothDBSchema
-    public booths: Map<string, BoothDBSchema>;
+    // Booths in career fair: companyId -> Booth 
+    // FIXME: FUTURE: Change to booth db schema in futre
+    public booths: Map<string, Booth>;
     
     // List of ids of all applicants who attended / are attending
     public attendingApplicants: Array<string>;
@@ -40,12 +41,8 @@ class CareerFairDBSchema
             this._id = object.getId();
         }
 
-        // Serialize the booths hash table
-        this.booths = new Map<string, BoothDBSchema>();
-        for (let [id, booth] of object.booths)
-        {
-            this.booths.set(id, booth.serialize());
-        }
+        // Copy the booths hash table
+        this.booths = object.booths
 
         // Copy over rest of the member fields
         this.attendingApplicants = object.attendingApplicants;

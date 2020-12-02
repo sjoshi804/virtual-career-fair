@@ -1,3 +1,4 @@
+import { User } from "../user/user";
 import { ISocketProtocol } from "./iSocketProtocol";
 
 abstract class AbstractSocketProtocol implements ISocketProtocol
@@ -10,7 +11,7 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
     protected namespace: any;
 
     // Map from username -> socket.id
-    protected connectedClients: Map<string, string>;
+    private connectedClients: Map<string, string>;
 
 
     constructor()
@@ -20,28 +21,30 @@ abstract class AbstractSocketProtocol implements ISocketProtocol
     }
 
     // onConnection adds username, socket.id to connected clients 
-    // if duplicate for username, replaces old one - TODO: Think about this more
-    public onConnection(socket: any) 
+    // FIXME
+    public onConnection(socket: any, token: string) 
     {
-        if (!this.connectedClients.has(socket.handshake.query['username']))
+        var username = User.getDataFromToken(token);
+        console.log(username);
+        if (!this.connectedClients.has(username))
         {
-            this.connectedClients.set(socket.handshake.query['username'], socket.id);
+            this.connectedClients.set(username, socket.id);
             console.log(`${this.protocolName}: ${socket.id} connected.`);
         }
-        else if (socket.id != this.connectedClients.has(socket.handshake.query['username']))
+        else if (socket.id != this.connectedClients.has(username))
         {
-            this.connectedClients.set(socket.handshake.query['username'], socket.id);
-            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was already connected. Replacing socket.id with new socket.id`);
+            this.connectedClients.set(username, socket.id);
+            console.log(`${this.protocolName}: ${username} was already connected. Replacing socket.id with new socket.id`);
         }
         console.log(this.connectedClients);
     }
 
-    // On disconnection removes username, socket.id from the map, if never existed logs possible error
+    // On disconnection removes username, socket.id from the map, if never existed logs possible customError FIXME:
     public onDisconnection(socket: any) 
     {
         if (!this.connectedClients.has(socket.handshake.query['username']))
         {
-            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was never connected, but attempted to disconnect. Possible error.`);
+            console.log(`${this.protocolName}: ${socket.handshake.query['username']} was never connected, but attempted to disconnect. Possible customError.`);
         }
         else
         {

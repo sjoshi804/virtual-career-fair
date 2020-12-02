@@ -1,16 +1,14 @@
 const io = require('socket.io-client');
-import { doesNotMatch } from 'assert';
 import { expect } from 'chai';
-import { waitForDebugger } from 'inspector';
 import 'mocha';
 const socketIO = require('socket.io')
-import { socketAuthentication } from '../../middleware/socketAuthentication';
+
 //import { CareerFairSocketProtocol } from './careerFairSocketProtocol';
 
 describe('Socket', function() {
 
     var clientSocket: any;
-    const ioServer = socketIO.listen(3000, {
+    const ioServer = socketIO.listen(3002, {
         options: "*:*"
     });
     
@@ -39,7 +37,7 @@ describe('Socket', function() {
     beforeEach((done) =>  
     {
         // Setup Client
-        clientSocket = io.connect('http://localhost:3000/', {
+        clientSocket = io.connect('http://localhost:3002/', {
             'reconnection delay' : 0
             , 'reopen delay' : 0
             , 'force new connection' : true
