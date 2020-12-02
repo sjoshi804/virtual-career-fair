@@ -15,7 +15,7 @@ export default class RecruiterVideoCall extends React.Component {
         </div>
         <div style={{ "color": "black", "padding": "20px"}}>
             <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{"display": "inline"}}>
+                <div style={{"display": "inline", "margin": "auto"}}>
                     <div style={{"display": "inline-block"}}>
                         <video style={{ "margin": "20px"}} width="480" height="360" controls>
                             <source src="https://media.w3.org/2010/05/sintel/trailer_hd.mp4" type="video/mp4"/>
@@ -27,6 +27,7 @@ export default class RecruiterVideoCall extends React.Component {
                         </video>
                     </div>
                 </div>
+                <Button style={{"margin": "auto", "width": "30%", "margin-bottom": "20px"}} variant="outline-danger">End Call</Button>{' '}
             </Card>
         </div>
         <div className="text-center" style={{ "color": "black", "padding": "20px"}}>
