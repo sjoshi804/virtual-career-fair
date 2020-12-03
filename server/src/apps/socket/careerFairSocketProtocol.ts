@@ -212,7 +212,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 socket.on("startNextMeeting", (data) => 
                 {   
                     CareerFairSocketProtocol.log("startNextMeeting", data);
-                    this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
+                    this.startNextMeeting(socket, data.careerFair, data.company);
                 });
                 
                 // Cancel meeting
@@ -350,7 +350,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         
     }
 
-    private async startNextMeeting(socket: any, careerFair: string, company: string, signalData: any)
+    private async startNextMeeting(socket: any, careerFair: string, company: string)
     {
         // Get career fair
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
@@ -382,10 +382,12 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 applicant: nextApplicant
             });
 
+            const companyData = (await Company.db.findOne({_id: company}));
+
             // Call applicant
             this.namespace.to(this.users.getSocketId(careerFair, nextApplicant)).emit("incomingMeetingCall", 
             {
-                company: (await Company.db.findOne({_id: company})).name,
+                company: companyData.name,
                 recruiter: this.users.getUserId(careerFair, socket.id)
             });
         }

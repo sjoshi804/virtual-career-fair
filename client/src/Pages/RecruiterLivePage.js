@@ -44,6 +44,9 @@ class RecruiterLivePage extends React.Component {
          careerFairName: careerFairData.name,
          organizer: careerFairData.organizer
        })
+       /*
+       PeerJS
+       */
 
        /*
        Socket
@@ -68,6 +71,8 @@ class RecruiterLivePage extends React.Component {
             }
         });
 
+        // Accepted call listener 
+
         // Connect
         this.clientSocket.connect();
 
@@ -78,9 +83,14 @@ class RecruiterLivePage extends React.Component {
         });
     }
 
+    // Ask server to start next meeting
     startNextMeeting()
     {
-
+        this.clientSocket.emit("startNextMeeting", 
+        {
+            careerFair: this.state.careerFairId,
+            company: this.state.companyId
+        })
     }
 
     render() {

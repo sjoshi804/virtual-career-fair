@@ -19,11 +19,7 @@ export default class StudentLivePage extends React.Component {
         careerFairName: "Test Career Fair",
         organizer: "Test Organizer",
         companies: [],
-        incomingCall: 
-        {
-          company: "Microsoft",
-          recruiter: "id-of-recruiter"
-        }
+        incomingCall: null
       }
       this.echo = this.echo.bind(this);
       this.resetIncomingCall = this.resetIncomingCall.bind(this);
