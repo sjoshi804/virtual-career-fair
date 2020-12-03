@@ -82,6 +82,7 @@ export default class StudentLoginPage extends React.Component {
         else
         {
             console.log("Token not returned. Display error message. User already exists.");
+            alert("This user already exists. Try signing in instead.");
         }
         
     }
@@ -118,6 +119,7 @@ export default class StudentLoginPage extends React.Component {
         }
 
         else {
+            alert("Incorrect username or password");
             console.log("Incorect username or password");
         }        
     }

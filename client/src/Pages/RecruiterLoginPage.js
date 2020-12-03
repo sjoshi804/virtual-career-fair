@@ -32,7 +32,6 @@ export default class RecruiterLoginPage extends React.Component {
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
-        this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
         this.handleCompanyChange = this.handleCompanyChange.bind(this);
         this.handleJobTitleChange = this.handleJobTitleChange.bind(this);
         this.handleYearsOfExperienceChange = this.handleYearsOfExperienceChange.bind(this);
@@ -110,6 +109,7 @@ export default class RecruiterLoginPage extends React.Component {
         }
 
         else {
+            alert("Incorrect username or password");
             console.log("Incorect username or password");
         }        
     }
