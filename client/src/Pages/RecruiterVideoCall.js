@@ -30,10 +30,7 @@ export default class RecruiterVideoCall extends React.Component {
     }
 
     handleNotesChange(e) {
-        this.setState(
-            {notes: e.target.value}
-            );
-        console.log(this.state.notes);
+        // do something with notes
     };
 
     render() {

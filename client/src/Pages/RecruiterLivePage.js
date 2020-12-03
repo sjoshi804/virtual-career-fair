@@ -64,6 +64,12 @@ class RecruiterLivePage extends React.Component {
         // Create socket
         this.clientSocket = io("ws://localhost:3000/careerfair");
 
+        // Handler to collect booth Data to populate cards
+        this.clientSocket.on("boothData", (data) =>
+        {
+            this.setState({numInQueue: data[this.state.companyId].numInQueue});
+        });
+
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
         this.clientSocket.on("queueUpdate", (data) =>
         {
