@@ -82,7 +82,7 @@ class RecruiterLivePage extends React.Component {
         this.clientSocket.on("acceptMeetingCall", (data) =>
         {
             console.log("Call acceptance");
-            this.handleRoute(`/recruiter-video-call/${this.state.careerFairId}/${this.state.companyId}/${this.peerJsId}/${data.peerJsId}`)();
+            this.handleRoute(`/recruiter-video-call/${this.state.careerFairId}/${this.state.companyId}/${data.applicantId}/${data.peerJsId}`)();
         })
 
         // Connect

@@ -7,11 +7,21 @@ export default class StudentVideoCall extends React.Component {
     constructor(props)
     {
         super(props);
-
+        this.endCall = this.endCall.bind(this);
     }
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
     };
+
+
+    endCall()
+    {
+        // Peer JS End Call 
+        this.peer.destroy();
+
+        // TODO: Redirect back to career fair - pass in dynamic url here
+        this.handleRoute(`/student-live/`)();
+    }
     
     render() {
 
@@ -44,6 +54,12 @@ export default class StudentVideoCall extends React.Component {
             });
         });
 
+        this.peer.on('disconnected', () =>
+        {
+            //TODO: Dynamic redirect back to live career fair page
+            this.handleRoute(`/student-live`)();
+        })
+
         // Set up listener for when the peer js connection opens
         this.peer.on('open', function(id) {
             console.log('My peer ID is: ' + id);
@@ -52,6 +68,7 @@ export default class StudentVideoCall extends React.Component {
             this.clientSocket.connect();
             this.clientSocket.emit("acceptMeetingCall", 
             {
+                token: localStorage.getItem("Authorization"),
                 recruiter: recruiterId,
                 peerJsId: id
             });
@@ -59,11 +76,13 @@ export default class StudentVideoCall extends React.Component {
 
         
 
+        
+
         return (
             <div style={{ "color": "black", "margin": "auto"}}>
             <div className="text-center" style={{ "color": "black", "padding": "20px"}}>
                 <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "padding": "20px"}}>
-                    <h2>Video Call With Student Applicant</h2> 
+                    <h2>Meeting with Recruiter</h2> 
                 </Card>
             </div>
             <div style={{ "color": "black", "padding": "20px"}}>
@@ -80,19 +99,10 @@ export default class StudentVideoCall extends React.Component {
                         </video>
                     </div>
                 </div>
-                <Button style={{"margin": "auto", "width": "30%", "margin-bottom": "20px"}} variant="outline-danger">End Call</Button>{' '}
+                <Button style={{"margin": "auto", "width": "30%", "margin-bottom": "20px"}} onClick={this.endCall}variant="outline-danger">Return to Fair</Button>{' '}
             </Card>
         </div>
-        <div className="text-center" style={{ "color": "black", "padding": "20px"}}>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "padding": "20px"}}>
-                <h2>Notes</h2>
-                <Form.Group style={{"width": "80%", "margin": "auto"}} controlId="exampleForm.ControlTextarea1">
-                            <Form.Control as="textarea" rows={6} />
-                </Form.Group>
-                <Button size="sm" variant="outline-dark" style={{"width": "50px", "margin": "auto", "margin-top": "20px" }}>Save</Button>  
-            </Card>
         </div>
-            </div>
         );
     }
 }
