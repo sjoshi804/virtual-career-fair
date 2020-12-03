@@ -18,8 +18,10 @@ export default class RecruiterLoginPage extends React.Component {
             firstName: "",
             lastName: "",
             password: "",
-            rememberMe: (localStorage.getItem("rememberMe") === "true") || false,
-            company: ""
+            company: "", 
+            jobTitle: "",
+            yearsOfExperience: "",
+            rememberMe: (localStorage.getItem("rememberMe") === "true") || false
         }
 
         // Bind methods to instance
@@ -32,6 +34,8 @@ export default class RecruiterLoginPage extends React.Component {
         this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
         this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
         this.handleCompanyChange = this.handleCompanyChange.bind(this);
+        this.handleJobTitleChange = this.handleJobTitleChange.bind(this);
+        this.handleYearsOfExperienceChange = this.handleYearsOfExperienceChange.bind(this);
     }
 
     handleRoute = route => () => {
@@ -45,10 +49,12 @@ export default class RecruiterLoginPage extends React.Component {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    name: this.state.firstName + this.state.lastName,
+                    name: this.state.firstName + " " + this.state.lastName,
                     email: this.state.email,
                     password: passwordHash.generate(this.state.password),
-                    company: this.state.company
+                    company: this.state.company,
+                    jobTitle: this.state.jobTitle,
+                    yearsOfExperience: this.state.yearsOfExperience
                 })
             })
             .then(response => {
@@ -146,6 +152,14 @@ export default class RecruiterLoginPage extends React.Component {
         this.setState({company: e.target.value});
     }
 
+    handleJobTitleChange(e) {
+        this.setState({jobTitle: e.target.value});
+    }
+
+    handleYearsOfExperienceChange(e) {
+        this.setState({yearsOfExperience: e.target.value});
+    }
+
     render() {
         return (
             <div style={{"padding": "20px"}}>
@@ -198,7 +212,15 @@ export default class RecruiterLoginPage extends React.Component {
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label controlId="formBasicCompany">Company</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter company" value={this.state.company} onChange={this.handleCompanyChange}/>
+                                    <Form.Control type="text" placeholder="E.g. Oracle, Facebook, etc." value={this.state.company} onChange={this.handleCompanyChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formJobTitle">
+                                    <Form.Label>Job Title</Form.Label>
+                                    <Form.Control type="text" placeholder="E.g. Software Engineer, Data Scientist, etc." value={this.state.jobTitle} onChange={this.handleJobTitleChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formExperience">
+                                    <Form.Label>Years Of Experience</Form.Label>
+                                    <Form.Control type="text" placeholder="E.g. 3, 7, etc." value={this.state.yearsOfExperience} onChange={this.handleYearsOfExperienceChange}/>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
