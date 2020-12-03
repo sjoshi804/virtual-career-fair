@@ -16,7 +16,7 @@ class RecruiterDBSchema extends UserDBSchema {
 
         // Copy over data to save in db
         this.name = recruiter.getName();
-        this.emailId = recruiter.getEmailId();
+        this.email = recruiter.getemail();
         this.password = recruiter.getPassword();
         this.userType = recruiter.getUserType();
         

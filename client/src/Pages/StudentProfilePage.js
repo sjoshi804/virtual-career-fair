@@ -12,7 +12,7 @@ export default class StudentProfilePage extends React.Component {
   
     for (const [index, value] of livecareerfairs.entries()) {
       liveitems.push(
-          
+          // FIXME: onClick listener should redirect to /live/careerFairId -> renders StudentLivePage with this.prop.careerFairId
         <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
             <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
             <Card.Body>

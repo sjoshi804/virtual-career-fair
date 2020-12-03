@@ -4,7 +4,7 @@ import { CareerFairSocketProtocol } from "../socket/careerFairSocketProtocol";
 class Queue 
 {
     // List of ids / usernames
-    private applicantIds: Array<string> 
+    public applicantIds: Array<string> 
 
     public constructor(applicantIds?: Array<string>)
     {
@@ -19,11 +19,16 @@ class Queue
     }
 
     // Removes a given Applicant from the queue
-    public leaveQueue(applicant: string): void
+    public leaveQueue(applicant: string): boolean
     {
         if (this.isApplicantInQueue(applicant))
         {
             this.applicantIds.splice(this.applicantIds.indexOf(applicant), 1);
+            return true;
+        }
+        else 
+        {
+            return false;
         }
     }
 
@@ -62,9 +67,14 @@ class Queue
         return this.applicantIds.length;
     }
 
-    private isApplicantInQueue(applicant: string)
+    public isApplicantInQueue(applicant: string)
     {
         return (this.applicantIds.indexOf(applicant) != -1)
+    }
+
+    public getPosition(applicant: string)
+    {
+        return this.applicantIds.indexOf(applicant);
     }
 }
 

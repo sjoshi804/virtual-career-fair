@@ -9,6 +9,7 @@ GET	/company/:companyid/recruiter	get all recruiters for a given company
 
 import express = require('express');
 import { Recruiter } from '../user/recruiter/recruiter';
+import { User } from '../user/user';
 import { Company } from './company';
 const CompanyRouter = express.Router();
 
@@ -106,42 +107,75 @@ CompanyRouter.delete("/:companyId", async (req, res) => {
 });
 
 // Add recruiter to company - POST since changes state
-CompanyRouter.post("/:companyid/addRecruiter/:recruiterId", async (req, res) => {
-    
-    // const recruiterFilterQuery = {
-    //     _id: req.params.recruiterId,
-    //     userType: 1
-    // }
+CompanyRouter.post("/:companyId/addRecruiter/:recruiterId", async (req, res) => {
 
-    // const companyFilterQuery = {
-    //     _id: req.params.companyid
-    // }
+        // Get company
+        const filterQuery = {
+            _id: req.params.companyId
+        }
+        var company = await Company.db.findOne(filterQuery);
+        if (company != null) {
+            // Check if recruiter exists in db
+            var recruiterId = req.params.recruiterId
+            const filterQuery = {
+                _id: recruiterId
+            }
+            var applicant = await User.db.findOne(filterQuery);
+            if (applicant != null) {
+                // Check if recruiter is already associated with company
+                var recruiters = company.recruiters;
+                if (!recruiters.includes(recruiterId)) {
 
-    // // Check if Recruiter exists -> if not return 404
-    // if (await Recruiter.db.count(recruiterFilterQuery) < 1) {
-    //     res.sendStatus(404);
-    //     return;
-    // }
+                    company.recruiters.push(recruiterId);
 
-    // // Check if Company exists -> if not return 404
-    // if (await Company.db.count(companyFilterQuery) < 1) {
-    //     res.sendStatus(404);
-    //     return;
-    // }
-
-    // // Get company
-    // var company = await Company.db.findOne(companyFilterQuery);
-    // if (company.recruiters.indexOf(recrui))
-    // company.recruiters.push()
-
-    res.sendStatus(403);
+                    // Update company in DB
+                    const updateQuery = {
+                        $set: company
+                    };
+                    const filterQuery = {
+                        _id: req.params.companyId
+                    }
+                    // Return 204 to indicate successful put request
+                    if (await Company.db.updateOne(filterQuery, updateQuery)) {
+                        res.sendStatus(204);
+                        return;
+                    } 
+                    // Update failed so return 500
+                    else {
+                        res.sendStatus(500);
+                        return;
+                    }
+                }
+            } 
+            // Could not find applicant 
+            else {
+                res.sendStatus(404);
+            }
+        }
+        // Couldn't find the Company
+        else {
+            res.sendStatus(404);
+        }
 });
 
 // Get all recruiters for a company
 CompanyRouter.get("/:companyId/recruiter", async (req, res) =>
 {
-    //TODO: Waiting on recruiter db schema object
-    res.sendStatus(403);
+    // Get company
+    const filterQuery = {
+        _id: req.params.companyId
+    }
+
+    var company = await Company.db.findOne(filterQuery);
+
+    if (company != null) {
+        res.status(200).send(company.recruiters);
+    }
+    // Couldn't find the Company
+    else {
+        res.sendStatus(404);
+    }
+
 });
 
 export { CompanyRouter };

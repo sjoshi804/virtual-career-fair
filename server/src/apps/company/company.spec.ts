@@ -214,7 +214,7 @@ describe('Company API (/company)', () => {
     // POST to call function to add recruiter to company
     it('POST /:companyId/addRecruiter/:recruiterId - adds recruiter to company', async () => {
         
-        expect.fail("Not implemented.");
+        expect.fail("API Implemented, Test not done.");
         
         // // Create Company
         // await request(server).post(prefix + "/").send(companyA.serialize())
@@ -239,9 +239,9 @@ describe('Company API (/company)', () => {
     });
 
     // GET all recruiters for a company - returns recruiter schema objects
-    it('GET /:companyId - updates specific company', async () => 
+    it('GET /:companyId - gets all recruiters for company', async () => 
     {
-        expect.fail("Not implemented.");
+        expect.fail("API Implemented, Test not done.");
 
         //TODO:
         // Create recruiters

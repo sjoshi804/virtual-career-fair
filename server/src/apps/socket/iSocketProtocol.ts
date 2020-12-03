@@ -1,7 +1,7 @@
 interface ISocketProtocol
 {
-    onConnection(socket);
-    onDisconnection(socket);
+    onConnection(socket: any, token: string);
+    onDisconnection(socket: any);
     registerEventListeners(namespace: any);
 }
 

@@ -36,11 +36,11 @@
 ### Meeting Notes
 | Type | Endpoint | Description (optional)
 |-------------------|---------------------------------------------------------|-------------------------------|
-| POST                   |/meetingNote ||
-| GET                    |/meetingNote/company/:companyid                                                 | see all meeting notes |
-| GET                    |/meetingNote/company/:companyid/applicant/:applicantid                          | |
-| GET                    |/meetingNote/company/:companyid/careerfair/:careerfairid                        | |
-| GET/UPDATE/DELETE |/meetingNote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
+| POST                   |/meetingnote ||
+| GET                    |/meetingnote/company/:companyid                                                 | see all meeting notes |
+| GET                    |/meetingnote/company/:companyid/applicant/:applicantid                          | |
+| GET                    |/meetingnote/company/:companyid/careerfair/:careerfairid                        | |
+| GET/UPDATE/DELETE |/meetingnote/company/:companyid/careerfair/:careerfairid/applicant/:applicantid | |
 
 ### User
 | Type | Endpoint | Description (optional)
@@ -76,7 +76,7 @@
 ``` 
 {
   fullName: string,
-  emailId: string,
+  email: string,
   password: string,
   userType: int (0 = applicant, 1 = recruiter, 2 = organizer),
   applicant/recruiter/organizer data: json

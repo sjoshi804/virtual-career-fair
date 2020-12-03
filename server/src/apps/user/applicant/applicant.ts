@@ -9,15 +9,15 @@ class Applicant extends User implements ISerializable {
     private affiliatedSchool: string;
     private bio: string;
 
-    public constructor(serialized?: ApplicantDBSchema, userType?: number, name?: string, emailID?: string, password?: string, major?: string, graduationYear?: number, affiliatedSchool?: string, bio?: string, ) 
+    public constructor(serialized?: ApplicantDBSchema, userType?: number, name?: string, email?: string, password?: string, major?: string, graduationYear?: number, affiliatedSchool?: string, bio?: string, ) 
     {
         if (serialized != undefined)
         {
-            super(serialized.userType, serialized.name, serialized.emailId, serialized.password);
+            super(serialized.userType, serialized.name, serialized.email, serialized.password);
         }
         else
         {
-            super(userType, name, emailID, password);
+            super(userType, name, email, password);
             this.major = major;
             this.graduationYear = graduationYear;
             this.affiliatedSchool = affiliatedSchool;
