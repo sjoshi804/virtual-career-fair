@@ -1,9 +1,10 @@
 import React from "react";
-import {Card, CardDeck, Button} from "react-bootstrap";
+import {Card, CardDeck, Button, Modal} from "react-bootstrap";
 import google from '../Images/google.jpg'; 
 import { MoreInfo } from './MoreInfo'
 import { baseUrl } from "../.config";
 import Peer from 'peerjs';
+
 const io = require('socket.io-client');
 const testCareerFairId = "5fc39d53403560f171489b2a";
 
@@ -13,19 +14,45 @@ export default class StudentLivePage extends React.Component {
       super(props);
       this.state = 
       {
+        // TODO: Set career fair id from what was obtained to URL
         careerFairId: testCareerFairId,
-        companies: []
+        careerFairName: "Test Career Fair",
+        organizer: "Test Organizer",
+        companies: [],
+        incomingCall: 
+        {
+          company: "Microsoft",
+          recruiter: "id-of-recruiter"
+        }
       }
       this.echo = this.echo.bind(this);
+      this.resetIncomingCall = this.resetIncomingCall.bind(this);
     }
 
     /*
-      - Retrieve booth data to display
+      - Retrieve career fair data to display
+      - Retrieve booth data to display (different from above, as need to retrieve the live copy)
       - Establish socket connection and join career fair room
       - Create peer js object and register incoming call handler
     */
     async componentDidMount()
     {   
+        /*
+        Get Career Fair Data
+        */
+        var headers = new Headers();
+        headers.append("Authorization", localStorage.getItem("Authorization"));
+        const careerFairData = await fetch(baseUrl + `/careerfair/${this.state.careerFairId}`, {
+          headers: headers,
+          method: "GET"
+        })
+        .then(response => response.json());
+
+        this.setState({
+          careerFairName: careerFairData.name,
+          organizer: careerFairData.organizer
+        })
+
         /*
         SOCKET
         */
@@ -94,6 +121,7 @@ export default class StudentLivePage extends React.Component {
           console.log(data.message);
         });
 
+        // Handler to collect booth Data to populate cards
         this.clientSocket.on("boothData", (data) =>
         {
           // Booth data
@@ -107,6 +135,21 @@ export default class StudentLivePage extends React.Component {
 
           this.setState({companies: newCompanies});
         });
+
+        // Handler to deal with incoming Meeting Call
+        this.clientSocket.on("incomingMeetingCall", (data) =>
+        {
+          console.log("incoming call", data);
+          // Display modal to accept call
+          this.setState(
+            {
+              incomingCall: {
+                company: data.company,
+                recruiter: data.recruiter
+              }
+            }
+          );
+        })
 
         // For test / debug purposes enable echo
         this.clientSocket.on("echo", (message) =>
@@ -136,9 +179,6 @@ export default class StudentLivePage extends React.Component {
         /*
         Load Booth Data
         */
-        // FIXME: Get this from the career fair api
-        var headers = new Headers();
-        headers.append("Authorization", localStorage.getItem("Authorization"));
         const companies =  await fetch(baseUrl + `/careerfair/${this.state.careerFairId}/company/`, {
           headers: headers,
           method: "GET"
@@ -193,6 +233,26 @@ export default class StudentLivePage extends React.Component {
         peerJsId: this.peerJsId
       });
     }
+
+    acceptIncomingCall = (recruiter) => () =>
+    {
+      // Clean up incoming call state 
+      this.resetIncomingCall();
+
+      // Redirect to student video call
+      this.handleRoute(`/student-video-call/${this.state.careerFairId}/${recruiter}/${this.peerJsId}`)();
+    }
+
+    resetIncomingCall()
+    {
+      // Set incoming call back to null if accepted / rejected
+      this.setState(
+        {
+          incomingCall: null
+        }
+      );
+    }
+
 
     // --------------------------------------------------
     handleRoute = route => () => {
@@ -260,6 +320,26 @@ export default class StudentLivePage extends React.Component {
             <CardDeck>
                 {items[6]}  {items[7]}  {items[8]}
             </CardDeck>
+            {this.state.incomingCall != null ?
+              <Modal show={true} onHide={this.resetIncomingCall}>
+              <Modal.Header>
+                <Modal.Title>Incoming Call</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                  A recruiter from {this.state.incomingCall.company} is asking you to join a meeting.
+                </Modal.Body>
+              <Modal.Footer>
+              <Button variant="danger" onClick={this.resetIncomingCall}>
+                  Reject
+                </Button>
+              <Button variant="success" onClick={this.acceptIncomingCall(this.state.incomingCall.recruiter)}>
+                  Accept
+                </Button>
+              </Modal.Footer>
+            </Modal>
+            : 
+            null
+            }
       </div>
     );
   }

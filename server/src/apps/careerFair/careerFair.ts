@@ -46,6 +46,9 @@ class CareerFair implements ISerializable
     // ID field
     public id: string;
 
+    // Name field
+    public name: string;
+    
     // Organizer (id) field
     public organizer: string;
 
