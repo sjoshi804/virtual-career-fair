@@ -8,8 +8,8 @@ export default class ManageFairPage extends React.Component {
 
       render() {
         return (
-          <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+          <div style={{ "textAlign": "center", "margin": "20px 20px" }}>
+            <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "marginBottom": "20px"}}>
                 <Card.Body>
                     <br></br>
                     <h2><b>Career Fair #1</b></h2>

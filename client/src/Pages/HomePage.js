@@ -13,7 +13,7 @@ export default class HomePage extends React.Component {
     return (
     <div>
       
-      <div style={{padding: "100px", "text-align": "center", background: "white", "color": "black"}}>
+      <div style={{padding: "100px", "textAlign": "center", background: "white", "color": "black"}}>
         <h1>JobZ</h1>
         <p>
           <h4>
@@ -22,7 +22,7 @@ export default class HomePage extends React.Component {
         </p>
       </div>
       
-      <div style={{padding: "100px", "text-align": "center", background: "#84849A", "color": "white"}}>
+      <div style={{padding: "100px", "textAlign": "center", background: "#84849A", "color": "white"}}>
         <h1>STUDENTS</h1>
         <p>
           <h4>
@@ -32,7 +32,7 @@ export default class HomePage extends React.Component {
         <Button onClick={this.handleRoute("/student-login")} variant="light">Get Started</Button>
       </div>
       
-      <div style={{padding: "100px", "text-align": "center", background: "#75758D", "color": "white"}}>
+      <div style={{padding: "100px", "textAlign": "center", background: "#75758D", "color": "white"}}>
         <h1>RECRUITERS</h1>
         <p>
           <h4>
@@ -42,7 +42,7 @@ export default class HomePage extends React.Component {
         <Button onClick={this.handleRoute("/recruiter-login")} variant="light">Get Started</Button>
       </div>
       
-      <div style={{padding: "100px", "text-align": "center", background: "#666681", "color": "white"}}>
+      <div style={{padding: "100px", "textAlign": "center", background: "#666681", "color": "white"}}>
         <h1>ORGANIZERS</h1>
         <p>
           <h4>

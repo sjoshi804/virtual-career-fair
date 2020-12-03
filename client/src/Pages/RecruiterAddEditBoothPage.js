@@ -8,7 +8,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
   render() {
     return (
         <div style={{"padding": "20px"}}>
-            <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px"}}>
+            <Card style={{"boxShadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px"}}>
                 <Tabs defaultActiveKey="add" id="uncontrolled-tab-example">
                 <Tab eventKey="add" title="Add New Booth">
                     <br></br>
@@ -54,7 +54,7 @@ export default class RecruiterAddEditBoothPage extends React.Component {
                                 </InputGroup.Prepend>
                                 <FormControl as="textarea" aria-label="With textarea" placeholder="Enter additional details" />
                             </InputGroup>
-                            <div style={{"margin": "auto", "width": "50px", "padding-top": "15px"}}>
+                            <div style={{"margin": "auto", "width": "50px", "paddingTop": "15px"}}>
                             <Button variant="outline-primary" onClick={this.handleRoute("/recruiter")}>Save</Button>
                             </div>
                         </div>

@@ -21,6 +21,8 @@ import StudentLoginPage from "./StudentLoginPage"
 import RecruiterLoginPage from "./RecruiterLoginPage"
 import RecruiterVideoCall from "./RecruiterVideoCall.js"
 import StudentVideoCall from "./StudentVideoCall.js"
+import StudentResumePage from "./StudentResumePage.js"
+import RecruiterResumePage from "./RecruiterResumePage.js"
 
 export { 
   StudentProfilePage,
@@ -46,4 +48,6 @@ export {
   RecruiterLoginPage,
   RecruiterVideoCall,
   StudentVideoCall,
+  StudentResumePage,
+  RecruiterResumePage
 };
