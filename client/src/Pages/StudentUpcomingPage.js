@@ -23,8 +23,8 @@ export default class StudentUpcomingPage extends React.Component {
     for (const [index, value] of companies.entries()) {
       items.push(
           
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
-                <div style={{ "width": "200px", "margin": "auto", "padding-top": "10px"}}> 
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
+                <div style={{ "width": "200px", "margin": "auto", "paddingTop": "10px"}}> 
                 <Card.Img variant="top" src={netflix} />
                 </div>
                 <Card.Body>
@@ -43,8 +43,8 @@ export default class StudentUpcomingPage extends React.Component {
     }
     
     return (
-        <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-            <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+        <div style={{ "textAlign": "center", "margin": "20px 20px" }}>
+            <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "marginBottom": "20px"}}>
             <br></br>
             <h2><b>Upcoming: </b><b>Career Fair #2</b></h2>
             <br></br>

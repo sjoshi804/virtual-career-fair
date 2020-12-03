@@ -26,13 +26,13 @@ export default class RecruiterLivePage extends React.Component {
     }
 
     return (
-      <div style={{padding: "20px", "text-align": "center"}}>
-        <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
+      <div style={{padding: "20px", "textAlign": "center"}}>
+        <Card style={{"padding": "20px", "boxShadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
             <h2><b>Live Career Fair:</b> UCLA Engineering Tech Fair</h2>
             <h5>Students in queue for Google full-time software engineering roles.</h5>
         </Card>
         <br></br>
-        <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
+        <Card style={{"padding": "20px", "boxShadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
             <h4>
                 <b>Time left in career fair:</b>
             </h4>
@@ -54,7 +54,7 @@ export default class RecruiterLivePage extends React.Component {
             </h4>
         </Card>
         <br></br>
-        <Card style={{padding: "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
+        <Card style={{padding: "20px", "boxShadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
             <h3>Notes for student applicants.</h3>
             <p></p>
             <Table striped bordered hover>

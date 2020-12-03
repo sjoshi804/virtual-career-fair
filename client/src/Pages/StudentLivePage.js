@@ -208,6 +208,7 @@ export default class StudentLivePage extends React.Component {
       });
       items.push(
           
+
             <Card style={{boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)", maxWidth: "200px"}}>
             <Card.Img variant="top" style={{ height: "auto",
                     width: "80%",
@@ -216,6 +217,7 @@ export default class StudentLivePage extends React.Component {
                     marginLeft: "10%"
             }}
             src={value.image || google} maxHeight="250px" />
+
             <Card.Body>
             <Card.Title><b>{value.name}</b></Card.Title>
             <MoreInfo company={value}></MoreInfo>
@@ -223,12 +225,11 @@ export default class StudentLivePage extends React.Component {
             <Card.Footer>
             <small className="text-muted"> 
             { value.position != -1 ?
-            <h7 style={{"font-size": "15px"}}>
-              <b>Position: </b> {value.position + 1}/{value.numInQueue}</h7> :
-              <h7 style={{"font-size": "15px"}}>
-              <b>Queue: </b> {value.numInQueue}</h7> 
+            <h6 style={{"fontSize": "15px"}}>
+              <b>Position: </b> {value.position + 1}/{value.numInQueue}</h6> :
+              <h6 style={{"fontSize": "15px"}}>
+              <b>Queue: </b> {value.numInQueue}</h6> 
             }
-
             <h1></h1>
             <Button  size="sm" onClick={value.position == -1 ? this.joinQueue(value.id) : this.leaveQueue(value.id)} variant={value.position == -1 ? "outline-success" : "outline-danger"} >{value.position == -1 ? "Join Queue" : "Leave Queue"}</Button></small>
             <br></br>
@@ -239,8 +240,8 @@ export default class StudentLivePage extends React.Component {
 //<Button variant="outline-success" size="sm" href="https://meet.google.com/ezb-yrqf-vsq">Join Now</Button></small>
    
     return (
-      <div style={{ "text-align": "center", "margin": "20px 20px" }}>
-        <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
+      <div style={{ "textAlign": "center", "margin": "20px 20px" }}>
+        <Card style={{"boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "marginBottom": "20px"}}>
           <br></br>
           <h2><b>Career Fair #1</b></h2>
           <br></br>
