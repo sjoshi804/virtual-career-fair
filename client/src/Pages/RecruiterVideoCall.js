@@ -174,7 +174,7 @@ export default class RecruiterVideoCall extends React.Component {
                         </video>
                     </div>
                 </div>
-                <Button style={{"margin": "auto", "width": "30%", "margin-bottom": "20px"}} variant="outline-danger">End Call</Button>{' '}
+                <Button style={{"margin": "auto", "width": "30%", "marginBottom": "20px"}} variant="outline-danger">End Call</Button>{' '}
             </Card>
         </div>
         <div className="text-center" style={{ "color": "black", "padding": "20px"}}>

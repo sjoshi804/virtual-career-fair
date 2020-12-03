@@ -1,7 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { getAllByRole, render } from '@testing-library/react';
 import RecruiterVideoCall from './Pages/RecruiterVideoCall';
-import StudentLivePage from './Pages/StudentLivePage';
+import StudentProfilePage from './Pages/StudentProfilePage';
 import OrganizerUpcomingPage from './Pages/OrganizerUpcomingPage'
 import SearchPage from './Pages/SearchPage'
 
@@ -13,10 +13,12 @@ test('Rcruiter Video Call Page', () => {
   expect(buttonElement).not.toHaveAttribute('disabled');
 });
 
-test('Student Live Page', () => {
-  const { getAllByRole } = render(<StudentLivePage />);
-  const buttonElement = getAllByRole('button', {name: /in session/i});
-  buttonElement.forEach(element => expect(element).not.toHaveAttribute('disabled'));
+test('Student Profile Page', () => {
+  const { getAllByText, getAllByRole } = render(<StudentProfilePage />);
+  const buttonElements = getAllByRole('button');
+  const linkElements = getAllByText(/View Details/i);
+  linkElements.forEach(element => expect(element).toBeInTheDocument());
+  buttonElements.forEach(element => expect(element).not.toHaveAttribute('disabled'));
 });
 
 test('Organizer Upcoming Page', () => {
