@@ -163,16 +163,6 @@ export default class StudentLivePage extends React.Component {
         });
 
         /*
-        Instantiate Peer JS Peer
-        */
-       this.peer = new Peer();
-       this.peer.on('open', (id) =>
-       {
-          this.peerJsId = id; 
-          console.log("PeerJSId", id);
-       });
-
-        /*
         Load Booth Data
         */
         const companies =  await fetch(baseUrl + `/careerfair/${this.state.careerFairId}/company/`, {
@@ -222,21 +212,13 @@ export default class StudentLivePage extends React.Component {
 
     acceptIncomingCall = (recruiter) => () =>
     {
-      // 
-      this.clientSocket.emit("acceptMeetingCall", 
-      {
-        recruiter: recruiter, 
-        peerJsId: this.peerJsId
-      });
-    }
-
-    acceptIncomingCall = (recruiter) => () =>
-    {
       // Clean up incoming call state 
       this.resetIncomingCall();
 
+
+
       // Redirect to student video call
-      this.handleRoute(`/student-video-call/${this.state.careerFairId}/${recruiter}/${this.peerJsId}`)();
+      this.handleRoute(`/student-video-call/${this.state.careerFairId}/${recruiter}`)();
     }
 
     resetIncomingCall()

@@ -2,10 +2,12 @@ import React from "react";
 import {Card, Button, Image, Table, Form} from "react-bootstrap";
 import Countdown from "react-countdown";
 import { baseUrl } from "../.config";
+import Peer from 'peerjs';
 const io = require('socket.io-client');
 const Completionist = () => <span>Career fair ended.</span>;
 const testCareerFairId = "5fc39d53403560f171489b2a";
 const testCompanyId = "5fbde92b766609b584e59545";
+
 
 class RecruiterLivePage extends React.Component {
     constructor(props)
@@ -29,28 +31,33 @@ class RecruiterLivePage extends React.Component {
     async componentDidMount()
     {
         // Fetch career fair data from API
-                /*
+        /*
         Get Career Fair Data
         */
-       var headers = new Headers();
-       headers.append("Authorization", localStorage.getItem("Authorization"));
-       const careerFairData = await fetch(baseUrl + `/careerfair/${this.state.careerFairId}`, {
-         headers: headers,
-         method: "GET"
-       })
-       .then(response => response.json());
+        var headers = new Headers();
+        headers.append("Authorization", localStorage.getItem("Authorization"));
+        const careerFairData = await fetch(baseUrl + `/careerfair/${this.state.careerFairId}`, {
+            headers: headers,
+            method: "GET"
+        })
+        .then(response => response.json());
 
-       this.setState({
-         careerFairName: careerFairData.name,
-         organizer: careerFairData.organizer
-       })
-       /*
-       PeerJS
-       */
+        this.setState({
+            careerFairName: careerFairData.name,
+            organizer: careerFairData.organizer
+        })
 
-       /*
-       Socket
-       /*
+        /*
+        PeerJS
+        */
+       this.peer = new Peer();
+
+       this.peer.on("open", (id) =>
+       {
+           console.log("Peer JS ID", id);
+           this.peerJsId = id;
+       })
+
         /*
         SOCKET
         */
@@ -72,6 +79,11 @@ class RecruiterLivePage extends React.Component {
         });
 
         // Accepted call listener 
+        this.clientSocket.on("acceptMeetingCall", (data) =>
+        {
+            console.log("Call acceptance");
+            this.handleRoute(`/recruiter-video-call/${this.state.careerFairId}/${this.state.companyId}/${this.peerJsId}/${data.peerJsId}`)();
+        })
 
         // Connect
         this.clientSocket.connect();

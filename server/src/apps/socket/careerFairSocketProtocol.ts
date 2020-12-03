@@ -14,7 +14,7 @@ import { AbstractSocketProtocol } from "./abstractSocketProtocol";
 class CareerFairSocketUserTable
 {
     // First map in tuple is socketId->userId, second is userId->socketId
-    private map: Map<string, [Map<string, string>, Map<string, string>]>;
+    public map: Map<string, [Map<string, string>, Map<string, string>]>;
 
     // Initialize map
     constructor()
@@ -25,6 +25,7 @@ class CareerFairSocketUserTable
     // Insert
     public insert(careerFair: string, socketId: string, userId: string)
     {
+        console.log(userId);
         // If career fair not accessed before, initialize maps for it
         if (!this.map.has(careerFair))
         {
@@ -38,14 +39,7 @@ class CareerFairSocketUserTable
     // Gets
     public getUserId(careerFair: string, socketId: string)
     {
-        try 
-        {
-            return this.map.get(careerFair)[0].get(socketId);
-        }
-        catch 
-        {
-            return null
-        }
+        return this.map.get(careerFair)[0].get(socketId);
     }
 
     public getSocketId(careerFair: string, userId: string)
@@ -279,7 +273,8 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     //  Disconnection
     public onDisconnection(socket: any)
     {
-        this.users.deleteBySocketId(socket.id);
+        // FIXME: this was breaking things
+        //this.users.deleteBySocketId(socket.id);
     }
 
     // Private Event Handlers
@@ -388,7 +383,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
             this.namespace.to(this.users.getSocketId(careerFair, nextApplicant)).emit("incomingMeetingCall", 
             {
                 company: companyData.name,
-                recruiter: this.users.getUserId(careerFair, socket.id)
+                recruiter: socket.id.replace("/careerfair#", "")
             });
         }
     }
@@ -408,7 +403,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
 
     private acceptMeetingCall(careerFair: string, recruiter: string, peerJsId: string) 
     {
-        this.namespace.to(this.users.getSocketId(careerFair, recruiter)).emit("acceptMeetingCall", 
+        this.namespace.to("/careerfair#" + recruiter).emit("acceptMeetingCall", 
         {
             peerJsId: peerJsId
         });

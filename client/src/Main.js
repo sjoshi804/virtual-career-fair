@@ -91,7 +91,7 @@ class Main extends React.Component {
             <PrivateRoute path="/student-live" component={StudentLivePage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-past" component={StudentPastPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-upcoming" component={StudentUpcomingPage} redirectTo={"student-login"} exact/>
-            <PrivateRoute path="/student-video-call/:careerFairId/:reruiterId/:peerJsId" component={StudentVideoCall} />
+            <PrivateRoute path="/student-video-call/:careerFairId/:recruiterId" component={StudentVideoCall} />
 
             <PrivateRoute path="/organizer" component={OrganizerPage} redirectTo={"/organizer-login"} exact/>
             <PrivateRoute path="/organizer-live" component={OrganizerLivePage} redirectTo={"/organizer-login"} exact/>
@@ -104,7 +104,7 @@ class Main extends React.Component {
             <PrivateRoute path="/recruiter-live" component={RecruiterLivePage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
-            <PrivateRoute path="/recruiter-video-call" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-video-call/:careerFairId/:companyId/:peerJsId/:applicantPeerJsId" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
 
             {/*Public Routes*/}
             <Route path="/" component={HomePage} exact/>
