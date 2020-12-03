@@ -1,5 +1,5 @@
 import React from "react";
-import { Tab , Tabs, Card, Form, Button, Col} from "react-bootstrap";
+import { Tab , Tabs, Card, Form, Button, Col, Alert} from "react-bootstrap";
 import { baseUrl } from "../.config";
 const passwordHash = require('password-hash');
 
@@ -38,63 +38,43 @@ export default class RecruiterLoginPage extends React.Component {
         this.props.history.push({ pathname: route });
     };
 
-async signUp() {
-    // Send request to sign up to backend
-    const response = 
-        (await fetch(baseUrl + '/recruiter/',
-        {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(
-            {
-                name: this.state.firstName + this.state.lastName,
-                email: this.state.email,
-                password: passwordHash.generate(this.state.password),
-                company: this.state.company
+    async signUp() {
+        // Send request to sign up to backend
+        const response = 
+            (await fetch(baseUrl + '/recruiter/', {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name: this.state.firstName + this.state.lastName,
+                    email: this.state.email,
+                    password: passwordHash.generate(this.state.password),
+                    company: this.state.company
+                })
             })
-        })
-        .then(response => 
-        {
-            if (response.status == 400)
-            {
-                return undefined
-            }
-            else
-            {
-                return response.json()
-            }
-        }));
+            .then(response => {
+                if (response.status == 400) {
+                    return undefined;
+                }
+                else {
+                    return JSON.parse(JSON.stringify(response));
+                }
+            }));
 
-    // Check if token has been returned
-    if (response != undefined)
-    {   
-        localStorage.setItem("Authorization", response.token);
-        this.props.history.push('/recruiter');
-    }
-    else
-    {
-        console.log("Token not returned. Display error message. User already exists.");
-    }
+        // Check if token has been returned
+        if (response != undefined) {   
+            localStorage.setItem("Authorization", response.token);
+            this.props.history.push('/recruiter');
+        }
+        else {
+            console.log("Token not returned. Display error message. User already exists.");
+            alert("This user already exists. Try signing in instead.");
+        }
     
-}
-
-async signIn() {
-    const hashedPassword = 
-    (await fetch(baseUrl + '/user/initiateLogin/',
-    {
-        method: "POST",
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(
-        {
-            email: this.state.email
-        })
     }
-    )
-    .then(response => response.json())).hashedPassword;
 
-    if (passwordHash.verify(this.state.password, hashedPassword)) {
-        const token = 
-        (await fetch(baseUrl + '/user/login/',
+    async signIn() {
+        const hashedPassword = 
+        (await fetch(baseUrl + '/user/initiateLogin/',
         {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
@@ -102,59 +82,70 @@ async signIn() {
             {
                 email: this.state.email
             })
-        })
-        .then(response => response.json())).token;
-        
-        localStorage.setItem("Authorization", token);
-        this.props.history.push('/recruiter');
+        }
+        )
+        .then(response => response.json())).hashedPassword;
+
+        if (passwordHash.verify(this.state.password, hashedPassword)) {
+            const token = 
+            (await fetch(baseUrl + '/user/login/',
+            {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(
+                {
+                    email: this.state.email
+                })
+            })
+            .then(response => response.json())).token;
+            
+            localStorage.setItem("Authorization", token);
+            this.props.history.push('/recruiter');
+        }
+
+        else {
+            console.log("Incorect username or password");
+        }        
     }
 
-    else {
-        console.log("Incorect username or password");
-    }        
-}
+    // Change listeners to put form values in state
+    handleEmailChange(e) {
+        this.setState({email: e.target.value});
+        if (localStorage.getItem("rememberMe") === "true") {
+            localStorage.setItem("email", e.target.value);
+        }
+    };
 
-// Change listeners to put form values in state
-handleEmailChange(e) {
-    this.setState({email: e.target.value});
-    if (localStorage.getItem("rememberMe") === "true")
-    {
-        localStorage.setItem("email", e.target.value);
+    handlePasswordChange(e) {
+        this.setState({password: e.target.value});
     }
-};
 
-handlePasswordChange(e) {
-    this.setState({password: e.target.value});
-}
-
-handleFirstNameChange(e) {
-    this.setState({firstName: e.target.value});
-}
-
-handleLastNameChange(e) {
-    this.setState({lastName: e.target.value});
-}
-
-handleRememberMeChange(e) {
-    console.log("remember me");
-    if (e.target.checked)
-    {
-        this.setState({rememberMe: true});
-        localStorage.setItem("rememberMe", true);
-        localStorage.setItem("email", this.state.email);
+    handleFirstNameChange(e) {
+        this.setState({firstName: e.target.value});
     }
-    else
-    {
-        this.setState({rememberMe: false});
-        localStorage.setItem("rememberMe", false);
-        localStorage.setItem("email", "");
-    }
-}
 
-handleCompanyChange(e)
-{
-    this.setState({company: e.target.value});
-}
+    handleLastNameChange(e) {
+        this.setState({lastName: e.target.value});
+    }
+
+    handleRememberMeChange(e) {
+        console.log("remember me");
+        if (e.target.checked) {
+            this.setState({rememberMe: true});
+            localStorage.setItem("rememberMe", true);
+            localStorage.setItem("email", this.state.email);
+        }
+        else {
+            this.setState({rememberMe: false});
+            localStorage.setItem("rememberMe", false);
+            localStorage.setItem("email", "");
+        }
+    }
+
+    handleCompanyChange(e) {
+        this.setState({company: e.target.value});
+    }
+
     render() {
         return (
             <div style={{"padding": "20px"}}>
@@ -206,8 +197,8 @@ handleCompanyChange(e)
                                     </Form.Text>
                                 </Form.Group>
                                 <Form.Group>
-                                <Form.Label>Company</Form.Label>
-                                <Form.Control type="text" placeholder="Enter company" onChange={this.handleCompanyChange}/>
+                                    <Form.Label controlId="formBasicCompany">Company</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter company" value={this.state.company} onChange={this.handleCompanyChange}/>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>

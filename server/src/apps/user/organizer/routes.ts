@@ -9,10 +9,12 @@
 import express = require('express');
 import { Organizer } from './organizer';
 const OrganizerRouter = express.Router();
+import { v4 as uuid } from 'uuid';
 
 
 // Create New Organizer
 OrganizerRouter.post("/", async (req, res) => {
+    req.body._id = uuid();
     if (await Organizer.db.save(req.body)) {
         // New Resource Created
         res.sendStatus(201);

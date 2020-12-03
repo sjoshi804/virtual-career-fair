@@ -9,10 +9,12 @@
 import express = require('express');
 import { Recruiter } from './recruiter';
 const RecruiterRouter = express.Router();
+import { v4 as uuid } from 'uuid';
 
 
 // Create New Recruiter
 RecruiterRouter.post("/", async (req, res) => {
+    req.body._id = uuid();
     if (await Recruiter.db.save(req.body)) {
         // New Resource Created
         res.sendStatus(201);
@@ -20,7 +22,6 @@ RecruiterRouter.post("/", async (req, res) => {
         res.sendStatus(400); 
     }
 });
-
 
 // Get All Recruiters
 RecruiterRouter.get("/", async (req, res) => {
@@ -43,7 +44,6 @@ RecruiterRouter.get("/:userid", async (req, res) => {
         res.sendStatus(404);
     }
 });
-
 
 // Update Specific Recruiter
 RecruiterRouter.put("/:userid", async (req, res) => {
@@ -73,7 +73,6 @@ RecruiterRouter.put("/:userid", async (req, res) => {
         return;
     }
 });
-
 
 // Delete Specific User
 RecruiterRouter.delete("/:userid", async (req, res) => {
