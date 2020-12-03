@@ -15,7 +15,8 @@ const endpointsWithoutAuthentication =
     "/api/organizer/"               : ["POST"],
     "/api/company/"                 : ["GET"],
     "/api/careerfair/"              : ["GET"],
-    "/api/company/:companyId/job/"  : ["GET"]
+    "/api/company/:companyId/job/"  : ["GET"],
+    "/"                             : ["GET"]
 }
 
 // Checks if endpoint should be authenticated for a given method
@@ -30,6 +31,11 @@ const shouldAuthenticateEndpoint = (endpoint, httpMethod) =>
         {
             
             endpoint = "/api/company/:companyId/job/";
+        }
+
+        if (!endpoint.startsWith("/api"))
+        {
+            endpoint = "/";
         }
     }
 
