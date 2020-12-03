@@ -12,6 +12,8 @@ class CareerFairDBSchema
     // Organizer: id field
     public organizer: string;
 
+    public name: string;
+
     // Booths in career fair: companyId -> Booth 
     // FIXME: FUTURE: Change to booth db schema in futre
     public booths: Map<string, Booth>;
@@ -45,6 +47,7 @@ class CareerFairDBSchema
         this.booths = object.booths
 
         // Copy over rest of the member fields
+        this.name = object.name;
         this.attendingApplicants = object.attendingApplicants;
         this.attendingRecruiters = object.attendingRecruiters;
         this.startTime = object.startTime;

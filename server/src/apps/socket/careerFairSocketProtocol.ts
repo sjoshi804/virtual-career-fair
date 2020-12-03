@@ -1,4 +1,5 @@
 import { CareerFair } from "../careerFair/careerFair";
+import { Company } from "../company/company";
 import { User } from "../user/user";
 import { AbstractSocketProtocol } from "./abstractSocketProtocol";
 
@@ -13,7 +14,7 @@ import { AbstractSocketProtocol } from "./abstractSocketProtocol";
 class CareerFairSocketUserTable
 {
     // First map in tuple is socketId->userId, second is userId->socketId
-    private map: Map<string, [Map<string, string>, Map<string, string>]>;
+    public map: Map<string, [Map<string, string>, Map<string, string>]>;
 
     // Initialize map
     constructor()
@@ -24,6 +25,7 @@ class CareerFairSocketUserTable
     // Insert
     public insert(careerFair: string, socketId: string, userId: string)
     {
+        console.log(userId);
         // If career fair not accessed before, initialize maps for it
         if (!this.map.has(careerFair))
         {
@@ -42,7 +44,14 @@ class CareerFairSocketUserTable
 
     public getSocketId(careerFair: string, userId: string)
     {
+        try 
+        {
         return this.map.get(careerFair)[1].get(userId);
+        }
+        catch 
+        {
+            return null
+        }
     }
 
     // Has
@@ -197,7 +206,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 socket.on("startNextMeeting", (data) => 
                 {   
                     CareerFairSocketProtocol.log("startNextMeeting", data);
-                    this.startNextMeeting(socket, data.careerFair, data.company, data.signalData);
+                    this.startNextMeeting(socket, data.careerFair, data.company);
                 });
                 
                 // Cancel meeting
@@ -211,7 +220,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 socket.on("acceptMeetingCall", (data) =>
                 {
                     CareerFairSocketProtocol.log("acceptMeetingCall", data);
-                    this.acceptMeetingCall(data.recruiter, data.peerJsId)
+                    this.acceptMeetingCall(data.token, data.careerFair, data.recruiter, data.peerJsId)
                 });
             }
         );
@@ -264,19 +273,17 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
     //  Disconnection
     public onDisconnection(socket: any)
     {
-        this.users.deleteBySocketId(socket.id);
+        // FIXME: this was breaking things
+        //this.users.deleteBySocketId(socket.id);
     }
 
     // Private Event Handlers
-    public static numJoin = 0;
     private async joinQueue(socket: any, careerFair: string, company: string)
     {
         // Get live career fair instance
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
 
         // If failed to join queue with user id log customError
-        console.log("NumJoin", CareerFairSocketProtocol.numJoin);
-        CareerFairSocketProtocol.numJoin += 1;
         console.log(this.users.getUserId(careerFair, socket.id));
         if (!currentFair.booths[company].queue.joinQueue(this.users.getUserId(careerFair, socket.id)))
         {
@@ -338,7 +345,7 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         
     }
 
-    private async startNextMeeting(socket: any, careerFair: string, company: string, signalData: any)
+    private async startNextMeeting(socket: any, careerFair: string, company: string)
     {
         // Get career fair
         const currentFair = await CareerFair.getLiveCareerFair(careerFair);
@@ -370,11 +377,13 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
                 applicant: nextApplicant
             });
 
+            const companyData = (await Company.db.findOne({_id: company}));
+
             // Call applicant
             this.namespace.to(this.users.getSocketId(careerFair, nextApplicant)).emit("incomingMeetingCall", 
             {
-                company: company,
-                recruiter: socket.id
+                company: companyData.name,
+                recruiter: socket.id.replace("/careerfair#", "")
             });
         }
     }
@@ -392,10 +401,11 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         }
     }
 
-    private acceptMeetingCall(recruiter: string, peerJsId: string) 
+    private acceptMeetingCall(token: string, careerFair: string, recruiter: string, peerJsId: string) 
     {
-        this.namespace.to(recruiter).emit("acceptMeetingCall", 
+        this.namespace.to("/careerfair#" + recruiter).emit("acceptMeetingCall", 
         {
+            applicantId: User.getDataFromToken(token).id,
             peerJsId: peerJsId
         });
     }

@@ -1,6 +1,3 @@
-import { CareerFair } from "../careerFair/careerFair";
-import { CareerFairSocketProtocol } from "../socket/careerFairSocketProtocol";
-
 class Queue 
 {
     // List of ids / usernames

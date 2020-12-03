@@ -158,11 +158,11 @@ handleCompanyChange(e)
     render() {
         return (
             <div style={{"padding": "20px"}}>
-                    <Card style={{"boxShadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px", "max-width": "80%", "margin": "auto"}}>
+                    <Card style={{"box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)", "padding": "20px", "max-width": "80%", "margin": "auto"}}>
                         <Tabs defaultActiveKey="signin" id="uncontrolled-tab-example" style={{"margin": "auto"}}>
                             <Tab eventKey="signin" title="Sign In">
                             <h3>Sign In</h3> 
-                            <Form style={{"paddingTop": "10px"}}>
+                            <Form style={{"padding-top": "10px"}}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleEmailChange} />
