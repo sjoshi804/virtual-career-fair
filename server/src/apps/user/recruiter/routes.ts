@@ -14,11 +14,19 @@ import { v4 as uuid } from 'uuid';
 
 // Create New Recruiter
 RecruiterRouter.post("/", async (req, res) => {
+    //FIXME: Ensure id is string, FUTURE: make less hacky
     req.body._id = uuid();
-    if (await Recruiter.db.save(req.body)) {
-        // New Resource Created
-        res.sendStatus(201);
-    } else {
+    const successfulInsert = await Recruiter.db.save(req.body);
+    if (successfulInsert) {
+        // Return token so that user is now 'logged in' as well
+        const recruiterObj = new Recruiter(await Recruiter.db.findOne({_id: req.body._id}));
+        res.status(201).send(
+            {
+                token: recruiterObj.getToken()
+            });
+    } 
+    else {
+        // Something failed in recruiter creation, assume bad request
         res.sendStatus(400); 
     }
 });

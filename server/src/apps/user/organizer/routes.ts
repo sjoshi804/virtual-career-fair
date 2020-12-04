@@ -14,11 +14,19 @@ import { v4 as uuid } from 'uuid';
 
 // Create New Organizer
 OrganizerRouter.post("/", async (req, res) => {
+    //FIXME: Ensure id is string, FUTURE: make less hacky
     req.body._id = uuid();
-    if (await Organizer.db.save(req.body)) {
-        // New Resource Created
-        res.sendStatus(201);
-    } else {
+    const successfulInsert = await Organizer.db.save(req.body);
+    if (successfulInsert) {
+        // Return token so that user is now 'logged in' as well
+        const organizerObj = new Organizer(await Organizer.db.findOne({_id: req.body._id}));
+        res.status(201).send(
+            {
+                token: organizerObj.getToken()
+            });
+    } 
+    else {
+        // Something failed in organizer creation, assume bad request
         res.sendStatus(400); 
     }
 });
