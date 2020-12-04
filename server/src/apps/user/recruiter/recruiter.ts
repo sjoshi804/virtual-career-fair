@@ -1,6 +1,7 @@
 import { User } from '../user'
 import { RecruiterDBSchema } from './recruiterDBSchema';
 import { ISerializable } from '../../../db/iSerializable';
+import { UserDBSchema } from '../userDBSchema';
 
 class Recruiter extends User implements ISerializable {
 
@@ -8,13 +9,11 @@ class Recruiter extends User implements ISerializable {
     private jobTitle: string;
     private yearsOfExperience: number;
 
-    public constructor(userType: number, name: string, email: string, password: string,
-        company: string, jobTitle: string, yearsOfExperience: number) {
-
-        super(userType, name, email, password);
-        this.company = company;
-        this.jobTitle = jobTitle;
-        this.yearsOfExperience = yearsOfExperience;
+    public constructor(serialized: UserDBSchema, userType?: number, name?: string, email?: string, password?: string,
+        company?: string, jobTitle?: string, yearsOfExperience?: number) {
+            if (serialized != undefined) {
+                super(serialized.userType, serialized.name, serialized.email, serialized.password, serialized._id);
+            }
     }
 
     public serialize() {

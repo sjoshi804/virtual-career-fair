@@ -30,10 +30,10 @@ export default class OrganizerLivePage extends React.Component {
             
             <Card.Text>
                 <br></br>
-                <b>Recruiters Attending: </b> 13
+                <b>Recruiters Attending: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
                 <br></br>
                 <br></br>
-                <b>Recruiters Registered: </b> 15
+                <b>Recruiters Registered: </b>{Math.floor(Math.random() * Math.floor(5)) + 5}
             </Card.Text>
             <DetailedStats></DetailedStats>
             </Card.Body>
@@ -46,10 +46,10 @@ export default class OrganizerLivePage extends React.Component {
             
             <Card.Text>
             <br></br>
-                <b>Students Attending: </b> 31
+                <b>Students Attending: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
                 <br></br>
                 <br></br>
-                <b>Students Registered: </b> 40
+                <b>Students Registered: </b> {Math.floor(Math.random() * Math.floor(5)) + 5}
             </Card.Text>
             <DetailedStats></DetailedStats>
             </Card.Body>
@@ -65,10 +65,10 @@ export default class OrganizerLivePage extends React.Component {
             
             <Card.Text>
             <br></br>
-                <b>Companies Attending: </b> 8
+                <b>Companies Attending: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
                 <br></br>
                 <br></br>
-                <b>Companies Registered: </b> 10
+                <b>Companies Registered: </b> {Math.floor(Math.random() * Math.floor(5)) + 5}
             </Card.Text>
             <DetailedStats></DetailedStats>
             </Card.Body>
@@ -82,7 +82,7 @@ export default class OrganizerLivePage extends React.Component {
             
             <Card.Text>
             <br></br>
-                22
+            {Math.floor(Math.random() * Math.floor(5)) + 15}
                 <br></br>
                 
             </Card.Text>

@@ -6,19 +6,21 @@ import Peer from 'peerjs';
 const io = require('socket.io-client');
 const Completionist = () => <span>Career fair ended.</span>;
 const testCareerFairId = "5fc39d53403560f171489b2a";
-const testCompanyId = "5fbde92b766609b584e59545";
+
+const microsoftId = "5fbde92b766609b584e59545";
+const atlassianId = "5fbdec768c1b12b5c4645afa";
 
 
 class RecruiterLivePage extends React.Component {
     constructor(props)
     {
         super(props);
-        this.state = 
-        {
+        this.state = {
             careerFairName: "Test Career Fair",
             organizer: "Test Organizer",
-            careerFairId: testCareerFairId,
-            companyId: testCompanyId,
+            companyName: props.match.params.companyName || "",
+            careerFairId: props.match.params.careerFairId || testCareerFairId,
+            companyId: (props.match.params.companyName == 'Microsoft'? microsoftId : atlassianId),
             numInQueue: 0
         }
         this.startNextMeeting = this.startNextMeeting.bind(this);
@@ -88,7 +90,7 @@ class RecruiterLivePage extends React.Component {
         this.clientSocket.on("acceptMeetingCall", (data) =>
         {
             console.log("Call acceptance");
-            this.handleRoute(`/recruiter-video-call/${this.state.careerFairId}/${this.state.companyId}/${data.applicantId}/${data.peerJsId}`)();
+            this.handleRoute(`/recruiter-video-call/${this.state.careerFairId}/${this.state.companyId}/${data.applicantId}/${data.peerJsId}/${this.state.companyName}`)();
         })
 
         // Connect
@@ -134,7 +136,8 @@ class RecruiterLivePage extends React.Component {
         return (
         <div style={{padding: "20px", "text-align": "center"}}>
             <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
-                <h2><b>{this.state.careerFairName}</b></h2>
+                <h1><b>{this.state.careerFairName}</b></h1>
+                <h4><b>{this.state.companyName}</b></h4>
             </Card>
             <br></br>
             <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
@@ -142,7 +145,7 @@ class RecruiterLivePage extends React.Component {
                     <b>Time left in career fair:</b>
                 </h4>
                 <h5>
-                    <Countdown date={Date.now() + 500000000}>
+                    <Countdown date={Date.now() + 5000000}>
                         <Completionist />
                     </Countdown>
                 </h5>

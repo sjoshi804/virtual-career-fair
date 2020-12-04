@@ -19,6 +19,10 @@ export default class StudentLoginPage extends React.Component {
             firstName: "",
             lastName: "",
             password: "",
+            major: "",
+            gradYear: "",
+            school: "",
+            bio: "",
             rememberMe: (localStorage.getItem("rememberMe") === "true") || false
         }
 
@@ -30,6 +34,10 @@ export default class StudentLoginPage extends React.Component {
         this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
         this.handleLastNameChange = this.handleLastNameChange.bind(this);
         this.handleRememberMeChange = this.handleRememberMeChange.bind(this);
+        this.handleMajorChange = this.handleMajorChange.bind(this);
+        this.handleGradYearChange = this.handleGradYearChange.bind(this);
+        this.handleSchoolChange = this.handleSchoolChange.bind(this);
+        this.handleBioChange = this.handleBioChange.bind(this);
     }
 
     handleRoute = route => () => {
@@ -43,11 +51,14 @@ export default class StudentLoginPage extends React.Component {
             {
                 method: "POST",
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(
-                {
-                    name: this.state.firstName + this.state.lastName,
+                body: JSON.stringify({
+                    name: this.state.firstName + " " + this.state.lastName,
                     email: this.state.email,
-                    password: passwordHash.generate(this.state.password)
+                    password: passwordHash.generate(this.state.password),
+                    major: this.state.major,
+                    graduationYear: this.state.gradYear,
+                    affiliatedSchool: this.state.school,
+                    bio: this.state.bio
                 })
             })
             .then(response => 
@@ -71,6 +82,7 @@ export default class StudentLoginPage extends React.Component {
         else
         {
             console.log("Token not returned. Display error message. User already exists.");
+            alert("This user already exists. Try signing in instead.");
         }
         
     }
@@ -107,6 +119,7 @@ export default class StudentLoginPage extends React.Component {
         }
 
         else {
+            alert("Incorrect username or password");
             console.log("Incorect username or password");
         }        
     }
@@ -130,6 +143,22 @@ export default class StudentLoginPage extends React.Component {
 
     handleLastNameChange(e) {
         this.setState({lastName: e.target.value});
+    }
+
+    handleMajorChange(e) {
+        this.setState({major: e.target.value});
+    }
+
+    handleGradYearChange(e) {
+        this.setState({gradYear: e.target.value});
+    }
+
+    handleSchoolChange(e) {
+        this.setState({school: e.target.value});
+    }
+
+    handleBioChange(e) {
+        this.setState({bio: e.target.value});
     }
 
     handleRememberMeChange(e) {
@@ -197,6 +226,22 @@ export default class StudentLoginPage extends React.Component {
                                     <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
                                     </Form.Text>
+                                </Form.Group>
+                                <Form.Group controlId="formMajor">
+                                    <Form.Label>Major</Form.Label>
+                                    <Form.Control type="text" placeholder="E.g. Computer Science, Physics, etc." value={this.state.major} onChange={this.handleMajorChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formGraduationYear">
+                                    <Form.Label>Graduation Year</Form.Label>
+                                    <Form.Control type="text" placeholder="E.g. 2021, 2022, 2023" value={this.state.gradYear} onChange={this.handleGradYearChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formAffiliatedSchool">
+                                    <Form.Label>Affiliated School</Form.Label>
+                                    <Form.Control type="text" placeholder="E.g. UCLA, Columbia University" value={this.state.school} onChange={this.handleSchoolChange}/>
+                                </Form.Group>
+                                <Form.Group controlId="formBio">
+                                    <Form.Label>Bio</Form.Label>
+                                    <Form.Control as="textarea" placeholder="Add a summary about yourself" value={this.state.bio} onChange={this.handleBioChange}/>
                                 </Form.Group>
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
