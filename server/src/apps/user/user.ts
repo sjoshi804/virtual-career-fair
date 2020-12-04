@@ -37,13 +37,9 @@ class User implements IHasID {
             this.password = hashedPassword;
         }
 
-        // If id not passed in, create one
-        if (id == undefined)
-        {
-            this.id = uuid();
-        }
-        else
-        {
+        if (id == undefined) {
+            this.id == uuid();
+        } else {
             this.id = id;
         }
     }
@@ -58,6 +54,7 @@ class User implements IHasID {
     // Verify if a token is valid
     public static async validateToken(token: string) {
         var userData = User.getDataFromToken(token);
+        console.log(userData);
 
         // Check for error
         if (message in userData) {
@@ -67,14 +64,13 @@ class User implements IHasID {
 
         // Instantiate user object 
         const filterQuery = {
-            email: userData.email
+            _id: userData.id
         }
+
         const user = await User.db.findOne(filterQuery);
 
         // Verify that the data matches the instantiated user's data
-        if ((userData.name == user.name) && (userData.email == user.email) && 
-            (userData.password  == user.password)) 
-        {
+        if ((userData != undefined) && (userData.id == user._id)) {
             return true
         }
         

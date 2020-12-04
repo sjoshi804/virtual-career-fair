@@ -1,12 +1,69 @@
 import React from "react";
 import { Row, Col, Container, Card, Button, CardGroup, Image} from "react-bootstrap";
-import profile from '../Images/profile.jpg'; 
+import profile from '../Images/profile.jpg';
+import { baseUrl } from "../.config";
 
 export default class StudentProfilePage extends React.Component {
+    
+    constructor() {
+        super();
+
+        this.state = {
+            name: "",
+            major: "",
+            graduationYear: "",
+            affiliatedSchool: "",
+            bio: ""
+        }
+    }
+
+    async componentDidMount() {
+        const emailId = localStorage.getItem("email");
+        const queryUrl = baseUrl + "/applicant/" + emailId + "/";
+
+        const user = await fetch(queryUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("Authorization")
+            }
+        })
+        .then(response => {
+            if (response.status == 404 || response.status == 401) {
+                return undefined;
+            }
+            else {
+                return response.json()
+            }
+        });
+        
+        if (user != undefined && 'name' in user) {
+            this.setState({
+                name: user.name,
+                major: user.major,
+                graduationYear: user.graduationYear,
+                affiliatedSchool: user.affiliatedSchool,
+                bio: user.bio
+            });
+        }
+        // Resolve to default values
+        else {
+            this.setState({
+                name: "Denise Wang",
+                major: "Computer Science",
+                graduationYear: "2021",
+                affiliatedSchool: "UCLA",
+                bio: "I am a graduating senior."
+            })
+        }
+
+    }
+    
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
-        };
-  render() {
+        
+    };
+    
+    render() {
     const livecareerfairs = ['1'];
     const liveitems = []
   
@@ -80,6 +137,7 @@ export default class StudentProfilePage extends React.Component {
         </Card>
       )
     }
+    
     return (
       <div style={{ "background-color": "white", color: "white", "textAlign": "center" }}>
         <div style={{ "color": "black", "padding": "20px"}}>
@@ -89,11 +147,12 @@ export default class StudentProfilePage extends React.Component {
                     <Image src={profile} rounded height="150px"/>
                     <br></br>
                     <br></br>
-                    <Card.Title>Denise Wang</Card.Title>
+                    <Card.Title>{this.state.name}</Card.Title>
                     <Card.Text>
-                        <p> <b>School: </b> University of California, Los Angeles (UCLA) </p>
-                        <p> <b>Expected graduation: </b> June 2021 </p>
-                        <p> <b>Seeking:</b> Full time software engineering roles.</p>
+                        <p> <b> Major: </b> {this.state.major} </p>
+                        <p> <b>School: </b> {this.state.school} </p>
+                        <p> <b>Expected graduation: </b> {this.state.graduationYear} </p>
+                        <p> <b>Summary:</b> {this.state.bio} </p>
                     </Card.Text>
                     <Button variant="light" onClick={this.handleRoute("/student-resume")}>Upload Resume</Button>
                 </Card.Body>

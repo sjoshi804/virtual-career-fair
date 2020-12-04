@@ -1,5 +1,6 @@
 import { User } from '../user';
 import { ApplicantDBSchema } from './applicantDBSchema';
+import { UserDBSchema } from '../userDBSchema';
 import { ISerializable } from '../../../db/iSerializable';
 
 class Applicant extends User implements ISerializable {
@@ -9,21 +10,11 @@ class Applicant extends User implements ISerializable {
     private affiliatedSchool: string;
     private bio: string;
 
-    public constructor(serialized?: ApplicantDBSchema, userType?: number, name?: string, email?: string, password?: string, major?: string, graduationYear?: number, affiliatedSchool?: string, bio?: string, ) 
+    public constructor(serialized: UserDBSchema, userType?: number, name?: string, email?: string, password?: string, major?: string, graduationYear?: number, affiliatedSchool?: string, bio?: string, ) 
     {
-        if (serialized != undefined)
-        {
-            super(serialized.userType, serialized.name, serialized.email, serialized.password);
+        if (serialized != undefined) {
+            super(serialized.userType, serialized.name, serialized.email, serialized.password, serialized._id);
         }
-        else
-        {
-            super(userType, name, email, password);
-            this.major = major;
-            this.graduationYear = graduationYear;
-            this.affiliatedSchool = affiliatedSchool;
-            this.bio = bio;
-        }
-
     }
 
     public serialize() {
