@@ -2,7 +2,7 @@ import React from "react";
 import {Card, CardDeck, Button, Modal} from "react-bootstrap";
 import google from '../Images/google.jpg'; 
 import { MoreInfo } from './MoreInfo'
-import { baseUrl } from "../.config";
+import { baseUrl, socketBaseUrl } from "../.config";
 import Peer from 'peerjs';
 
 const io = require('socket.io-client');
@@ -15,7 +15,7 @@ export default class StudentLivePage extends React.Component {
       this.state = 
       {
         // TODO: Set career fair id from what was obtained to URL
-        careerFairId: testCareerFairId,
+        careerFairId: props.match.params.careerFairId,
         careerFairName: "Test Career Fair",
         organizer: "Test Organizer",
         companies: [],
@@ -53,7 +53,7 @@ export default class StudentLivePage extends React.Component {
         SOCKET
         */
         // Create socket
-        this.clientSocket = io("ws://localhost:3000/careerfair");
+        this.clientSocket = io(`${socketBaseUrl}/careerfair`);
 
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
         this.clientSocket.on("queueUpdate", (data) =>
@@ -280,11 +280,9 @@ export default class StudentLivePage extends React.Component {
       <div style={{ "text-align": "center", "margin": "20px 20px" }}>
         <Card style={{"box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "margin-bottom": "20px"}}>
           <br></br>
-          <h2><b>Career Fair #1</b></h2>
+          <h2><b>{this.state.careerFairName}</b></h2>
           <br></br>
-          <h5><b>Date: </b>Today, October 25, 2020</h5>
-          <br></br>
-          <h5><b>Time: </b>Live Now, 11 PST - 3PM PST</h5>
+          <h5><b>Live Now!</b></h5>
           <br></br>
         </Card>
         <CardDeck>
