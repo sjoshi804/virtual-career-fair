@@ -89,7 +89,7 @@ class Main extends React.Component {
       
             {/*Private Routes*/}
             <PrivateRoute path="/student" component={StudentProfilePage} redirectTo={"/student-login"} exact/>
-            <PrivateRoute path="/student-live" component={StudentLivePage} redirectTo={"student-login"} exact/>
+            <PrivateRoute path="/student-live/:careerFairId" component={StudentLivePage} redirectTo={"student-login"}/>
             <PrivateRoute path="/student-past" component={StudentPastPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-upcoming" component={StudentUpcomingPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-video-call/:careerFairId/:recruiterId" component={StudentVideoCall} />
@@ -102,7 +102,7 @@ class Main extends React.Component {
             <PrivateRoute path="/managefair" component={ManageFairPage} redirectTo={"/organizer-login"} exact/>
 
             <PrivateRoute path="/recruiter" component={RecruiterProfilePage} redirectTo={"/recruiter-login"} exact/>
-            <PrivateRoute path="/recruiter-live" component={RecruiterLivePage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-live/:careerFairId/:companyId" component={RecruiterLivePage} redirectTo={"/recruiter-login"}/>
             <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-video-call/:careerFairId/:companyId/:applicantId/:applicantPeerJsId" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>

@@ -13,12 +13,11 @@ class RecruiterLivePage extends React.Component {
     constructor(props)
     {
         super(props);
-        this.state = 
-        {
+        this.state = {
             careerFairName: "Test Career Fair",
             organizer: "Test Organizer",
-            careerFairId: testCareerFairId,
-            companyId: testCompanyId,
+            careerFairId: props.match.params.careerFairId || testCareerFairId,
+            companyId: props.match.params.companyId || testCompanyId,
             numInQueue: 0
         }
         this.startNextMeeting = this.startNextMeeting.bind(this);

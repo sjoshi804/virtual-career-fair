@@ -13,7 +13,23 @@ export default class StudentProfilePage extends React.Component {
             major: "",
             graduationYear: "",
             affiliatedSchool: "",
-            bio: ""
+            bio: "",
+            liveFairs: [],
+            pastFairs: [],
+            upcomingFairs: []
+        }
+    }
+
+    // Return status of career fair
+    getCareerFairStatus(startTime, endTime){
+        startTime = new Date(startTime);
+        endTime = new Date(endTime);
+        if (startTime < new Date() && endTime > new Date()){
+            return "Live";
+        } else if (endTime < new Date()) {
+            return "Past";
+        } else {
+            return "Upcoming";
         }
     }
 
@@ -35,6 +51,31 @@ export default class StudentProfilePage extends React.Component {
                 return response.json()
             }
         });
+
+        var careerfairsData = [];
+        careerfairsData = await fetch(baseUrl + "/careerfair", {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("Authorization")
+            }
+        })
+        .then(response => response.json());
+
+        var livefairs = [];
+        var pastfairs = [];
+        var upcomingfairs = [];
+        careerfairsData.forEach(careerfair => {
+            var startTime = careerfair.startTime;
+            var endTime = careerfair.endTime;
+            const status = this.getCareerFairStatus(startTime, endTime);
+            if (status == 'Live') {
+                livefairs.push(careerfair);
+            } else if (status == 'Past') {
+                pastfairs.push(careerfair);
+            } else {
+                upcomingfairs.push(careerfair);
+            }
+        });
         
         if (user != undefined && 'name' in user) {
             this.setState({
@@ -42,7 +83,10 @@ export default class StudentProfilePage extends React.Component {
                 major: user.major,
                 graduationYear: user.graduationYear,
                 affiliatedSchool: user.affiliatedSchool,
-                bio: user.bio
+                bio: user.bio,
+                liveFairs: livefairs,
+                pastFairs: pastfairs,
+                upcomingFairs: upcomingfairs
             });
         }
         // Resolve to default values
@@ -52,7 +96,10 @@ export default class StudentProfilePage extends React.Component {
                 major: "Computer Science",
                 graduationYear: "2021",
                 affiliatedSchool: "UCLA",
-                bio: "I am a graduating senior."
+                bio: "I am a graduating senior.",
+                liveFairs: livefairs,
+                pastFairs: pastfairs,
+                upcomingFairs: upcomingfairs
             })
         }
 
@@ -64,78 +111,51 @@ export default class StudentProfilePage extends React.Component {
     };
     
     render() {
-    const livecareerfairs = ['1'];
-    const liveitems = []
-  
-    for (const [index, value] of livecareerfairs.entries()) {
-      liveitems.push(
-          // FIXME: onClick listener should redirect to /live/careerFairId -> renders StudentLivePage with this.prop.careerFairId
-        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
-            <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
-            <Card.Body>
-            <Card.Text>
-                <p><b>Date: </b>Today, October 25, 2020</p>
-                <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button onClick={this.handleRoute("/student-live")} variant="outline-success">Join Now</Button>
-            </Card.Text>
-            </Card.Body>
-        </Card>
-      )
-    }
-    const registered = 1;
-    const upcoming_careerfairs = ['2', '3', '4'];
-    const upcoming_reg = []
-    const upcoming_unreg = []
-  
-    for (const [index, value] of upcoming_careerfairs.entries()) {
-        if (registered){
-            upcoming_reg.push(
-          
-                <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
-                    <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
-                    <Card.Body>
-                    <Card.Text>
-                        <p><b>Date: </b>Today, October 25, 2020</p>
-                        <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
-                    </Card.Text>
-                    </Card.Body>
-                </Card>)
-        }
-        else{
-            upcoming_unreg.push(
-          
-                <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
-                    <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
-                    <Card.Body>
-                    <Card.Text>
-                        <p><b>Date: </b>Today, October 25, 2020</p>
-                        <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                        <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
-                    </Card.Text>
-                    </Card.Body>
-                </Card>)
-        }
-      
-    }
 
-    const pastcareerfairs = ['7', '8', '9'];
-    const pastitems = []
+    const live = [];
+    const upcoming = [];
+    const past = [];
   
-    for (const [index, value] of pastcareerfairs.entries()) {
-      pastitems.push(
-          
-        <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}} key={index}>
-            <Card.Header><h3>Career Fair #{value}</h3></Card.Header>
-            <Card.Body>
-            <Card.Text>
-                <p><b>Date: </b>Today, October 25, 2020</p>
-                <p><b>Time: </b>Live Now, 11 PST - 3PM PST</p>
-                <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Fair</Button>
-            </Card.Text>
-            </Card.Body>
-        </Card>
-      )
+    for (const careerfair of this.state.liveFairs) {
+        live.push(
+            <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}}>
+                <Card.Header><h3>{careerfair.name}</h3></Card.Header>
+                <Card.Body>
+                <Card.Text>
+                    <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
+                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <Button variant="outline-success" onClick={this.handleRoute("/student-live/" + careerfair._id)}>Join Now</Button>
+                </Card.Text>
+                </Card.Body>
+            </Card>)   
+    }
+  
+    for (const careerfair of this.state.upcomingFairs) {
+        upcoming.push(
+            <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}}>
+                <Card.Header><h3>{careerfair.name}</h3></Card.Header>
+                <Card.Body>
+                <Card.Text>
+                    <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
+                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
+                </Card.Text>
+                </Card.Body>
+            </Card>)   
+    }
+  
+    for (const careerfair of this.state.pastFairs) {
+        past.push(
+            <Card style={{ "padding-bottom": "10px", "width": "50%", "margin": "auto"}}>
+                <Card.Header><h3>{careerfair.name}</h3></Card.Header>
+                <Card.Body>
+                <Card.Text>
+                    <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
+                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Details</Button>
+                </Card.Text>
+                </Card.Body>
+            </Card>)   
     }
     
     return (
@@ -154,31 +174,24 @@ export default class StudentProfilePage extends React.Component {
                         <p> <b>Expected graduation: </b> {this.state.graduationYear} </p>
                         <p> <b>Summary:</b> {this.state.bio} </p>
                     </Card.Text>
+                    {/* TODO: Student Resume Does Not Work / Not Incomplete */}
                     <Button variant="light" onClick={this.handleRoute("/student-resume")}>Upload Resume</Button>
                 </Card.Body>
                 {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             </Card>
         </div>
-        <div style={{"padding": "20px", "color": "black"}}>
-            <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-               <Card.Header><h2><b>Live Career Fairs</b></h2></Card.Header>
-                <p></p>
-                    {liveitems}
-            </Card>
-        </div>
-        <div style={{"padding": "20px", "color": "black"}}>
-            <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-            <Card.Header><h2><b>Upcoming Career Fairs (Registered)</b></h2></Card.Header>
-                <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
-                    {upcoming_reg}
-                </CardGroup>
-            </Card>
+            <div style={{"padding": "20px", "color": "black"}}>
+                <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
+                <Card.Header><h2><b>Live Career Fairs</b></h2></Card.Header>
+                    <p></p>
+                        {live}
+                </Card>
             </div>
             <div style={{"padding": "20px", "color": "black"}}>
                 <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
-                <Card.Header><h2><b>Upcoming Career Fairs (Not Registered)</b></h2></Card.Header>
+                <Card.Header><h2><b>Upcoming Career Fairs</b></h2></Card.Header>
                     <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
-                        {upcoming_unreg}
+                        {upcoming}
                     </CardGroup>
                 </Card>
             </div>
@@ -186,7 +199,7 @@ export default class StudentProfilePage extends React.Component {
             <Card style={{"padding": "20px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)" }}>
             <Card.Header><h2><b>Past Career Fairs Attended</b></h2></Card.Header>
                 <CardGroup style={{ "width": "100%", "padding": "0 20px 20px 20px", "paddingTop": "20px"}}>
-                    {pastitems}
+                    {past}
                 </CardGroup>
             </Card>
             </div>
