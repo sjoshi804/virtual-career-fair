@@ -24,7 +24,7 @@ RecruiterRouter.post("/", async (req, res) => {
             {
                 token: recruiterObj.getToken()
             });
-    } 
+    }
     else {
         // Something failed in recruiter creation, assume bad request
         res.sendStatus(400); 
