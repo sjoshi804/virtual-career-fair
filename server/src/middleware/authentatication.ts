@@ -59,6 +59,7 @@ const authenticate = async (req, res, next) =>
         {
             authToken = authToken.replace("Bearer ", "").replace("Basic ", "");
         }
+        console.log(authToken);
 
         if (authToken !== undefined && await User.validateToken(authToken))
         {

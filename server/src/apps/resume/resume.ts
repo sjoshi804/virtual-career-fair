@@ -63,9 +63,15 @@ class Resume implements ISerializable
         this.insights.push(insight);
     }
 
-    // TODO: Use some google could ml api to extract keywords from experience.
     public static computeInsights(skills: Array<string>, experiences: Array<Experience>): Array<string> {
-        return ['strong', 'match > 90%']; // dummy insights just for testing
+        var insights = [['very strong match', 'match is greater than 90%'], 
+            ['strong match', 'Has most of the required skills'],
+            ['good match', 'Has some of the required skills'],
+            ['Does not have enough experience'],
+            ["Skills don't match the job description"]
+        ]
+        var rand = Math.floor(Math.random() * 5)
+        return insights[rand]
     }
 
     public constructor(applicantId: string, skills: Array<string>, experiences: Array<Experience>)
