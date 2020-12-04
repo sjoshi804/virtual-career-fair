@@ -6,7 +6,9 @@ import Peer from 'peerjs';
 const io = require('socket.io-client');
 const Completionist = () => <span>Career fair ended.</span>;
 const testCareerFairId = "5fc39d53403560f171489b2a";
-const testCompanyId = "5fbde92b766609b584e59545";
+
+const microsoftId = "5fbde92b766609b584e59545";
+const atlassianId = "5fbdec768c1b12b5c4645afa";
 
 
 class RecruiterLivePage extends React.Component {
@@ -18,7 +20,7 @@ class RecruiterLivePage extends React.Component {
             organizer: "Test Organizer",
             companyName: props.match.params.companyName || "",
             careerFairId: props.match.params.careerFairId || testCareerFairId,
-            companyId: props.match.params.companyId || testCompanyId,
+            companyId: (props.match.params.companyName == 'Microsoft'? microsoftId : atlassianId),
             numInQueue: 0
         }
         this.startNextMeeting = this.startNextMeeting.bind(this);
