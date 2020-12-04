@@ -5,8 +5,14 @@ import { baseUrl } from "../.config";
 
 export const ExperienceInputForm = (props) => {
     const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
+    const handleRoute = routes => () => {
+      this.props.history.push({ pathname: routes });
+    };
+
+    const handleClose = () => 
+    {
+      setShow(false);
+    }
     const handleShow = () => setShow(true);
 
     const handleClick = () => {
@@ -23,7 +29,7 @@ export const ExperienceInputForm = (props) => {
           "Authorization": "Bearer " + localStorage.getItem("Authorization") 
         },
         body: JSON.stringify({
-          experiences: [{"startDate": startDate, "endDate": endDate, "organization": organization, "description": description}]
+          experiences: props.experiences.concat([{"startDate": startDate, "endDate": endDate, "organization": organization, "description": description}])
         })
       })
       handleClose()
