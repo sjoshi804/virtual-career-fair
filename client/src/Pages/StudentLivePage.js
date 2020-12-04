@@ -2,7 +2,7 @@ import React from "react";
 import {Card, CardDeck, Button, Modal} from "react-bootstrap";
 import google from '../Images/google.jpg'; 
 import { MoreInfo } from './MoreInfo'
-import { baseUrl } from "../.config";
+import { baseUrl, socketBaseUrl } from "../.config";
 import Peer from 'peerjs';
 
 const io = require('socket.io-client');
@@ -53,7 +53,7 @@ export default class StudentLivePage extends React.Component {
         SOCKET
         */
         // Create socket
-        this.clientSocket = io("ws://localhost:3000/careerfair");
+        this.clientSocket = io(`${socketBaseUrl}/careerfair`);
 
         // Register handler for queueUpdate - refer to CareerFairSocketProtocol for schema of data
         this.clientSocket.on("queueUpdate", (data) =>

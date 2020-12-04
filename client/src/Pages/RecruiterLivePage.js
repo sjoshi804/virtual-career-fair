@@ -1,7 +1,7 @@
 import React from "react";
 import {Card, Button, Image, Table, Form} from "react-bootstrap";
 import Countdown from "react-countdown";
-import { baseUrl } from "../.config";
+import { baseUrl, socketBaseUrl } from "../.config";
 import Peer from 'peerjs';
 const io = require('socket.io-client');
 const Completionist = () => <span>Career fair ended.</span>;
@@ -62,7 +62,7 @@ class RecruiterLivePage extends React.Component {
         SOCKET
         */
         // Create socket
-        this.clientSocket = io("ws://localhost:3000/careerfair");
+        this.clientSocket = io(`${socketBaseUrl}/careerfair`);
 
         // Handler to collect booth Data to populate cards
         this.clientSocket.on("boothData", (data) =>
