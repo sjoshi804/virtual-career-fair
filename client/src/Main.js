@@ -93,7 +93,7 @@ class Main extends React.Component {
             <PrivateRoute path="/student-past" component={StudentPastPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-upcoming" component={StudentUpcomingPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-video-call/:careerFairId/:recruiterId" component={StudentVideoCall} />
-            <PrivateRoute path="/student-resume" component={StudentResumePage} redirectTo={"/student-login"} exact/>
+            <PrivateRoute path="/student-resume/:applicantId" component={StudentResumePage} redirectTo={"/student-login"}/>
             <PrivateRoute path="/organizer" component={OrganizerPage} redirectTo={"/organizer-login"} exact/>
             <PrivateRoute path="/organizer-live/:careerFairId" component={OrganizerLivePage} redirectTo={"/organizer-login"}/>
             <PrivateRoute path="/organizer-past" component={OrganizerPastPage} redirectTo={"/organizer-login"} exact/>
@@ -104,6 +104,7 @@ class Main extends React.Component {
             <PrivateRoute path="/recruiter" component={RecruiterProfilePage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-live/:careerFairId/:companyName" component={RecruiterLivePage} redirectTo={"/recruiter-login"}/>
             <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
+            <PrivateRoute path="/recruiter-upcoming" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-video-call/:careerFairId/:companyId/:applicantId/:applicantPeerJsId/:companyName" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
 

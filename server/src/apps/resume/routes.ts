@@ -36,9 +36,10 @@ ResumeRouter.post("/:applicantId", async (req, res) =>
     }
 });
 
-// Get resume for exisiting applicant
+// Get resume for exisiting applicant or create empty resume if doesnt exist
 ResumeRouter.get("/:applicantId", async (req, res) =>
 {   
+    
     var resume = await Resume.db.findOne({applicantId: req.params.applicantId});
     if(resume != null)
     {
@@ -46,13 +47,21 @@ ResumeRouter.get("/:applicantId", async (req, res) =>
     }
     else
     {
-        res.sendStatus(404);
+        var newResume = {
+            "applicantId": req.params.applicantId,
+            "skills": [],
+            "experiences": [],
+            "insights": []
+        }
+        await Resume.db.save(newResume)
+        res.status(200).send(newResume);
     }
 });
 
 // Update resume for exisiting applicant
 ResumeRouter.put("/:applicantId", async (req, res) =>
 {
+    console.log(req.body)
     const filterQuery = 
     {
         applicantId: req.params.applicantId
@@ -76,7 +85,6 @@ ResumeRouter.put("/:applicantId", async (req, res) =>
     if (await Resume.db.updateOne(filterQuery, updateQuery))
     {
         res.sendStatus(204);
-        
         return;
     }
     else
