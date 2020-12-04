@@ -32,7 +32,7 @@ export default class OrganizerUpcomingPage extends React.Component {
             <Card.Text>
         
                 <br></br>
-                <b>Recruiters Registered: </b> 15
+                <b>Recruiters Registered: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
             </Card.Text>
             <DetailedStatsUpc></DetailedStatsUpc>
             </Card.Body>
@@ -46,7 +46,7 @@ export default class OrganizerUpcomingPage extends React.Component {
             <Card.Text>
             
                 <br></br>
-                <b>Students Registered: </b> 40
+                <b>Students Registered: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
             </Card.Text>
             <DetailedStatsUpc></DetailedStatsUpc>
             </Card.Body>
@@ -61,7 +61,7 @@ export default class OrganizerUpcomingPage extends React.Component {
             <Card.Text>
             
                 <br></br>
-                <b>Companies Registered: </b> 10
+                <b>Companies Registered: </b> {Math.floor(Math.random() * Math.floor(5)) + 2}
             </Card.Text>
             <DetailedStatsUpc></DetailedStatsUpc>
             </Card.Body>

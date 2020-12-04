@@ -12,12 +12,14 @@ import { Recruiter } from '../user/recruiter/recruiter';
 import { User } from '../user/user';
 import { Company } from './company';
 const CompanyRouter = express.Router();
+import { v4 as uuid } from 'uuid';
 
 // Prefix: /company
 
 // Create new Company
 CompanyRouter.post("/", async (req, res) =>
 {
+    req.body._id = uuid();
     // Tries to save, if save successful return success
     if (await Company.db.save(req.body))
     {
