@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "npm run build-ts",
+    "heroku-postbuild": "cd client && npm install && npm run build",
     "build-ts": "tsc",
     "dev": "nodemon --watch 'server/src/**/*.ts' --ignore 'server/src/**/*.spec.ts' --exec 'ts-node' server/src/index.ts",
-    "start": "cd client && npm run build && cd .. && NODE_ENV=production node server/dist/index.js",
+    "start": "node server/dist/index.js",
     "serve": "ts-node server/src/index.ts",
     "test": "(echo \"Testing core\" && NODE_ENV=test mocha --exit -r  ts-node/register server/src/**/*.spec.ts); (echo \"Testing apps\" && NODE_ENV=test mocha --exit -r ts-node/register server/src/apps/**/*.spec.ts)"
   },
