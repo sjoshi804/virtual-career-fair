@@ -1,4 +1,5 @@
 import express = require('express');
+import { User } from '../user/user';
 import { MeetingNotes } from './meetingNotes';
 const MeetingNotesRouter = express.Router();
 
@@ -7,7 +8,8 @@ const MeetingNotesRouter = express.Router();
 // Create meeting note
 MeetingNotesRouter.post("/", async (req, res) =>
 {
-    var meetingNote = new MeetingNotes(req.body.recruiterId, req.body.applicantId, req.body.companyId, req.body.careerFairId, req.body.notes);
+    const recruiterId = User.getDataFromToken(req.header("Authorization")).id;
+    var meetingNote = new MeetingNotes(recruiterId, req.body.applicantId, req.body.companyId, req.body.careerFairId, req.body.notes);
     res.send( { success: await MeetingNotes.db.save(meetingNote)});
 });
 
