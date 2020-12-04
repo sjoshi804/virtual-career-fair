@@ -2,6 +2,7 @@ import { User } from '../user'
 import { OrganizerDBSchema } from './organizerDBSchema';
 import { OrganizerDBStrategy } from './organizerDBStrategy'; 
 import { ISerializable } from '../../../db/iSerializable';
+import { UserDBSchema } from '../userDBSchema';
 
 class Organizer extends User implements ISerializable {
     
@@ -9,10 +10,11 @@ class Organizer extends User implements ISerializable {
 
     public static db = new OrganizerDBStrategy();
 
-    public constructor(userType: number, name: string, email: string, password: string,
-                        affiliatedOrganization: string) {
-        super(userType, name, email, password);
-        this.affiliatedOrganization = affiliatedOrganization;
+    public constructor(serialized: UserDBSchema, userType?: number, name?: string, email?: string, password?: string,
+                        affiliatedOrganization?: string) {
+        if (serialized != undefined) {
+            super(serialized.userType, serialized.name, serialized.email, serialized.password, serialized._id);
+        }
     }
 
     public serialize() {

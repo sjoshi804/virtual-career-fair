@@ -13,12 +13,12 @@ import { CareerFair } from './careerFair';
 import { User } from '../user/user';
 import { Company } from '../company/company';
 import { Organizer } from '../user/organizer/organizer';
+import { v4 as uuid } from 'uuid';
 
 const CareerFairRouter = express.Router();
 
 // Get All CareerFairs
 CareerFairRouter.get("/", async (req, res) => {
-    
     // Get all career fairs
     var careerfairs = await CareerFair.db.findMany({});
 
@@ -42,6 +42,7 @@ CareerFairRouter.get("/", async (req, res) => {
 
 // Create Career Fair
 CareerFairRouter.post("/", async (req, res) => {
+    req.body._id = uuid();
     if (await CareerFair.db.save(req.body)) {
         res.sendStatus(201);
     } else {

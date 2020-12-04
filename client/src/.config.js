@@ -2,5 +2,7 @@
     Constant base URL to be changed as needed for Heroku deploymnt
 */ 
 
-export const baseUrl = "http://475fc855886f.ngrok.io/api";
-export const socketBaseUrl = "ws://75fc855886f.ngrok.io";
+const domainName = "b544188aa67d.ngrok.io";
+
+export const baseUrl = "http://" + domainName + "/api";
+export const socketBaseUrl = "ws://" + domainName;

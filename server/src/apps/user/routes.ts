@@ -19,11 +19,10 @@ UserRouter.post("/login", async (req, res) => {
     // Check if user exists in the database
     var user = await User.db.findOne(filterQuery);
     
-    if (user != null) 
-    {
+    if (user != null) {
         // Instantiate User Object
         let currentUser = new User(user.userType, user.name, user.email,
-                                 user.password);
+                                 user.password, user._id);
 
         // Send token
         var token = currentUser.getToken();
@@ -48,7 +47,7 @@ UserRouter.post("/initiateLogin", async (req, res) => {
     // Check if user exists in the database
     var user = await User.db.findOne(filterQuery);
     
-    if (user != null) 
+    if (user != null)
     {
         // Send hash of password
         res.status(200).send(
