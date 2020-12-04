@@ -123,7 +123,7 @@ export default class StudentProfilePage extends React.Component {
                 <Card.Body>
                 <Card.Text>
                     <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
-                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <p><b>End Time: </b>{new Date(careerfair.endTime).toString()}</p>
                     <Button variant="outline-success" onClick={this.handleRoute("/student-live/" + careerfair._id)}>Join Now</Button>
                 </Card.Text>
                 </Card.Body>
@@ -137,7 +137,7 @@ export default class StudentProfilePage extends React.Component {
                 <Card.Body>
                 <Card.Text>
                     <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
-                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <p><b>End Time: </b>{new Date(careerfair.endTime).toString()}</p>
                     <Button variant="outline-dark" onClick={this.handleRoute("/student-upcoming")}>View Details</Button>
                 </Card.Text>
                 </Card.Body>
@@ -151,7 +151,7 @@ export default class StudentProfilePage extends React.Component {
                 <Card.Body>
                 <Card.Text>
                     <p><b>Start Time: </b>{new Date(careerfair.startTime).toString()}</p>
-                    <p><b>End Time:</b>{new Date(careerfair.endTime).toString()}</p>
+                    <p><b>End Time: </b>{new Date(careerfair.endTime).toString()}</p>
                     <Button variant="outline-dark" onClick={this.handleRoute("/student-past")}>View Details</Button>
                 </Card.Text>
                 </Card.Body>

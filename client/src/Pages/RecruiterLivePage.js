@@ -16,6 +16,7 @@ class RecruiterLivePage extends React.Component {
         this.state = {
             careerFairName: "Test Career Fair",
             organizer: "Test Organizer",
+            companyName: props.match.params.companyName || "",
             careerFairId: props.match.params.careerFairId || testCareerFairId,
             companyId: props.match.params.companyId || testCompanyId,
             numInQueue: 0
@@ -133,7 +134,8 @@ class RecruiterLivePage extends React.Component {
         return (
         <div style={{padding: "20px", "text-align": "center"}}>
             <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>
-                <h2><b>{this.state.careerFairName}</b></h2>
+                <h1><b>{this.state.careerFairName}</b></h1>
+                <h4><b>{this.state.companyName}</b></h4>
             </Card>
             <br></br>
             <Card style={{"padding": "20px", "box-shadow": "8px 4px 8px 4px rgba(0,0,0,0.2)"}}>

@@ -38,10 +38,9 @@ RecruiterRouter.get("/", async (req, res) => {
 
 
 // Get Specific Recruiter
-RecruiterRouter.get("/:userid", async (req, res) => {
+RecruiterRouter.get("/:email", async (req, res) => {
     const filterQuery = {
-        _id: req.params.userid,
-        userType: 1
+        email: req.params.email
     }
     var recruiter = await Recruiter.db.findOne(filterQuery);
     if(recruiter != null) {
