@@ -56,7 +56,6 @@ class RecruiterLivePage extends React.Component {
         
         var meetingNotes = [];
         for (let note of meetingNoteData) {
-            console.log(note);
             var user = await fetch(baseUrl + "/applicant/" + note.applicantId, {
                 method: "GET",
                 headers: headers

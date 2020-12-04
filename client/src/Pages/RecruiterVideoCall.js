@@ -28,7 +28,10 @@ export default class RecruiterVideoCall extends React.Component {
         const reponse = await fetch(`${baseUrl}/meetingnotes`, 
         {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("Authorization")
+            },
             body: JSON.stringify(
             {
                 applicantId: this.props.match.params.applicantId,
