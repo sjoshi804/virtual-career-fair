@@ -36,9 +36,10 @@ ResumeRouter.post("/:applicantId", async (req, res) =>
     }
 });
 
-// Get resume for exisiting applicant
+// Get resume for exisiting applicant or create empty resume if doesnt exist
 ResumeRouter.get("/:applicantId", async (req, res) =>
 {   
+    
     var resume = await Resume.db.findOne({applicantId: req.params.applicantId});
     if(resume != null)
     {
@@ -46,44 +47,53 @@ ResumeRouter.get("/:applicantId", async (req, res) =>
     }
     else
     {
-        res.sendStatus(404);
+        var newResume = {
+            "applicantId": req.params.applicantId,
+            "skills": [],
+            "experiences": [],
+            "insights": []
+        }
+        await Resume.db.save(newResume)
+        res.status(200).send(newResume);
     }
 });
 
 // Update resume for exisiting applicant
 ResumeRouter.put("/:applicantId", async (req, res) =>
 {
-    const filterQuery = 
-    {
-        applicantId: req.params.applicantId
-    }
+    console.log("Hit")
+    res.sendStatus(204);
+    // const filterQuery = 
+    // {
+    //     applicantId: req.params.applicantId
+    // }
 
-    // Check if resume exists for applicant -> if not return 404
-    if (await Resume.db.count(filterQuery) < 1)
-    {
-        res.sendStatus(404);
-        return;
-    }
+    // // Check if resume exists for applicant -> if not return 404
+    // if (await Resume.db.count(filterQuery) < 1)
+    // {
+    //     res.sendStatus(404);
+    //     return;
+    // }
 
-    var updatedFields = req.body
-    updatedFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences)
+    // var updatedFields = req.body
+    // updatedFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences)
 
-    const updateQuery = 
-    {
-        $set: updatedFields
-    };
+    // const updateQuery = 
+    // {
+    //     $set: updatedFields
+    // };
 
-    if (await Resume.db.updateOne(filterQuery, updateQuery))
-    {
-        res.sendStatus(204);
+    // if (await Resume.db.updateOne(filterQuery, updateQuery))
+    // {
+    //     res.sendStatus(204);
         
-        return;
-    }
-    else
-    {
-        res.sendStatus(503);
-        return;
-    }
+    //     return;
+    // }
+    // else
+    // {
+    //     res.sendStatus(503);
+    //     return;
+    // }
 });
 
 // Delete resume for exisiting applicant

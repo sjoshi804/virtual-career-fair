@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Button, CardGroup, Image, Form} from "react-bootstrap";
 import Peer from 'peerjs'
-import { baseUrl, socketBaseUrl } from "../.config";
+// import { baseUrl, socketBaseUrl } from "../.config";
 
 const io = require('socket.io-client');
 import { baseUrl, socketBaseUrl } from "../.config";

@@ -83,6 +83,7 @@ export default class StudentProfilePage extends React.Component {
                 major: user.major,
                 graduationYear: user.graduationYear,
                 affiliatedSchool: user.affiliatedSchool,
+                applicantId: user._id,
                 bio: user.bio,
                 liveFairs: livefairs,
                 pastFairs: pastfairs,
@@ -175,7 +176,7 @@ export default class StudentProfilePage extends React.Component {
                         <p> <b>Summary:</b> {this.state.bio} </p>
                     </Card.Text>
                     {/* TODO: Student Resume Does Not Work / Not Incomplete */}
-                    <Button variant="light" onClick={this.handleRoute("/student-resume")}>Upload Resume</Button>
+                    <Button variant="light" onClick={this.handleRoute("/student-resume/" + this.state.applicantId)}>Upload Resume</Button>
                 </Card.Body>
                 {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             </Card>
