@@ -61,7 +61,7 @@ export default class RecruiterLoginPage extends React.Component {
                     return undefined;
                 }
                 else {
-                    return JSON.parse(JSON.stringify(response));
+                    return response.json();
                 }
             }));
 

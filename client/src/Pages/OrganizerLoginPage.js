@@ -55,7 +55,7 @@ export default class OrganizerLoginPage extends React.Component {
                     return undefined;
                 }
                 else {
-                    return JSON.parse(JSON.stringify(response));
+                    return response.json();
                 }
             }));
 
