@@ -10,7 +10,10 @@
     "start": "npm run serve",
     "serve": "ts-node server/src/index.ts",
     "test": "(echo \"Testing core\" && NODE_ENV=test mocha --exit -r  ts-node/register server/src/**/*.spec.ts); (echo \"Testing apps\" && NODE_ENV=test mocha --exit -r ts-node/register server/src/apps/**/*.spec.ts)",
-    "prod": "cd client && npm run build && cd .. && NODE_ENV=production ts-node server/src/index.ts"
+    "prod": "cd client && npm run build && cd .. && NODE_ENV=production node server/dist/index.js"
+  },
+  "engines": {
+    "node": "15.3.0"
   },
   "repository": {
     "type": "git",
