@@ -89,7 +89,7 @@ class Main extends React.Component {
       
             {/*Private Routes*/}
             <PrivateRoute path="/student" component={StudentProfilePage} redirectTo={"/student-login"} exact/>
-            <PrivateRoute path="/student-live" component={StudentLivePage} redirectTo={"student-login"} exact/>
+            <PrivateRoute path="/student-live/:careerFairId" component={StudentLivePage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-past" component={StudentPastPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-upcoming" component={StudentUpcomingPage} redirectTo={"student-login"} exact/>
             <PrivateRoute path="/student-video-call/:careerFairId/:recruiterId" component={StudentVideoCall} />
