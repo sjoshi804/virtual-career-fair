@@ -26,7 +26,7 @@ export default class RecruiterVideoCall extends React.Component {
         // TODO: Post notes to db
 
         // TODO: Redirect back to career fair - pass in dynamic url here
-        this.handleRoute(`/recruiter-live/${this.props.match.params.careerFairId}/${this.props.match.params.companyName}}`)();
+        this.handleRoute(`/recruiter-live/${this.props.match.params.careerFairId}/${this.props.match.params.companyName}`)();
     }
 
     handleNotesChange(e) {
