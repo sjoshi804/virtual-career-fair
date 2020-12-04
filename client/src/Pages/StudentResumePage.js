@@ -11,7 +11,43 @@ export default class StudentResumePage extends React.Component {
         this.props.history.push({ pathname: route });
         };
 
+    // async componentDidMount() {
+        // TODO: Optimize this with pagination etc., #jobs and career fairs can grow very quickly and will make this page store too much data
+        // TODO: Update url to be set dynamically based on prod/dev otherwise may have issues in deployment with this
+    
+        // Get all companies
+        // const resume = await fetch(baseUrl + '/resume' + this.props.match.applicantId, {
+        //     method: "GET"
+        // })
+        // .then(response => response.json());
+    
+        // this.setState(
+        //     {
+        //     skills: resume.skills,
+        //     experiences: resume.experiences,
+        //     }
+        // );
+        // }
+
   render() {
+    //   var skills = [];
+    //   this.state.skills.forEach(skill => {
+    //       skills.push(
+    //         skill
+    //       )
+    //   })
+    //   var experiences = [];
+    //   this.state.experiences.forEach(exp => {
+    //       experiences.push(
+    //           <Card.Text>
+    //             <h5> Software Engineer at {exp.organization} </h5>
+    //             <h6> {exp.startDate} - {exp.endDate} </h6>
+    //             <h7> {exp.description} </h7>
+    //             <br></br>
+    //             <br></br>
+    //           </Card.Text>
+    //       )
+    //   })
     return (
     <div style={{"padding": "20px"}}>
         <Card style={{"margin": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "padding": "20px", "text-align": "center"}}>
@@ -35,9 +71,10 @@ export default class StudentResumePage extends React.Component {
                 <h6>June 2018 - August 2018</h6>
                 <h7>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h7>
             </Card.Text>
+            {/* {experiences} */}
             </Card.Body>
             <Card.Footer>
-            <ExperienceInputForm></ExperienceInputForm>
+            <ExperienceInputForm applicantId={this.params.match.applicantId} experiences={this.state.experiences}></ExperienceInputForm>
             </Card.Footer>
         </Card>
         <Card style={{"margin": "20px", "box-shadow": "0 4px 8px 0 rgba(0,0,0,0.2)"}}>
@@ -47,6 +84,7 @@ export default class StudentResumePage extends React.Component {
             <h6><b>Coding:</b> C/C++, Java, x86 assembly, C#, PHP, Javascript, HTML, CSS, SML, Ruby, Perl</h6>
             <br></br>
             <h6><b>Technologies/Environment:</b> Windows, Win32 API/GUI, Linux, MySQL, OpenGL, ASP.NET</h6>
+            {/* <h6> { skills } </h6> */}
             </Card.Text>
             </Card.Body>
             <Card.Footer>

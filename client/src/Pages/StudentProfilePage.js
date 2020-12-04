@@ -6,6 +6,55 @@ export default class StudentProfilePage extends React.Component {
     handleRoute = route => () => {
         this.props.history.push({ pathname: route });
         };
+
+    async componentDidMount() {
+        const emailId = localStorage.getItem("email");
+        const queryUrl = baseUrl + "/applicant/" + emailId + "/";
+
+        const user = await fetch(queryUrl, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("Authorization")
+            }
+        })
+        .then(response => {
+            if (response.status == 404 || response.status == 401) {
+                return undefined;
+            }
+            else {
+                return response.json()
+            }
+        });
+
+        if (user != undefined && 'name' in user) {
+            this.setState({
+                name: user.name,
+                major: user.major,
+                graduationYear: user.graduationYear,
+                affiliatedSchool: user.affiliatedSchool,
+                bio: user.bio,
+                applicantId: user._id,
+                liveFairs: livefairs,
+                pastFairs: pastfairs,
+                upcomingFairs: upcomingfairs
+
+            });
+        }
+        // Resolve to default values
+        else {
+            this.setState({
+                name: "Denise Wang",
+                major: "Computer Science",
+                graduationYear: "2021",
+                affiliatedSchool: "UCLA",
+                bio: "I am a graduating senior.",
+                liveFairs: livefairs,
+                pastFairs: pastfairs,
+                upcomingFairs: upcomingfairs
+            })
+        }
+    }
+
   render() {
     const livecareerfairs = ['1'];
     const liveitems = []
@@ -95,7 +144,7 @@ export default class StudentProfilePage extends React.Component {
                         <p> <b>Expected graduation: </b> June 2021 </p>
                         <p> <b>Seeking:</b> Full time software engineering roles.</p>
                     </Card.Text>
-                    <Button variant="light" onClick={this.handleRoute("/student-resume")}>Upload Resume</Button>
+                    <Button variant="light" onClick={this.handleRoute("/student-resume/" + this.state.applicantId)}>Upload Resume</Button>
                 </Card.Body>
                 {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             </Card>

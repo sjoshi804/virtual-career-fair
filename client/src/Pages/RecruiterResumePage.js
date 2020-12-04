@@ -11,6 +11,44 @@ export default class RecruiterResumePage extends React.Component {
         this.props.history.push({ pathname: route });
         };
 
+    // async componentDidMount() {
+    //     // TODO: Optimize this with pagination etc., #jobs and career fairs can grow very quickly and will make this page store too much data
+    //     // TODO: Update url to be set dynamically based on prod/dev otherwise may have issues in deployment with this
+    
+    //     // Get all companies
+    //     const resume = await fetch(baseUrl + '/resume' + this.props.match.applicantId, {
+    //         method: "GET"
+    //     })
+    //     .then(response => response.json());
+    
+    //     // Get all jobs - by looping through every company
+    //     // var jobs = [];
+    //     // for (let company of companies) {
+    //     //     var jobsAtCompany = await fetch(baseUrl + '/company/' + company._id + "/job", {
+    //     //         method: "GET"
+    //     //     })
+    //     //     .then(response => response.json());
+            
+    //     //     jobsAtCompany.forEach(job => {
+    //     //         job.company = company.name;
+    //     //         jobs.push(job);
+    //     //     });
+    //     // }
+    
+    //     // const fairs = await fetch(baseUrl + '/careerfair',
+    //     // {
+    //     //     method: "GET"
+    //     // })
+    //     // .then(response => response.json());
+    
+    //     this.setState(
+    //         {
+    //         companies: resume.insights,
+            
+    //         }
+    //     );
+    //     }
+
   render() {
     return (
     <div style={{"padding": "20px"}}>
