@@ -27,8 +27,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "engines": 
-  {
+  "engines": {
     "node": "15.3.0"
   },
   "eslintConfig": {
