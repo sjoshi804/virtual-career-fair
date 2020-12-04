@@ -149,8 +149,8 @@ export default class StudentProfilePage extends React.Component {
                     <br></br>
                     <Card.Title>{this.state.name}</Card.Title>
                     <Card.Text>
-                        <p> <b> Major: </b> {this.state.major} </p>
-                        <p> <b>School: </b> {this.state.school} </p>
+                        <p> <b>Major: </b> {this.state.major} </p>
+                        <p> <b>School: </b> {this.state.affiliatedSchool} </p>
                         <p> <b>Expected graduation: </b> {this.state.graduationYear} </p>
                         <p> <b>Summary:</b> {this.state.bio} </p>
                     </Card.Text>
