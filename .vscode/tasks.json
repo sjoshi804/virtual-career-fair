@@ -2,9 +2,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "shell",
+			"type": "npm",
 			"group": "build",
-			"command": "tsc -p tsconfig.json",
+			"script": "build-ts",
 			"label": "tsc: build - tsconfig.json"
 		}
 	]
