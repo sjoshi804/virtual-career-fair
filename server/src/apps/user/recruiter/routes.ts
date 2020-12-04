@@ -20,12 +20,11 @@ RecruiterRouter.post("/", async (req, res) => {
     if (successfulInsert) {
         // Return token so that user is now 'logged in' as well
         const recruiterObj = new Recruiter(await Recruiter.db.findOne({_id: req.body._id}));
-        console.log(recruiterObj);
         res.status(201).send(
             {
                 token: recruiterObj.getToken()
             });
-    } 
+    }
     else {
         // Something failed in recruiter creation, assume bad request
         res.sendStatus(400); 

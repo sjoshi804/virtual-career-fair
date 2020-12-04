@@ -106,6 +106,7 @@ class Main extends React.Component {
             <PrivateRoute path="/recruiter-past" component={RecruiterPastPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/add-edit-booth" component={RecruiterAddEditBoothPage} redirectTo={"/recruiter-login"} exact/>
             <PrivateRoute path="/recruiter-video-call/:careerFairId/:companyId/:applicantId/:applicantPeerJsId/:companyName" component={RecruiterVideoCall} redirectTo={"/recruiter-login"} exact/>
+
             <PrivateRoute path="/recruiter-resume/:applicantId" component={RecruiterResumePage} redirectTo={"/recruiter-login"}/>
 
             {/*Public Routes*/}
