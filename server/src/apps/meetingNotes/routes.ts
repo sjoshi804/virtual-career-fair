@@ -9,8 +9,31 @@ const MeetingNotesRouter = express.Router();
 MeetingNotesRouter.post("/", async (req, res) =>
 {
     const recruiterId = User.getDataFromToken(req.header("Authorization")).id;
-    var meetingNote = new MeetingNotes(recruiterId, req.body.applicantId, req.body.companyId, req.body.careerFairId, req.body.notes);
-    res.send( { success: await MeetingNotes.db.save(meetingNote)});
+    const meetingNote = new MeetingNotes(recruiterId, req.body.applicantId, req.body.companyId, req.body.careerFairId, req.body.notes);
+    const filterQuery = {
+        applicantId: req.body.applicantId,
+        companyId: req.body.companyId,
+        careerFairId: req.body.careerFairId
+    }
+    const updateQuery = {
+        $set: 
+        {
+            notes: req.body.notes
+        }
+    }
+    if (await MeetingNotes.db.findOne(filterQuery) != null)
+    {
+        await MeetingNotes.db.updateOne(filterQuery, updateQuery);
+        res.sendStatus(204);
+    }
+    else if (await MeetingNotes.db.save(meetingNote))
+    {
+        res.sendStatus(201);
+    }
+    else 
+    {
+        res.sendStatus(400);
+    }
 });
 
 // Get all notes for company
