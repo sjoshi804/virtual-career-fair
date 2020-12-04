@@ -39,10 +39,9 @@ OrganizerRouter.get("/", async (req, res) => {
 
 
 // Get Specific Organizer
-OrganizerRouter.get("/:userid", async (req, res) => {
+OrganizerRouter.get("/:email", async (req, res) => {
     const filterQuery = {
-        _id: req.params.userid,
-        userType: 2
+        email: req.params.email
     }
     var organizer = await Organizer.db.findOne(filterQuery);
     if(organizer != null) {
