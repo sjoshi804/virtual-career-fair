@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Button, CardGroup, CardDeck, Image, Form} from "react-bootstrap";
 import Peer from 'peerjs';
+import { baseUrl } from "../.config";
 const io = require('socket.io-client');
 
 export default class RecruiterVideoCall extends React.Component {
@@ -18,12 +19,27 @@ export default class RecruiterVideoCall extends React.Component {
         this.props.history.push({ pathname: route });
     };
 
-    endCall()
+    async endCall()
     {
         // Peer JS End Call 
         this.peer.destroy();
 
         // TODO: Post notes to db
+        const reponse = await fetch(`${baseUrl}/meetingnotes`, 
+        {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("Authorization")
+            },
+            body: JSON.stringify(
+            {
+                applicantId: this.props.match.params.applicantId,
+                careerFairId: this.props.match.params.careerFairId,
+                companyId: this.props.match.params.companyId,
+                notes: this.notes
+            })
+        });
 
         // TODO: Redirect back to career fair - pass in dynamic url here
         this.handleRoute(`/recruiter-live/${this.props.match.params.careerFairId}/${this.props.match.params.companyName}`)();
@@ -31,6 +47,7 @@ export default class RecruiterVideoCall extends React.Component {
 
     handleNotesChange(e) {
         // do something with notes
+        this.notes = e.target.value;
     };
 
     render() {

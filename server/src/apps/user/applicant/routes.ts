@@ -38,17 +38,25 @@ ApplicantRouter.post("/", async (req, res) => {
 });
 
 // Get Specific Applicant
-ApplicantRouter.get("/:email", async (req, res) => {
-    const filterQuery = {
-        email: req.params.email
+ApplicantRouter.get("/:emailOrId", async (req, res) => {
+    const filterQueryEmail = {
+        email: req.params.emailOrId
     }
 
-    var applicant = await Applicant.db.findOne(filterQuery);
-
-    if(applicant != null) {
-        res.status(200).send(applicant);
+    const filterQueryId = {
+        _id: req.params.emailOrId
     }
 
+    const applicantByEmail = await Applicant.db.findOne(filterQueryEmail);
+    const applicantById = await Applicant.db.findOne(filterQueryId);
+
+    if(applicantByEmail != null) {
+        res.status(200).send(applicantByEmail);
+    }
+    else if (applicantById != null)
+    {
+        res.status(200).send(applicantById);
+    }
     // Did not find item in database
     else {
         res.sendStatus(404);
