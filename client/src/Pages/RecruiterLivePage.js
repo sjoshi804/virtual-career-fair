@@ -143,7 +143,7 @@ class RecruiterLivePage extends React.Component {
                     <b>Time left in career fair:</b>
                 </h4>
                 <h5>
-                    <Countdown date={Date.now() + 500000000}>
+                    <Countdown date={Date.now() + 5000000}>
                         <Completionist />
                     </Countdown>
                 </h5>

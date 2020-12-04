@@ -302,7 +302,7 @@ export default class StudentLivePage extends React.Component {
                 <Modal.Title>Incoming Call</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                  A recruiter from {this.state.incomingCall.company} is asking you to join a meeting.
+                  A recruiter from <b>{this.state.incomingCall.company}</b> is asking you to join a meeting.
                 </Modal.Body>
               <Modal.Footer>
               <Button variant="danger" onClick={this.resetIncomingCall}>
