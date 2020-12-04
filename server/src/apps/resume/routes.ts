@@ -61,39 +61,37 @@ ResumeRouter.get("/:applicantId", async (req, res) =>
 // Update resume for exisiting applicant
 ResumeRouter.put("/:applicantId", async (req, res) =>
 {
-    console.log("Hit")
-    res.sendStatus(204);
-    // const filterQuery = 
-    // {
-    //     applicantId: req.params.applicantId
-    // }
+    console.log(req.body)
+    const filterQuery = 
+    {
+        applicantId: req.params.applicantId
+    }
 
-    // // Check if resume exists for applicant -> if not return 404
-    // if (await Resume.db.count(filterQuery) < 1)
-    // {
-    //     res.sendStatus(404);
-    //     return;
-    // }
+    // Check if resume exists for applicant -> if not return 404
+    if (await Resume.db.count(filterQuery) < 1)
+    {
+        res.sendStatus(404);
+        return;
+    }
 
-    // var updatedFields = req.body
-    // updatedFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences)
+    var updatedFields = req.body
+    updatedFields.insights = Resume.computeInsights(req.body.skills, req.body.experiences)
 
-    // const updateQuery = 
-    // {
-    //     $set: updatedFields
-    // };
+    const updateQuery = 
+    {
+        $set: updatedFields
+    };
 
-    // if (await Resume.db.updateOne(filterQuery, updateQuery))
-    // {
-    //     res.sendStatus(204);
-        
-    //     return;
-    // }
-    // else
-    // {
-    //     res.sendStatus(503);
-    //     return;
-    // }
+    if (await Resume.db.updateOne(filterQuery, updateQuery))
+    {
+        res.sendStatus(204);
+        return;
+    }
+    else
+    {
+        res.sendStatus(503);
+        return;
+    }
 });
 
 // Delete resume for exisiting applicant

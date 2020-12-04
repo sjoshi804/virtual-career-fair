@@ -11,18 +11,19 @@ export const ExperienceInputForm = (props) => {
 
     const handleClick = () => {
       const queryUrl = baseUrl + "/resume/" +  props.applicantId + "/";
-      const organization = (document.getElementById("organization"))
-      const date = (document.getElementById("date"))
-      const description = (document.getElementById("description"))
+      const organization = (document.getElementById("organization").value)
+      const startDate = (document.getElementById("startDate").value)
+      const endDate = (document.getElementById("endDate").value)
+      const description = (document.getElementById("description").value)
 
       fetch(queryUrl, {
         method: "PUT",
         headers: {
+          'Content-Type': 'application/json',
           "Authorization": "Bearer " + localStorage.getItem("Authorization") 
         },
         body: JSON.stringify({
-          experiences: props.experiences + {"startDate": date, "origanization": organization, "description": description},
-          skills: props.skills
+          experiences: [{"startDate": startDate, "endDate": endDate, "organization": organization, "description": description}]
         })
       })
       handleClose()
@@ -40,9 +41,11 @@ export const ExperienceInputForm = (props) => {
           </Modal.Header>
           <Modal.Body>
             <Form.Group>
-                <Form.Control id="position" size="lg" type="text" organization="Add Organization" />
+                <Form.Control id="organization" size="lg" type="text" organization="Add Organization" />
                 <br />
-                <Form.Control id="date" type="text" placeholder="Add Start Date" />
+                <Form.Control id="startDate" type="text" placeholder="Add Start Date" />
+                <br />
+                <Form.Control id="endDate" type="text" placeholder="Add End Date" />
                 <br />
                 <Form.Control id="description" size="sm" type="text" placeholder="Add Description" />
             </Form.Group>

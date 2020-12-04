@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {Modal, Button, Form} from "react-bootstrap";
+import { pathToFileURL } from "url";
 import { baseUrl, socketBaseUrl } from "../.config";
   
 
@@ -11,8 +12,8 @@ export const SkillsInputForm = (props) => {
 
     const handleClick = () => {
       const queryUrl = baseUrl + "/resume/" +  props.applicantId + "/";
-      const skill = (document.getElementById("skill"))
-    
+      const skill = (document.getElementById("skill").value)
+
       fetch(queryUrl, {
         method: "PUT",
         headers: {
@@ -20,7 +21,7 @@ export const SkillsInputForm = (props) => {
           "Authorization": "Bearer " + localStorage.getItem("Authorization") 
         },
         body: JSON.stringify({
-          "skill": skill
+          "skills": (props.skills + ',' + skill).split(',').filter(s => s != "")
         })
       })
       
@@ -35,7 +36,7 @@ export const SkillsInputForm = (props) => {
   
         <Modal show={show} onHide={handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Add Experience</Modal.Title>
+            <Modal.Title>Add Skill</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group>
