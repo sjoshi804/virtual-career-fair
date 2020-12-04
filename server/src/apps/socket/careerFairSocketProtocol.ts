@@ -359,6 +359,16 @@ class CareerFairSocketProtocol extends AbstractSocketProtocol
         // Else get next applicant
         const nextApplicant = currentFair.booths[company].queue.dequeue();
 
+        // Inform others in queue of new position
+        currentFair.booths[company].queue.applicantIds.forEach(applicant => {
+            const socketId = this.users.getSocketId(careerFair, applicant);
+            this.namespace.to(socketId).emit("updatePosition",
+                {
+                    company: company,
+                    position: currentFair.booths[company].queue.getPosition(applicant)
+                });
+        });
+
         // Notify queue of change
         this.updateQueue(careerFair, company, currentFair.booths[company].queue.getLength())
 
