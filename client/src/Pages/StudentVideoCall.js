@@ -1,10 +1,9 @@
 import React from "react";
 import { Card, Button, CardGroup, Image, Form} from "react-bootstrap";
-import Peer from 'peerjs';
-import { socketbaseUrl } from "../.config";
+import Peer from 'peerjs'
+import { baseUrl, socketBaseUrl } from "../.config";
 
 const io = require('socket.io-client');
-
 
 export default class StudentVideoCall extends React.Component {
     constructor(props)
@@ -67,7 +66,7 @@ export default class StudentVideoCall extends React.Component {
         this.peer.on('open', function(id) {
             console.log('My peer ID is: ' + id);
             // Send accept meeting call to server
-            this.clientSocket = io(socketbaseUrl + "/careerfair");
+            this.clientSocket = io(`${socketBaseUrl}/careerfair`);
             this.clientSocket.connect();
             this.clientSocket.emit("acceptMeetingCall", 
             {
@@ -76,10 +75,6 @@ export default class StudentVideoCall extends React.Component {
                 peerJsId: id
             });
         });
-
-        
-
-        
 
         return (
             <div style={{ "color": "black", "margin": "auto"}}>
