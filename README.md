@@ -1,5 +1,9 @@
 # Virtual Career Fair
 
+## Link to Demo
+
+https://www.youtube.com/watch?v=mtvaXMT9dxU&t=7s&ab_channel=YinggeZhou
+
 ## Endpoints
 
 ### Job
